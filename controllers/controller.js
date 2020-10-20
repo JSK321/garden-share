@@ -24,6 +24,14 @@ module.exports = function(app) {
   });
 
 
+  // Get route for all gardens
+  app.get("/api/gardens", function(req, res) {
+    db.Garden.findAll().then(result=>{
+      res.json(result);
+    })
+  })
+
+
   // POST route 
   app.post("/email", function(req, res) {
 
