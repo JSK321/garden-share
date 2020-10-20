@@ -23,7 +23,6 @@ module.exports = function(app) {
     res.render("signup")
   });
 
-
   // Get route for all gardens
   app.get("/api/gardens", function(req, res) {
     db.Garden.findAll().then(result=>{
@@ -31,7 +30,12 @@ module.exports = function(app) {
     })
   })
 
-
+  // Get route for all composts
+  app.get("/api/composts", function(req, res) {
+    db.Compost.findAll().then(result=>{
+      res.json(result);
+    })
+  })
   // POST route 
   app.post("/email", function(req, res) {
 
