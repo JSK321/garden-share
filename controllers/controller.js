@@ -16,7 +16,11 @@ module.exports = function(app) {
 
   // Get route
   app.get("/", function(req, res) {
-    res.render("index").end()
+    res.render("index")
+  });
+
+  app.get("/signup", function(req, res) {
+    res.render("signup")
   });
 
 
