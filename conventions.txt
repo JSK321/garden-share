@@ -1,0 +1,65 @@
+Frontend:
+    id and class names:
+
+
+Backend Conventions:
+    Table and column names:
+    Owners:
+        name,
+        email,
+        gardenId
+
+    Gardens:
+        address,
+        coords (as array),
+        dimensions (as array. units: feet),
+        pictureLink (relative path to picture of the garden),
+        claimed (Boolean)
+        soilType (selected via dropdown on front-end),
+        sunExposure (Integer: hours of sun per day),
+
+    Searchers:
+        name,
+        email,
+        address,
+        coords (as array),
+        savedGardenIds (as array)
+
+
+    Routes:
+    - get "/", return handlebars file with all unclaimed gardens displayed
+    - get "/api/gardens", return all gardens as JSON
+    - post "/api/gardens", add a garden
+    - delete "/api/gardens/:id", delete garden by id
+    - put "/api/gardens/:id", change edit garden using values passed in req.body
+
+
+TODO: 
+For Presentation:
+- Wireframe MVP
+- Wireframe #SiteGoals
+- Get general population stats for Seattle
+- Create presentation slides for Manatee Tank
+- Create ERD - draw.io
+
+- File Structure - Include dummy files so the folders push to Github
+- Install all necessary dependencies (express express-handlebars sequelize mysql2)
+- Branch protection
+
+Backend
+- Create server.js file
+- Create database using sequelize cli
+- Create database table models
+- Create controller file with Post route for adding a Garden
+- Create Get route for retrieving all Gardens
+- Create Delete route for deleting one Garden by Id
+- Create Put route to change one Garden from unclaimed to claimed
+- Identify and test API for converting addresses into coordinates
+- Identify and test API for location search function
+
+Frontend
+- Choose css framework
+- Create basic handlebars files (main, index to start)
+- Create and link basic js file
+- Create and link basic css file (Unless doing everything through the framework)
+- Establish id and class names, add to conventions.txt
