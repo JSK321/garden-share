@@ -56,10 +56,10 @@ module.exports = function (app) {
       });
     });
     res.json(data);
-  });
     // const userType = req.body.userType,
     // const userId = req.body.userId,
     // const emailBody = req.body.emailBody
+  });
 
   // DELETE route
   app.delete("/", function (req, res) {});
