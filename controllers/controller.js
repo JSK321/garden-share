@@ -5,6 +5,8 @@
 // Dependencies
 // =============================================================
 
+const axios = require('axios')
+
 // Requiring our models
 var db = require("../models");
 var nodemailer = require("nodemailer");
