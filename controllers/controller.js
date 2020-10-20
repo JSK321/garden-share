@@ -9,10 +9,12 @@ const axios = require('axios')
 
 // Requiring our models
 var db = require("../models");
+var nodemailer = require("nodemailer");
 
 // Routes
 // =============================================================
 module.exports = function (app) {
+<<<<<<< HEAD
 
   // Get route
   app.get("/", function (req, res) {
@@ -38,9 +40,31 @@ module.exports = function (app) {
   })
   // POST route 
   app.post("/email", function (req, res) {
-
+=======
+  // Get route
+  app.get("/", function (req, res) {
+    res.render("index").end();
   });
 
+  // POST route
+  app.post("/email", function (req, res) {
+    db.Owner.findOne({
+      where: {
+        id: req.body.userId,
+
+      },
+    }).then(function (data) {
+      //email addresses
+>>>>>>> dev
+
+      const newEmail = {
+        from: "patchedapp@gmail.com", //can we get from DB using ID?
+        to: "chrissakwa@gmail.com", //can we get from DB using ID?
+        subject: "testing nodemailer",
+        text: "this works as is",
+      };
+
+<<<<<<< HEAD
   // Post route to add an Owner
   app.post("/api/owners", function (req, res) {
     const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
@@ -85,11 +109,41 @@ module.exports = function (app) {
 
   // DELETE route 
   app.delete("/", function (req, res) {
+=======
+      //transportation module
 
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "patchedapp@gmail.com",
+          pass: "Project2!",
+        },
+      });
+>>>>>>> dev
+
+      //email sending
+      transport.sendMail(newEmail, (err, info) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("email sent successfully" + info);
+        }
+      });
+    });
+    res.json(data);
+    // const userType = req.body.userType,
+    // const userId = req.body.userId,
+    // const emailBody = req.body.emailBody
   });
+
+  // DELETE route
+  app.delete("/", function (req, res) {});
 
   // PUT route
+<<<<<<< HEAD
   app.put("/api/posts", function (req, res) {
+=======
+  app.put("/api/posts", function (req, res) {});
+>>>>>>> dev
 
-  });
 };
