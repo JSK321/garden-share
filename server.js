@@ -22,8 +22,13 @@ app.set("view engine", "handlebars");
 require("./controllers/controller.js")(app);
 
 // Sync database and start listening
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
-});
+// db.sequelize.sync({ force: false }).then(function() {
+//   app.listen(PORT, function() {
+//     console.log("App listening on PORT " + PORT);
+//   });
+// });
+
+// Temp listening to get front end running until db is up
+app.listen(PORT, function() {
+      console.log("App listening on PORT " + PORT);
+    })
