@@ -2,6 +2,9 @@
 var express = require("express");
 var app = express();
 
+// require the database
+var db = require("./models");
+
 // Set port for local and deployed
 var PORT = process.env.PORT || 8080;
 
@@ -22,13 +25,13 @@ app.set("view engine", "handlebars");
 require("./controllers/controller.js")(app);
 
 // Sync database and start listening
-// db.sequelize.sync({ force: false }).then(function() {
-//   app.listen(PORT, function() {
-//     console.log("App listening on PORT " + PORT);
-//   });
-// });
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
 
 // Temp listening to get front end running until db is up
-app.listen(PORT, function() {
-      console.log("App listening on PORT " + PORT);
-    })
+// app.listen(PORT, function() {
+//       console.log("App listening on PORT " + PORT);
+//     })
