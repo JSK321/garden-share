@@ -6,7 +6,7 @@
 // =============================================================
 
 // Requiring our models
-var db = require("../models");
+// var db = require("../models");
 
 // Routes
 // =============================================================
@@ -14,7 +14,7 @@ module.exports = function(app) {
 
   // Get route
   app.get("/", function(req, res) {
-
+    res.render("index").end()
   });
 
 
