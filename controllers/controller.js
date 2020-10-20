@@ -19,9 +19,11 @@ module.exports = function(app) {
 
 
   // POST route 
-  app.post("/", function(req, res) {
-
-  });
+  app.post("/:email", function(req, res) {
+    const userType = req.body.userType,
+    const userId = req.body.userId,
+    const emailBody = req.body.emailBody
+      });
 
   // DELETE route 
   app.delete("/", function(req, res) {
