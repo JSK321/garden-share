@@ -22,7 +22,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     address: {
       type: DataTypes.STRING
-    }
+    },
+    latitude: DataTypes.FLOAT,
+    longitude: DataTypes.FLOAT
   });
   Owner.associate = function(models){
     Owner.hasMany(models.Garden, {
