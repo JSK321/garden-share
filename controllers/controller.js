@@ -157,9 +157,24 @@ module.exports = function (app) {
     })
   })
 
-  // DELETE route 
-  app.delete("/api/gardens/:id", function (req, res) {
-  });
+
+//DELETE route to delete garden by ID
+app.delete("/api/garden/:id", function(req, res){
+  db.Garden.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(data=>{
+    if (data === 0) {
+      res.status(404).json(data);
+    } else {
+      res.json(data);
+    }
+}).catch(err=>{
+  console.log(err);
+  res.status(500).json(err);
+});
+});
 
   // PUT route
   app.put("/api/gardens/:id", function (req, res) { });
@@ -175,14 +190,16 @@ module.exports = function (app) {
     })
   })
 
-  // Get garden by id
+  // Get compost by id
   app.get("/api/composts/:id", function (req, res) {
     db.Garden.findOne({ where: { id: req.params.id } }).then(result => {
       res.json(result)
     }).catch(err => {
       res.status(500).send(err);
     })
-  })
+  });
+
+  
 
   // Post route to add a compost
   app.post("/api/composts", function (req, res) {
@@ -205,9 +222,23 @@ module.exports = function (app) {
     })
   })
 
-  // DELETE route 
-  app.delete("/api/composts/:id", function (req, res) {
-  });
+//DELETE route to delete compost by ID
+app.delete("/api/compost/:id", function(req, res){
+  db.Compost.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(data=>{
+    if (data === 0) {
+      res.status(404).json(data);
+    } else {
+      res.json(data);
+    }
+}).catch(err=>{
+  console.log(err);
+  res.status(500).json(err);
+});
+});
 
   // PUT route
   app.put("/api/composts/:id", function (req, res) { });
@@ -245,3 +276,6 @@ module.exports = function (app) {
   });
 
 }
+
+
+
