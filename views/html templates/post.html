@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Link to Foundation CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
     <title>Document</title>
 
 
-</head>
+    <form class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+          <label>Patch Name:</label>
+          <input type="text" id="id" name="name">
+        </div>
+      </div>
+    
+    <br>
+    
 
-//NaveBar goes here
-<nav></nav>
-
-
-<body>
-<h1>Add Garden</h1>
-<form class="create-form">
-
-  <div class="form-group">
-    <label for="ca">Garden Name:</label>
-    <input type="text" id="ca" name="name">
-  </div>
-<br>
-  <div class="form-group">
-    <textarea name="" id="" cols="30" rows="10"></textarea>
-</div>
-   
-
-  <button type="submit">post</button>
-</form>
-
-</body>
-</html>
+      <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+          <label>Patch size :</label>
+          Length: <input type="Integer" name="length"> ft * Width: <input type="Integer" name="width"> ft
+        </div>
+      </div>
+    
+    <br>
+    
+      <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <textarea name="description" id="xxx" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+    
+    <br>
+    
+      <button class = "button float-center">Post</button>
+    
+    </form>

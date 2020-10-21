@@ -22,7 +22,23 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-require("./controllers/controller.js")(app);
+const viewRoutes = require("./controllers/viewsController.js")
+app.use(viewRoutes)
+
+const ownerRoutes = require("./controllers/ownerController.js")
+app.use(ownerRoutes)
+
+const gardenerRoutes = require("./controllers/gardenerController.js")
+app.use(gardenerRoutes)
+
+const gardenRoutes = require("./controllers/gardenController.js")
+app.use(gardenRoutes)
+
+const compostRoutes = require("./controllers/compostController.js")
+app.use(compostRoutes)
+
+const emailRoutes = require("./controllers/emailController.js")
+app.use(emailRoutes)
 
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function() {
@@ -30,8 +46,3 @@ db.sequelize.sync({ force: false }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
-
-// Temp listening to get front end running until db is up
-// app.listen(PORT, function() {
-//       console.log("App listening on PORT " + PORT);
-//     })

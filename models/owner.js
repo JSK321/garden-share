@@ -22,14 +22,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     address: {
       type: DataTypes.STRING
-    }
+    },
+    latitude: DataTypes.FLOAT,
+    longitude: DataTypes.FLOAT
   });
   Owner.associate = function(models){
     Owner.hasMany(models.Garden, {
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      hooks: true
     });
     Owner.hasMany(models.Compost, {
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      hooks: true
     });
   }
   return Owner;
