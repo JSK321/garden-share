@@ -5,7 +5,7 @@
 // Dependencies
 // =============================================================
 
-const axios = require('axios')
+
 
 // Requiring our models
 var db = require("../models");
@@ -17,53 +17,7 @@ module.exports = function (app) {
  
 
 
-  // Owner routes ========================================
-  // Get all owners
-  app.get("/api/owners", function (req, res) {
-    db.Owner.findAll().then(result => {
-      res.json(result)
-    }).catch(err => {
-      res.status(500).send(err);
-    })
-  })
-
-  // Get owner by id
-  app.get("/api/owners/:id", function (req, res) {
-    db.Owner.findOne({ where: { id: req.params.id } }).then(result => {
-      res.json(result)
-    }).catch(err => {
-      res.status(500).send(err);
-    })
-  })
-
-  // Post route to add an Owner
-  app.post("/api/owners", function (req, res) {
-    const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
-    axios.get(`https://app.geocodeapi.io/api/v1/search?apikey=${APIKey}&text=${req.body.address}`)
-      .then(response => {
-        db.Owner.create({
-          username: req.body.username,
-          email: req.body.email,
-          address: req.body.address,
-          latitude: response.data.bbox[1],
-          longitude: response.data.bbox[0],
-          password: req.body.password
-        }).then(result => {
-          res.json(result)
-        }).catch(err => {
-          res.status(500).send(err)
-        })
-      })
-  })
-
-  // DELETE route 
-  app.delete("/api/owners/:id", function (req, res) {
-  });
-
-
-  // PUT route
-  app.put("/api/owners/:id", function (req, res) { });
-
+  
   // Gardener routes ==========================================
 
   // Get all gardeners
