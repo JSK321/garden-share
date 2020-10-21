@@ -67,7 +67,15 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) { 
-  res.status(418).end()
+  db.Garden.update({GardenerId: req.body.GardenerId}, {
+    where: {
+      id: req.params.id
+    }
+  }).then(result=>{
+    res.json(result)
+  }).catch(err=>{
+    res.status(500).json(err);
+  })
 });
 
 module.exports = router;
