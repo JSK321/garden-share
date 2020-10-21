@@ -31,25 +31,34 @@ router.get("/gardeners/signup", function (req, res) {
     res.render("signup", { route: "/api/gardeners" })
 });
 // return map.handlebars
-router.get("/map/:id", function (req, res) {
-    db.Gardener.findOne({ where: { id: req.params.id } }).then(gardener => {
-        const mapData = {
-            mapLocation: [gardener.latitude, gardener.longitude]
+router.get("/map/:id?", async function (req, res) {
+    let mapData = {};
+    try {
+
+        if (req.params.id) {
+            const gardener = await db.Gardener.findOne({ where: { id: req.params.id } })
+            mapData.mapLocation = [gardener.latitude, gardener.longitude]
+        } else {
+            mapData.mapLocation = [47.649349, -122.321053]
         }
-        db.Garden.findAll().then(gardens => {
-            mapData.gardenPins = gardens.map(garden => {
-                gardenJSON = garden.toJSON();
-                return [gardenJSON.latitude, gardenJSON.longitude]
-            })
-            db.Compost.findAll().then(composts => {
-                mapData.compostPins = composts.map(compost => {
-                    compostJSON = compost.toJSON();
-                    return [compostJSON.latitude, compostJSON.longitude]
-                })
-                res.render("map", mapData)
-            }).catch(err => { res.status(500).json(err) })
-        }).catch(err => { res.status(500).json(err) })
-    }).catch(err => { res.status(500).json(err) })
+
+        const gardens = await db.Garden.findAll()
+        mapData.gardenPins = gardens.map(garden => {
+            gardenJSON = garden.toJSON();
+            return [gardenJSON.latitude, gardenJSON.longitude]
+        })
+
+        const composts = await db.Compost.findAll()
+        mapData.compostPins = composts.map(compost => {
+            compostJSON = compost.toJSON();
+            return [compostJSON.latitude, compostJSON.longitude]
+        })
+        res.render("map", mapData)
+    } catch (err) {
+        console.log(err)
+        res.status(500).end()
+    }
 })
+
 
 module.exports = router;

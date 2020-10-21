@@ -27,14 +27,8 @@ module.exports = function(sequelize, DataTypes) {
     longitude: DataTypes.FLOAT
   });
   Owner.associate = function(models){
-    Owner.hasMany(models.Garden, {
-      onDelete: 'CASCADE',
-      hooks: true
-    });
-    Owner.hasMany(models.Compost, {
-      onDelete: 'CASCADE',
-      hooks: true
-    });
+    Owner.hasMany(models.Garden);
+    Owner.hasMany(models.Compost);
   }
   return Owner;
 };
