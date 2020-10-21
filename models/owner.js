@@ -28,10 +28,12 @@ module.exports = function(sequelize, DataTypes) {
   });
   Owner.associate = function(models){
     Owner.hasMany(models.Garden, {
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      hooks: true
     });
     Owner.hasMany(models.Compost, {
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      hooks: true
     });
   }
   return Owner;
