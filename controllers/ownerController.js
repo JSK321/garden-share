@@ -43,27 +43,27 @@ router.post("/api/owners", function (req, res) {
 })
 
 // DELETE route 
-router.delete("/api/owners/:id", function(req, res){
+router.delete("/api/owners/:id", function (req, res) {
     db.Owner.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(data=>{
-      if (data === 0) {
-        res.status(404).json(data);
-      } else {
-        res.json(data);
-      }
-  }).catch(err=>{
-    console.log(err);
-    res.status(500).json(err);
-  });
-  });
+        where: {
+            id: req.params.id
+        }
+    }).then(data => {
+        if (data === 0) {
+            res.status(404).json(data);
+        } else {
+            res.json(data);
+        }
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
 
 
 // PUT route
 router.put("/api/owners/:id", function (req, res) {
     res.status(418).end();
- });
+});
 
 module.exports = router;

@@ -28,6 +28,12 @@ app.use(viewRoutes)
 const ownerRoutes = require("./controllers/ownerController.js")
 app.use(ownerRoutes)
 
+const gardenerRoutes = require("./controllers/gardenerController.js")
+app.use(gardenerRoutes)
+
+const gardenRoutes = require("./controllers/gardenController.js")
+app.use(gardenRoutes)
+
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
