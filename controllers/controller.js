@@ -284,6 +284,3 @@ app.delete("/api/compost/:id", function(req, res){
   });
 
 }
-
-
-
