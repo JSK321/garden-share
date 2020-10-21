@@ -34,6 +34,12 @@ app.use(gardenerRoutes)
 const gardenRoutes = require("./controllers/gardenController.js")
 app.use(gardenRoutes)
 
+const compostRoutes = require("./controllers/compostController.js")
+app.use(compostRoutes)
+
+const emailRoutes = require("./controllers/emailController.js")
+app.use(emailRoutes)
+
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
