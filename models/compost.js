@@ -20,8 +20,14 @@ module.exports = function(sequelize, DataTypes) {
         isUrl: true
       }
     },
-    deposit: DataTypes.BOOLEAN,
-    withdraw: DataTypes.BOOLEAN
+    deposit: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    withdraw: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   });
   Compost.associate = function(models) {
     Compost.belongsTo(models.Owner);
