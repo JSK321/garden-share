@@ -17,7 +17,7 @@ module.exports = function (app) {
   // HTML routes =================================
   // Get route
   app.get("/", function (req, res) {
-    res.render("index").end();
+    res.render("index");
   });
 
 
@@ -64,6 +64,9 @@ module.exports = function (app) {
   app.delete("/api/owners/:id", function (req, res) {
   });
 
+  app.get("/profile", function(req, res) {
+    res.render("profile")
+  });
   // PUT route
   app.put("/api/owners/:id", function (req, res) { });
 
