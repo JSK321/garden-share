@@ -1,22 +1,33 @@
+<form class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <!-- show garden name -->
+            <label>Patch Name :</label>
+            <pre>{{this.name}}</pre>
+
+        </div>
+    </div>
+
+    <br>
 
 
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <label>Patch size :</label>
+            <pre>{{this.length}} * {{this.width}}</pre>
+        </div>
+    </div>
 
-<body>
-<h1>Add Garden</h1>
-<form class="create-form">
+    <br>
 
-  <div class="form-group">
-    <label for="ca">Garden Name:</label>
-    <input type="text" id="xxx" name="name">
-  </div>
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <label>Describtion :</label>
+            <pre>{{this.description}}</pre>
+        </div>
+    </div>
 
-<br>
-  <div class="form-group">
-    <textarea name="" id="xxx" cols="30" rows="10"></textarea>
-</div>
-   
+<!-- need to add eventlistener to pop up email -->
+    <button class="button float-center">Email</button>
 
-  <button type="submit">post</button>
 </form>
-
-</body>
