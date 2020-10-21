@@ -24,7 +24,6 @@ module.exports = function(sequelize, DataTypes) {
     withdraw: DataTypes.BOOLEAN
   });
   Compost.associate = function(models) {
-    // add associations here
     Compost.belongsTo(models.Owner);
 };
   return Compost;
