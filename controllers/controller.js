@@ -14,11 +14,7 @@ var nodemailer = require("nodemailer");
 // Routes
 // =============================================================
 module.exports = function (app) {
-  // HTML routes =================================
-  // Get route
-  app.get("/", function (req, res) {
-    res.render("index");
-  });
+ 
 
 
   // Owner routes ========================================
@@ -64,13 +60,7 @@ module.exports = function (app) {
   app.delete("/api/owners/:id", function (req, res) {
   });
 
-  app.get("/profile", function(req, res) {
-    res.render("profile")
-  });
 
-  app.get("/signup", function(req, res) {
-    res.render("signup")
-  });
   // PUT route
   app.put("/api/owners/:id", function (req, res) { });
 
