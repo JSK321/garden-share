@@ -1,0 +1,29 @@
+
+  <div class="grid-x grid-padding-x">
+    <div class="small-12 medium 8">
+      <h4>Assign {{gardenName}} to {{gardenerName}}</h4>
+    </div>
+  </div>
+
+
+<input style="display:none;" name="ownerId" value="{{ownerId}}">
+<input style="display:none;" name="gardenerId" value="{{gardenerId}}">
+<input style="display:none;" name="gardenerId" value="{{gardenId}}">
+
+  <button id="assignBtn" class="button float-center" data-gardenId = "{{gardenId}}" data-gardenerId="{{gardenerId}}" data-ownerId="{{ownerId}}">Assign</button>
+
+<script>
+$(function () {
+    $("#assignBtn").on("click", function(){
+        console.log("Garden Id: " + $("#assignBtn").attr("data-gardenerId"))
+        $.ajax({
+            url: "/api/gardens/" + $("#assignBtn").attr("data-gardenId"),
+            type: "PUT",
+            data: {GardenerId: $("#assignBtn").attr("data-gardenerId")}
+        }).then(result=>{
+            console.log(result)
+            // window.location.href= "/profile/" + $("#assignBtn").attr("data-ownerId")
+        })
+    })
+});
+</script>

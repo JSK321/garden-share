@@ -6,10 +6,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
     latitude: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT
     },
     longitude: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT
     },
     description: {
       type: DataTypes.TEXT
@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
   });
   Garden.associate = function(models) {
     // add associations here
-    Garden.belongsTo(models.Owner);
+    Garden.belongsTo(models.Owner, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
     Garden.belongsTo(models.Gardener)
 };
   return Garden;
