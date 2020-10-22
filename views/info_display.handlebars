@@ -1,0 +1,43 @@
+<form class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <!-- show garden name -->
+            <label>Patch Name :</label>
+            <pre>{{name}}</pre>
+            <ul>
+                {{#each Garden}}
+                <li>
+                    <p>Name: {{this.name}}</p>
+                    <p>Address: {{this.address}}</p>
+                    <p>Length: {{this.length}}</p>
+                    <p>Width: {{this.width}}</p>
+                    <p>Description: {{this.description}}</p>
+                    <p>OwnerId: {{this.OwnerId}}</p>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <label>Patch size :</label>
+            <pre>{{length}} * {{width}}</pre>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <label>Describtion :</label>
+            <pre>{{description}}</pre>
+        </div>
+    </div>
+
+    <!-- need to add eventlistener to pop up email -->
+    <button class="button float-center">Email</button>
+
+</form>

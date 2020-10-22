@@ -2,3 +2,10 @@
 $(function () {
     console.log("Connected to script.js")
 });
+
+// $(document).on("click", ".edit-profile-button", editProfile)
+
+
+// function editProfile(){
+    
+// }

@@ -31,4 +31,5 @@ router.get("/owners/signup", function (req, res) {
 router.get("/gardeners/signup", function (req, res) {
     res.render("signup", {route: "/api/gardeners"})
 });
+
 module.exports = router;

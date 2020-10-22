@@ -60,10 +60,24 @@ router.delete("/api/owners/:id", function (req, res) {
     });
 });
 
-
 // PUT route
 router.put("/api/owners/:id", function (req, res) {
     res.status(418).end();
+    // db.Owner.update({
+    //     username: req.body.username,
+    //     email: req.body.email,
+    //     address: req.body.address,
+    //     password: req.body.password
+    // },
+    // {
+    //     where: {
+    //         id: req.params.id
+    //     }
+    // }).then(result=>{
+    //     res.json(result)
+    // }).catch(err=>{
+    //     res.status(418).end();
+    // })
 });
 
 module.exports = router;

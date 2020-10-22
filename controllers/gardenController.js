@@ -21,6 +21,17 @@ router.get("/api/gardens/:id", function (req, res) {
   })
 })
 
+// return info_post.handlebars to post garden
+router.get("/garden", function(req, res){
+  res.render("info_post")
+})
+
+// res.render("info_display", {Garden: result})
+// return info_post.handlebars to post garden
+// router.get("/garden/:id", function(req,res){
+//   res.render("info_post", {id:req.params.id})
+// });
+
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
   db.Owner.findOne({ where: { id: req.body.OwnerId } }).then(owner => {
