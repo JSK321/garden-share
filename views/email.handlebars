@@ -1,0 +1,26 @@
+<form class="grid-container" action="/email" method="POST">
+  <div class="grid-x grid-padding-x">
+    <div class="small-12 medium 8">
+      <h4>Message owner of {{gardenName}}</h4>
+    </div>
+  </div>
+
+  <br>
+
+
+
+  <br>
+
+  <div class="grid-x grid-padding-x">
+    <div class="small-12 medium 8">
+      <textarea name="emailBody" cols="30" rows="10"></textarea>
+    </div>
+  </div>
+
+  <br>
+<input style="display:none;" name="ownerId" value="{{ownerId}}">
+<input style="display:none;" name="gardenerId" value="{{gardenerId}}">
+
+  <button class="button float-center">Email</button>
+
+</form>

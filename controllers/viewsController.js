@@ -30,6 +30,20 @@ router.get("/owners/signup", function (req, res) {
 router.get("/gardeners/signup", function (req, res) {
     res.render("signup", { route: "/api/gardeners" })
 });
+router.get("/email/:gardenId/:ownerId/:gardenerId", function(req, res){
+    db.Garden.findOne({ where: { id: req.params.gardenId } }).then(result => {
+        console.log(result.toJSON().name)
+        const renderObj = {
+            gardenName: result.toJSON().name, 
+            ownerId: req.params.ownerId,
+            gardenerId: req.params.gardenerId
+        }
+        res.render("email", renderObj)
+    }).catch(err => {
+        res.status(500).send(err);
+    })
+})
+
 // return map.handlebars
 router.get("/map/:id?", async function (req, res) {
     let mapData = {};
