@@ -8,6 +8,7 @@ router.get("/api/gardens", function (req, res) {
   db.Garden.findAll().then(result => {
     res.json(result)
   }).catch(err => {
+    res.render("map")
     res.status(500).send(err);
   })
 })

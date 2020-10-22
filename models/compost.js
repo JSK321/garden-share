@@ -30,7 +30,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   Compost.associate = function(models) {
-    Compost.belongsTo(models.Owner);
+    Compost.belongsTo(models.Owner, {foreignKey: {
+      allowNull: false
+    }, 
+    onDelete: 'CASCADE'
+  });
 };
   return Compost;
 };
