@@ -75,8 +75,11 @@ router.get("/map/:id?", async function (req, res) {
         if (req.params.id) {
             const gardener = await db.Gardener.findOne({ where: { id: req.params.id } })
             mapData.mapLocation = [gardener.latitude, gardener.longitude]
+            mapData.loggedIn = true
+            mapData.GardenerId = gardener.id
         } else {
             mapData.mapLocation = [47.649349, -122.321053]
+            mapData.loggedIn = false
         }
 
         const gardens = await db.Garden.findAll()
@@ -101,5 +104,15 @@ router.get("/map/:id?", async function (req, res) {
     }
 })
 
+router.get("/gardens/:id/:PotentialGardenerId?", function(req, res) {
+    db.Garden.findOne({where: {id: req.params.id}}).then(garden=>{
+    gardenJSON = garden.toJSON();
+    if (req.params.PotentialGardenerId) {
+        gardenJSON.PotentialGardenerId = req.params.PotentialGardenerId
+        console.log(gardenJSON)
+    }
+    res.render("garden_display", gardenJSON)
+    })
+})
 
 module.exports = router;
