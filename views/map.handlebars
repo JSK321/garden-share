@@ -18,8 +18,7 @@
 
     </div>
 
-
-    <script>
+<script>
 var mymap = L.map('mapid').setView([{{ mapLocation }}], 18);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -33,16 +32,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         }).addTo(mymap);
 
 
-
- //       L.marker([{{ mapLocation }}]).addTo(mymap)
- //           .bindPopup("Here").openPopup();
-//show garden location pin (icon currently is default style)        
-        {{#each compostPins}}
-        L.marker([{{this}}]).addTo(mymap).bindPopup("compost").openPopup();
-        {{/each}}
-       
+      
 //custom icon setting for gardne pin
-var myIcon = L.icon({
+var patchIcon = L.icon({
     iconUrl: '/images/PatchIcon.png',
     iconSize: [50, 50],
     iconAnchor: [22, 94],
@@ -53,7 +45,7 @@ var myIcon = L.icon({
 });
  //add marker for multiple garden locations:
         {{#each gardenPins}}
-        L.marker([{{this}}], {icon: myIcon}).addTo(mymap).bindPopup("Patch").openPopup();
+        L.marker([{{this.location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /garden/garden/:id'>{{this.name}}</a>").openPopup();
         {{/each}}
        
         var popup = L.popup();
