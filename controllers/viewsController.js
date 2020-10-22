@@ -95,7 +95,11 @@ router.get("/map/:id?", async function (req, res) {
         const composts = await db.Compost.findAll()
         mapData.compostPins = composts.map(compost => {
             compostJSON = compost.toJSON();
-            return [compostJSON.latitude, compostJSON.longitude]
+            return {
+                location: [compostJSON.latitude, compostJSON.longitude],
+                name: compostJSON.name,
+                id: compostJSON.id
+            }
         })
         res.render("map", mapData)
     } catch (err) {
@@ -112,6 +116,13 @@ router.get("/gardens/:id/:PotentialGardenerId?", function(req, res) {
         console.log(gardenJSON)
     }
     res.render("garden_display", gardenJSON)
+    })
+})
+
+router.get("/composts/:id/", function(req, res) {
+    db.Compost.findOne({where: {id: req.params.id}}).then(compost=>{
+        compostJSON = compost.toJSON();
+    res.render("compost_display", compostJSON)
     })
 })
 

@@ -19,10 +19,10 @@
     </div>
 
 <script>
-var mymap = L.map('mapid').setView([{{ mapLocation }}], 18);
+var mymap = L.map('mapid').setView([{{ mapLocation }}], 15);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
+            maxZoom: 15,
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
                 '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
                 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -43,21 +43,25 @@ var patchIcon = L.icon({
     shadowSize: [0, 0],
     shadowAnchor: [22, 94]
 });
- //add marker for multiple garden locations:
+ //add markers for multiple garden locations:
         {{#each gardenPins}}
-        L.marker([{{this.location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
+        L.marker([{{location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
+        {{/each}}
+
+//add markers for multiple compost locations:
+ 
+
+        {{#each compostPins}}
+        L.marker([{{location}}]).addTo(mymap).bindPopup(" <a href = /composts/{{this.id}}>{{this.name}}</a>").openPopup();
         {{/each}}
        
+
+
+
+
         var popup = L.popup();
 
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(mymap);
-        }
-
-        mymap.on('click', onMapClick);
+       
 
 
     </script>
