@@ -82,7 +82,11 @@ router.get("/map/:id?", async function (req, res) {
         const gardens = await db.Garden.findAll()
         mapData.gardenPins = gardens.map(garden => {
             gardenJSON = garden.toJSON();
-            return [gardenJSON.latitude, gardenJSON.longitude]
+            return {
+                location: [gardenJSON.latitude, gardenJSON.longitude],
+                name: gardenJSON.name,
+                id: gardenJSON.id
+            }
         })
 
         const composts = await db.Compost.findAll()
