@@ -12,11 +12,12 @@
 
     <div class="row">
         <div class="text-center">
-            <button class="success button" style="width: 10%">Share my Garden</button>
-            <br>
-            <button class="warning button" style="width: 10%">Share my Compost</button>
+            <a href="/api/gardens/{{id}}" class="success button" style="width: 10%">Share my Garden</a>
+            <a href="/api/composts/{{id}}" class="warning button" style="width: 10%">Share my Compost</a>
+            {{!-- <button class="warning button" style="width: 10%">Share my Compost</button> --}}
             <br>
             <button class="button edit-profile-button">Edit</button>
+            <a href="/" class="button">Home</a>
         </div>
     </div>
 </div>

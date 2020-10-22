@@ -1,20 +1,10 @@
-<form class="grid-container">
+<div class="grid-container">
     <div class="grid-x grid-padding-x">
         <div class="small-12 medium 8">
             <!-- show garden name -->
             <label>Patch Name :</label>
-            <pre>{{this.name}}</pre>
+            <pre>{{name}}</pre>
 
-        </div>
-    </div>
-
-    <br>
-
-
-    <div class="grid-x grid-padding-x">
-        <div class="small-12 medium 8">
-            <label>Patch size :</label>
-            <pre>{{this.length}} * {{this.width}}</pre>
         </div>
     </div>
 
@@ -22,12 +12,26 @@
 
     <div class="grid-x grid-padding-x">
         <div class="small-12 medium 8">
-            <label>Describtion :</label>
-            <pre>{{this.description}}</pre>
+            <label>Patch size :</label>
+            <pre>{{length}} X {{width}}</pre>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+            <label>Description :</label>
+            <pre>{{description}}</pre>
         </div>
     </div>
 
 <!-- need to add eventlistener to pop up email -->
-    <button class="button float-center">Email</button>
-
-</form>
+    {{#if PotentialGardenerId}}
+    <a href="/email/{{id}}/{{PotentialGardenerId}}">
+        <button class="button float-center">Email</button>
+    </a>
+    {{else}}
+    <a href="/gardeners/signup">Sign up to connect with the owner of this garden!</a>
+    {{/if}}
+</div>
