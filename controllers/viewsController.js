@@ -30,8 +30,10 @@ router.get("/owners/signup", function (req, res) {
 router.get("/gardeners/signup", function (req, res) {
     res.render("signup", { route: "/api/gardeners" })
 });
+
 // return map.handlebars
 router.get("/map/:id", function (req, res) {
+    console.log("i am inside the get method for the map")
     db.Gardener.findOne({ where: { id: req.params.id } }).then(gardener => {
         const mapData = {
             mapLocation: [gardener.latitude, gardener.longitude]
@@ -41,15 +43,19 @@ router.get("/map/:id", function (req, res) {
                 gardenJSON = garden.toJSON();
                 return [gardenJSON.latitude, gardenJSON.longitude]
             })
+
             db.Compost.findAll().then(composts => {
                 mapData.compostPins = composts.map(compost => {
                     compostJSON = compost.toJSON();
                     return [compostJSON.latitude, compostJSON.longitude]
                 })
+
                 res.render("map", mapData)
             }).catch(err => { res.status(500).json(err) })
         }).catch(err => { res.status(500).json(err) })
+
+        // 
     }).catch(err => { res.status(500).json(err) })
-})
+});
 
 module.exports = router;
