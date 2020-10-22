@@ -8,12 +8,12 @@ router.post("/email", function (req, res) {
   console.log(req.body)
   db.Owner.findOne({
     where: {
-      id: req.body.ownerId,
+      id: req.body.ownerId
     },
   }).then(async function (data) {
        // create reusable transporter object using the default SMTP transport
        let testAccount = await nodemailer.createTestAccount();
-
+    console.log(req.body)
        // create reusable transporter object using the default SMTP transport
        let transporter = nodemailer.createTransport({
          host: "smtp.ethereal.email",
@@ -31,7 +31,7 @@ router.post("/email", function (req, res) {
         to: data.toJSON().email, // list of receivers
         subject: "Patched Connection", // Subject line
         // text: req.body.emailBody, // plain text body
-        html: req.body.emailBody + "<br><a href='localhost:8080/gardens/assign'>Share your garden</a>", // html body
+        html: `${req.body.emailBody} <br><a href='localhost:8080/gardens/assign/${req.body.gardenId}/${req.body.gardenerId}'>Share your garden</a>`, // html body
       });
     
       console.log("Message sent: %s", info.messageId);

@@ -16,7 +16,7 @@ router.get("/profile", function (req, res) {
 // return profile.handlebars by id
 router.get("/profile/:id", function (req, res) {
     db.Owner.findOne({ where: { id: req.params.id } }).then(result => {
-        console.log(result.toJSON())
+        // console.log(result.toJSON())
         res.render("profile", result.toJSON())
     }).catch(err => {
         res.status(500).send(err);
@@ -30,17 +30,40 @@ router.get("/owners/signup", function (req, res) {
 router.get("/gardeners/signup", function (req, res) {
     res.render("signup", { route: "/api/gardeners" })
 });
-router.get("/email/:gardenId/:ownerId/:gardenerId", function(req, res){
+// Return email.handlebars 
+router.get("/email/:gardenId/:gardenerId", function (req, res) {
     db.Garden.findOne({ where: { id: req.params.gardenId } }).then(result => {
         console.log(result.toJSON().name)
         const renderObj = {
-            gardenName: result.toJSON().name, 
-            ownerId: req.params.ownerId,
-            gardenerId: req.params.gardenerId
+            gardenName: result.toJSON().name,
+            ownerId: result.toJSON().OwnerId,
+            gardenerId: req.params.gardenerId,
+            gardenId: result.toJSON().id
         }
         res.render("email", renderObj)
     }).catch(err => {
         res.status(500).send(err);
+    })
+})
+// Return assign_garden.handlebars
+router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
+    db.Garden.findOne({ where: { id: req.params.gardenId } }).then(garden => {
+        db.Gardener.findOne({ where: { id: req.params.gardenerId } }).then(gardener=>{
+            res.render("assign_garden", {
+                gardenName: garden.toJSON().name,
+                gardenId: req.params.gardenId,
+                gardenerId: req.params.gardenerId,
+                gardenerName: gardener.toJSON().username,
+                ownerId: garden.toJSON().OwnerId
+            })
+        }
+        ).catch(err => {
+            console.log(err);
+            res.status(500).end();
+        })
+    }).catch(err => {
+        console.log(err);
+        res.status(500).end();
     })
 })
 
