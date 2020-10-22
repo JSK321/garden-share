@@ -95,7 +95,11 @@ router.get("/map/:id?", async function (req, res) {
         const composts = await db.Compost.findAll()
         mapData.compostPins = composts.map(compost => {
             compostJSON = compost.toJSON();
-            return [compostJSON.latitude, compostJSON.longitude]
+            return {
+                location: [compostJSON.latitude, compostJSON.longitude],
+                name: compostJSON.name,
+                id: compostJSON.id
+            }
         })
         res.render("map", mapData)
     } catch (err) {
