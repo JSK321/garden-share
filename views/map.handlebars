@@ -43,11 +43,22 @@ var patchIcon = L.icon({
     shadowSize: [0, 0],
     shadowAnchor: [22, 94]
 });
- //add marker for multiple garden locations:
+ //add markers for multiple garden locations:
         {{#each gardenPins}}
-        L.marker([{{this.location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
+        L.marker([{{location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
+        {{/each}}
+
+//add markers for multiple compost locations:
+ 
+
+        {{#each compostPins}}
+        L.marker([{{location}}]).addTo(mymap).bindPopup(" <a href = /composts/{{this.id}}>{{this.name}}</a>").openPopup();
         {{/each}}
        
+
+
+
+
         var popup = L.popup();
 
         function onMapClick(e) {
