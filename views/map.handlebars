@@ -33,10 +33,14 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         }).addTo(mymap);
 
 
-//show gardner location pin (icon currently is default style)
-        L.marker([{{ mapLocation }}]).addTo(mymap)
-            .bindPopup("Here").openPopup();
 
+ //       L.marker([{{ mapLocation }}]).addTo(mymap)
+ //           .bindPopup("Here").openPopup();
+//show garden location pin (icon currently is default style)        
+        {{#each compostPins}}
+        L.marker([{{this}}]).addTo(mymap).bindPopup("compost").openPopup();
+        {{/each}}
+       
 //custom icon setting for gardne pin
 var myIcon = L.icon({
     iconUrl: '/images/PatchIcon.png',
