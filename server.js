@@ -22,8 +22,6 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-const viewRoutes = require("./controllers/viewsController.js")
-app.use(viewRoutes)
 
 const ownerRoutes = require("./controllers/ownerController.js")
 app.use(ownerRoutes)
@@ -40,6 +38,8 @@ app.use(compostRoutes)
 const emailRoutes = require("./controllers/emailController.js")
 app.use(emailRoutes)
 
+const viewRoutes = require("./controllers/viewsController.js")
+app.use(viewRoutes)
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {

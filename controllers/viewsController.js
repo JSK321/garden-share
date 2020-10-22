@@ -119,4 +119,11 @@ router.get("/gardens/:id/:PotentialGardenerId?", function(req, res) {
     })
 })
 
+router.get("/composts/:id/", function(req, res) {
+    db.Compost.findOne({where: {id: req.params.id}}).then(compost=>{
+        compostJSON = compost.toJSON();
+    res.render("compost_display", compostJSON)
+    })
+})
+
 module.exports = router;
