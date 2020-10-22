@@ -1,0 +1,26 @@
+<form class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="small-12 medium 8">
+      <label>Patch Name:</label>
+      <input type="text" id="id" value="{{name}}">
+    </div>
+  </div>
+  <br>
+  <div class="grid-x grid-padding-x">
+    <div class="small-12 medium 8">
+      <label>Patch size :</label>
+     Length <input type="Integer" value="{{length}}"> ft * Width <input type="Integer" value="{{width}}"> ft
+    </div>
+  </div>
+  <br>
+  <div class="grid-x grid-padding-x">
+    <div class="small-12 medium 8">
+        <label>Patch Description :</label>
+      <textarea id="{{id}}" name ="garden_edit" value ="{{description}}" cols="30" rows="10">{{description}}
+      </textarea>
+    </div>
+  </div>
+  <br>
+  <input style="display: none" name="id" value="{{id}}">
+  <button class="button float-center">Post</button>
+</form>

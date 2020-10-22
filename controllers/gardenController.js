@@ -22,7 +22,7 @@ router.get("/api/gardens/:id", function (req, res) {
 })
 
 // return info_post.handlebars to post garden
-router.get("/gardens/add", function(req, res){
+router.get("/garden/add", function(req, res){
   res.render("gardens_post")
 })
 
@@ -91,7 +91,16 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) { 
-  db.Garden.update({GardenerId: req.body.GardenerId}, {
+  db.Garden.update({
+
+    GardenerId: req.body.GardenerId,
+    name: req.body.name,
+    address: req.body.address,
+    description: req.body.description,
+    length: req.body.length,
+    width: req.body.width
+
+  }, {
     where: {
       id: req.params.id
     }
@@ -100,6 +109,18 @@ router.put("/api/gardens/:id", function (req, res) {
   }).catch(err=>{
     res.status(500).json(err);
   })
+});
+
+
+router.get("/garden/edit/:id", function(req, res){
+  db.Garden.findOne({
+    where:{ id: req.params.id
+  }
+}).then((garden) =>{
+  res.render("garden_edit", garden.toJSON());
+
+});
+
 });
 
 module.exports = router;
