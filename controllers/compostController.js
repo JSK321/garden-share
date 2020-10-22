@@ -31,7 +31,7 @@ router.get("/composts/add", function(req,res){
 })
 
 // Post route to add a compost
-router.post("/api/compost", function (req, res) {
+router.post("/api/composts", function (req, res) {
   db.Owner.findOne({ where: { id: req.body.OwnerId } })
     .then((owner) => {
       db.Compost.create({
