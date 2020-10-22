@@ -55,14 +55,17 @@ router.put("/api/compost/:id", function (req, res) {
     //should i open/close withdraw and deposit at the same time? how do u know which one to be opened?
     //you'd have to send over something like req.body.type to let me know which one i'm updating
     //{[req.body.type]: req.body.open}
-    { withdraw: req.body.open, deposit: req.body.open },
+    { withdraw: req.body.withdraw, deposit: req.body.deposit },
     {
       where: {
         id: req.params.id,
       },
     }
-  );
-  res.json(dbCompost);
+  ).then(result=>(res.json(result)))
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // DELETE route to delete compost by ID
