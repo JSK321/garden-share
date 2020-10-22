@@ -25,6 +25,11 @@ router.get("/api/composts/:id", function (req, res) {
     });
 });
 
+// Get route to Compost Add Form
+router.get("/composts/add", function(req,res){
+  res.render("composts_post")
+})
+
 // Post route to add a compost
 router.post("/api/compost", function (req, res) {
   db.Owner.findOne({ where: { id: req.body.OwnerId } })
