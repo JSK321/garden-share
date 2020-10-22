@@ -45,7 +45,7 @@ var patchIcon = L.icon({
 });
  //add marker for multiple garden locations:
         {{#each gardenPins}}
-        L.marker([{{this.location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /garden/garden/:id'>{{this.name}}</a>").openPopup();
+        L.marker([{{this.location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
         {{/each}}
        
         var popup = L.popup();
