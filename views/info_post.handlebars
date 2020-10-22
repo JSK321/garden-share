@@ -1,26 +1,30 @@
-<form class="grid-container">
+<form class="grid-container" action="/api/gardens" method="POST">
   <div class="grid-x grid-padding-x">
     <div class="small-12 medium 8">
       <label>Patch Name:</label>
-      <input type="text" id="id" name={{this.name}}>
+      <input type="text" id="id" name="name">
     </div>
+    
+    <label>Owner Id</label>
+    <input type="integer" name="OwnerId" value="{{id}}">
+ 
   </div>
 
   <br>
-
 
   <div class="grid-x grid-padding-x">
     <div class="small-12 medium 8">
       <label>Patch size :</label>
-     Length <input type="Integer" name={{this.length}}> ft * Width <input type="Integer" name={{this.width}}> ft
+      Length <input type="Integer" name="length"> ft * Width <input type="Integer" name="width"> ft
     </div>
   </div>
+
 
   <br>
 
   <div class="grid-x grid-padding-x">
     <div class="small-12 medium 8">
-      <textarea name={{this.description}} id={{this.id}} cols="30" rows="10"></textarea>
+      <textarea name="description" cols="30" rows="10"></textarea>
     </div>
   </div>
 

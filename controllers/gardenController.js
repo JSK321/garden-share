@@ -1,4 +1,4 @@
-dconst express = require("express");
+const express = require("express");
 const router = express.Router();
 const db = require("../models")
 // const axios = require('axios')
@@ -21,6 +21,17 @@ router.get("/api/gardens/:id", function (req, res) {
     res.status(500).send(err);
   })
 })
+
+// return info_post.handlebars to post garden
+router.get("/garden", function(req, res){
+  res.render("info_post")
+})
+
+// res.render("info_display", {Garden: result})
+// return info_post.handlebars to post garden
+// router.get("/garden/:id", function(req,res){
+//   res.render("info_post", {id:req.params.id})
+// });
 
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
