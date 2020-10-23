@@ -11,7 +11,8 @@ router.post('/owners/signup', (req, res) => {
     }).then(newUser => {
         req.session.user = {
             username: newUser.username,
-            id: newUser.id
+            id: newUser.id,
+            userType: "owner"
         }
         res.redirect("/profile/" + newUser.id)
     }).catch(err => {
@@ -28,7 +29,8 @@ router.post('/gardeners/signup', (req, res) => {
     }).then(newUser => {
         req.session.user = {
             username: newUser.username,
-            id: newUser.id
+            id: newUser.id,
+            userType: "gardener"
         }
         res.redirect("/profile/" + newUser.id)
     }).catch(err => {
@@ -51,7 +53,8 @@ router.post('/owners/login', (req, res) => {
         } else if (bcrypt.compareSync(req.body.password, user.password)) {
             req.session.user = {
                 username: user.username,
-                id: user.id
+                id: user.id,
+                userType: "owner"
             }
             return res.redirect("/map")
         }
@@ -76,7 +79,8 @@ router.post('/gardeners/login', (req, res) => {
         } else if (bcrypt.compareSync(req.body.password, user.password)) {
             req.session.user = {
                 username: user.username,
-                id: user.id
+                id: user.id,
+                userType: "gardener"
             }
             return res.redirect("/map")
         }
