@@ -5,12 +5,30 @@ const db = require("../models");
 // HTML routes =================================
 // return index.handebars
 router.get("/", function (req, res) {
-    res.render("index");
+
+    const model = {
+        coord: { lat: 51.505, lon: -0.09 },
+        markers: [
+            { lat: 51.505, lon: -0.09 },
+            { lat: 51.505, lon: -0.10 },
+        ]
+    }
+    
+    res.render("_map", model);
 });
 
 // return profile.handlebars
 router.get("/profile", function (req, res) {
-    res.render("profile")
+    if (req.session.user) {
+        db.Owner.findOne({ where: { id: req.session.user.id } }).then(result => {
+            // console.log(result.toJSON())
+            res.render("profile", result.toJSON())
+        }).catch(err => {
+            res.status(500).send(err);
+        })
+    } else {
+        res.redirect("/login")
+    }
 });
 
 // return profile.handlebars by id
@@ -45,10 +63,43 @@ router.get("/email/:gardenId/:gardenerId", function (req, res) {
         res.status(500).send(err);
     })
 })
+
+// return gardens_post.handlebars to post garden
+router.get("/gardens/add/", function (req, res) {
+    res.render("gardens_post")
+})
+
+// return gardens_post.handlebars to post garden by id
+router.get("/gardens/add/:id", function (req, res) {
+    res.render("gardens_post", req.params)
+})
+
+// Get route to Compost Add Form 
+router.get("/composts/add/", function (req, res) {
+    res.render("composts_post")
+})
+// Get route to Compost Add Form by id
+router.get("/composts/add/:id", function (req, res) {
+    res.render("composts_post", req.params)
+})
+// Get route to Garden Edit form
+router.get("/gardens/edit/:id", function (req, res) {
+    db.Garden.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((garden) => {
+        res.render("garden_edit", garden.toJSON());
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send()
+    });
+});
+
 // Return assign_garden.handlebars
 router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
     db.Garden.findOne({ where: { id: req.params.gardenId } }).then(garden => {
-        db.Gardener.findOne({ where: { id: req.params.gardenerId } }).then(gardener=>{
+        db.Gardener.findOne({ where: { id: req.params.gardenerId } }).then(gardener => {
             res.render("assign_garden", {
                 gardenName: garden.toJSON().name,
                 gardenId: req.params.gardenId,
@@ -68,12 +119,11 @@ router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
 })
 
 // return map.handlebars
-router.get("/map/:id?", async function (req, res) {
+router.get("/map", async function (req, res) {
     let mapData = {};
     try {
-
-        if (req.params.id) {
-            const gardener = await db.Gardener.findOne({ where: { id: req.params.id } })
+        if (req.session.user) {
+            const gardener = await db.Gardener.findOne({ where: { id: req.session.user.id } })
             mapData.mapLocation = [gardener.latitude, gardener.longitude]
             mapData.loggedIn = true
             mapData.GardenerId = gardener.id
@@ -95,7 +145,11 @@ router.get("/map/:id?", async function (req, res) {
         const composts = await db.Compost.findAll()
         mapData.compostPins = composts.map(compost => {
             compostJSON = compost.toJSON();
-            return [compostJSON.latitude, compostJSON.longitude]
+            return {
+                location: [compostJSON.latitude, compostJSON.longitude],
+                name: compostJSON.name,
+                id: compostJSON.id
+            }
         })
         res.render("map", mapData)
     } catch (err) {
@@ -103,16 +157,27 @@ router.get("/map/:id?", async function (req, res) {
         res.status(500).end()
     }
 })
-
-router.get("/gardens/:id/:PotentialGardenerId?", function(req, res) {
-    db.Garden.findOne({where: {id: req.params.id}}).then(garden=>{
-    gardenJSON = garden.toJSON();
-    if (req.params.PotentialGardenerId) {
-        gardenJSON.PotentialGardenerId = req.params.PotentialGardenerId
-        console.log(gardenJSON)
-    }
-    res.render("garden_display", gardenJSON)
+// display gardens by id
+router.get("/gardens/:id", function (req, res) {
+    db.Garden.findOne({ where: { id: req.params.id } }).then(garden => {
+        gardenJSON = garden.toJSON();
+        if (req.session.user) {
+            gardenJSON.PotentialGardenerId = req.session.user.id
+            console.log(gardenJSON)
+        }
+        res.render("garden_display", gardenJSON)
     })
+})
+// Route to display compost by id
+router.get("/composts/:id/", function (req, res) {
+    db.Compost.findOne({ where: { id: req.params.id } }).then(compost => {
+        compostJSON = compost.toJSON();
+        res.render("compost_display", compostJSON)
+    })
+})
+// Route to display login
+router.get("/login", function (req, res) {
+    res.render("login")
 })
 
 module.exports = router;

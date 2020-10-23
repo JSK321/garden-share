@@ -1,12 +1,11 @@
-<form class="grid-container" action="/api/compost" method="POST">
+<form class="grid-container" action="/api/composts" method="POST">
   <div class="grid-x grid-padding-x">
     <div class="small-12 medium 8">
       <label>Name:</label>
       <input type="text" id="id" name="name" style="width: 30%">
     </div>
     
-    <label>Owner Id</label>
-    <input type="integer" name="OwnerId" value="{{id}}">
+    <input type="integer" name="OwnerId" value="{{id}}" style="display:none">
  
   </div>
 
@@ -14,8 +13,10 @@
 
   <div class="grid-x grid-padding-x">
     <div class="small-12 medium 8">
-      <label>Address:</label>
-      <input type="text" name="length" style="width: 30%">
+       <div class="small-12 medium 8">
+         <label>Description:</label>
+      <textarea name="description" cols="30" rows="10" placeholder="Describe the type of compost"></textarea>
+    </div>
     </div>
   </div>
 

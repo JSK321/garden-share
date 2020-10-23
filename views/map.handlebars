@@ -132,10 +132,10 @@
 
 
 <map class="grid-container">
-    Find me a garden!
-    <div id="mapid" style="width: 600px; height: 400px; position: relative">
+  
+    <div id="mapid" style="width: 800px; height: 600px; position: relative">
 
-    </div>
+
 
 <script>
 var mymap = L.map('mapid').setView([{{ mapLocation }}], 18);
@@ -162,25 +162,26 @@ var patchIcon = L.icon({
     shadowSize: [0, 0],
     shadowAnchor: [22, 94]
 });
- //add marker for multiple garden locations:
+ //add markers for multiple garden locations:
         {{#each gardenPins}}
-        L.marker([{{this.location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
+        L.marker([{{location}}], {icon: patchIcon}).addTo(mymap).bindPopup(" <a href = /gardens/{{this.id}}>{{this.name}}</a>").openPopup();
+        {{/each}}
+
+//add markers for multiple compost locations:
+ 
+
+        {{#each compostPins}}
+        L.marker([{{location}}]).addTo(mymap).bindPopup(" <a href = /composts/{{this.id}}>{{this.name}}</a>").openPopup();
         {{/each}}
        
-        var popup = L.popup();
-
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(mymap);
-        }
-
-        mymap.on('click', onMapClick);
 
 
-    </script>
+
+var popup = L.popup();
 
 
-    </body>
+</script>
+
+
+    </div>
 </map>

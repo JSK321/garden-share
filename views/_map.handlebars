@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+<div id="mapid" style="height: 150px;"></div>
+
+<input type="hidden" id="lat" value={{coord.lat}}>
+<input type="hidden" id="lon" value={{coord.lon}}>
+{{#each markers}}
+<div class="marker" style="visibility: hidden;">
+    <input type="hidden" value="{{this.lat}}">
+    <input type="hidden" value="{{this.lon}}">
+</div>
+{{/each}}
+
+
+<script>
+    var map = L.map('mapid').setView([lat.value, lon.value], 13);
+
+    var markers = document.getElementsByClassName("marker")
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    for (var marker of markers) {
+        const [lat, lon] = marker.children;
+
+        var coord = [parseFloat(lat.value), parseFloat(lon.value)]
+
+        L.marker(coord).addTo(map);
+    }
+</script>

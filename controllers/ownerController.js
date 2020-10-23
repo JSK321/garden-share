@@ -35,7 +35,7 @@ router.post("/api/owners", function (req, res) {
                 longitude: response.data.bbox[0],
                 password: req.body.password
             }).then(result => {
-                res.json(result)
+                res.render("profile", result.toJSON())
             }).catch(err => {
                 res.status(500).send(err)
             })
