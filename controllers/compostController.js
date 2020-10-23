@@ -53,25 +53,25 @@ router.post("/api/composts", function (req, res) {
 });
 
 //PUT route for updating compost withdraw/deposit status
-router.put("/api/compost/:id", function (req, res) {
+router.put("/api/composts/:id", function (req, res) {
   db.Compost.update(
-    //should i open/close withdraw and deposit at the same time? how do u know which one to be opened?
-    //you'd have to send over something like req.body.type to let me know which one i'm updating
-    //{[req.body.type]: req.body.open}
-    {
-      withdraw: req.body.withdraw,
-      deposit: req.body.deposit
-    },
+    req.body,
     {
       where: {
         id: req.params.id,
       },
     }
-  ).then(result => (res.json(result)))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
+  ).then(result => {
+    db.Compost.findOne({
+      where: { id: req.params.id },
+    }).then((compost) => {
+      res.render("compost_display", compost.toJSON());
     });
+  }
+    ).catch ((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // DELETE route to delete compost by ID
@@ -94,28 +94,4 @@ router.delete("/api/composts/:id", function (req, res) {
     });
 });
 
-// PUT route
-router.put("/api/composts/:id", function (req, res) {
-  res.status(418).end();
-});
-
-//route to edit compost
-router.get("/composts/edit/:id", function (req, res) {
-  db.Compost.findOne({
-    where: {
-      id: req.params.id
-    }
-  }).then((compost) => {
-    res.render("compost_edit", compost.toJSON());
-  });
-  db.Compost.update(req.body, {
-    where: {
-      id: req.params.id
-    }
-  }).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err);
-  })
-});
 module.exports = router;

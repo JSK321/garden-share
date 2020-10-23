@@ -143,29 +143,20 @@ router.delete("/api/gardens/:id", function (req, res) {
 // PUT route
 router.put("/api/gardens/:id", function (req, res) {
   db.Garden.update(
-    {
-      GardenerId: req.body.GardenerId,
-      name: req.body.name,
-      address: req.body.address,
-      description: req.body.description,
-      length: req.body.length,
-      width: req.body.width,
-    },
+    req.body,
     {
       where: {
         id: req.params.id,
       },
     }
-  )
-    .then((result) => {
+  ).then((result) => {
       console.log(result);
-      res.json(result)
-      // db.Garden.findOne({
-      //   where: { id: req.params.id },
-      // }).then((garden) => {
-      //   res.render("garden_display", garden.toJSON());
-      // });
-      // res.render("garden_display", result.toJSON())
+      // res.json(result)
+      db.Garden.findOne({
+        where: { id: req.params.id },
+      }).then((garden) => {
+        res.render("garden_display", garden.toJSON());
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -180,15 +171,6 @@ router.get("/garden/edit/:id", function (req, res) {
     res.render("garden_edit", garden.toJSON());
   });
 });
-  db.Garden.update(req.body, {
-    where: {
-      id: req.params.id
-    }
-  }).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err);
-  })
 });
 
 

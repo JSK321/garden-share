@@ -33,7 +33,7 @@
   {{!-- </form> --}}
 </div>
 
-<button class="button float-center" id="garden_edit_Btn">Post</button>
+<button class="button float-center" id="garden_edit_Btn">Save</button>
 {{!-- </form> --}}
 
 <script>
@@ -49,7 +49,6 @@
           length: $("[name=length]").val(),
           width: $("[name=width]").val(),
           description: $("[name=description]").val()
-
         }
       }).then(result => {
         console.log(result)

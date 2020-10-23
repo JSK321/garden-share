@@ -167,6 +167,20 @@ router.get("/composts/:id/", function (req, res) {
         res.render("compost_display", compostJSON)
     })
 })
+//route to edit compost
+router.get("/composts/edit/:OwnerId", function (req, res) {
+    db.Compost.findOne({
+      where: {
+        OwnerId: req.params.OwnerId
+      }
+    }).then((compost) => {
+      res.render("compost_edit", compost.toJSON());
+    }).catch(err=>{
+        console.log(err)
+        res.status(500).send("Error!")
+    })
+});
+  
 // Route to display login
 router.get("/gardeners/login", function (req, res){
     res.render("login", { route: "/gardeners/login" })

@@ -48,8 +48,8 @@
         data: {
           name: $("[name=name]").val(),
           description: $("[name=description]").val(),
-          deposit: $("#depositEditSwitch").val(),
-          withdraw: $("#withdrawEditSwitch").val()
+          deposit: $("#depositEditSwitch").is(":checked"),
+          withdraw: $("#withdrawEditSwitch").is(":checked")
         }
       }).then(result => {
         console.log(result)
