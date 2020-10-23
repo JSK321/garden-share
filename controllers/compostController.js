@@ -8,6 +8,7 @@ router.get("/api/composts", function (req, res) {
   db.Compost.findAll()
     .then((result) => {
       res.json(result);
+      console.log("composts");
     })
     .catch((err) => {
       res.status(500).send(err);
@@ -98,4 +99,15 @@ router.put("/api/composts/:id", function (req, res) {
   res.status(418).end();
 });
 
+//route to edit compost
+router.get("/composts/edit/:id", function(req, res){
+  db.Compost.findOne({
+    where:{ id: req.params.id
+  }
+}).then((compost) =>{
+  res.render("compost_edit", compost.toJSON());
+
+});
+
+});
 module.exports = router;
