@@ -57,19 +57,20 @@ router.put("/api/compost/:id", function (req, res) {
     //should i open/close withdraw and deposit at the same time? how do u know which one to be opened?
     //you'd have to send over something like req.body.type to let me know which one i'm updating
     //{[req.body.type]: req.body.open}
-    { withdraw: req.body.withdraw, 
-      deposit: req.body.deposit 
+    {
+      withdraw: req.body.withdraw,
+      deposit: req.body.deposit
     },
     {
       where: {
         id: req.params.id,
       },
     }
-  ).then(result=>(res.json(result)))
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+  ).then(result => (res.json(result)))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // DELETE route to delete compost by ID
@@ -98,14 +99,22 @@ router.put("/api/composts/:id", function (req, res) {
 });
 
 //route to edit compost
-router.get("/composts/edit/:id", function(req, res){
-  db.Compost.findOne({
-    where:{ id: req.params.id
+router.get("/composts/edit", function (req, res) {
+  if (req.session.user && req.session.user.userType === "owner") {
+    db.Compost.findOne({
+      where: {
+        id: req.session.user.id
+      }
+    }).then((compost) => {
+      if (!compost) {
+        res.status(400).send("You have no composts. Please add a compost in order to edit.")
+      } else {
+        res.render("compost_edit", compost.toJSON());
+      }
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send()
+    })
   }
-}).then((compost) =>{
-  res.render("compost_edit", compost.toJSON());
-
-});
-
 });
 module.exports = router;

@@ -1,5 +1,5 @@
 const express = require('express');
-const router= express.Router();
+const router = express.Router();
 const db = require('../models');
 const bcrypt = require('bcrypt');
 
@@ -34,8 +34,11 @@ router.post('/gardeners/signup', (req, res) => {
         }
         res.redirect("/profile/" + newUser.id)
     }).catch(err => {
-        console.log(err);
-        res.status(500).send("server error")
+        if (err.name === "SequelizeUniqueConstraintError") {
+            res.status(400).send("Username already exists. Please choose a unique username")
+        } else {
+            res.status(500).json(err)
+        }
     })
 })
 
@@ -56,7 +59,7 @@ router.post('/owners/login', (req, res) => {
                 id: user.id,
                 userType: "owner"
             }
-            return res.redirect("/map")
+            return res.redirect("/profile")
         }
         else {
             req.session.destroy();
