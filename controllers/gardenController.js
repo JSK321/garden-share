@@ -25,7 +25,6 @@ router.get("/api/gardens/:id", function (req, res) {
     });
 });
 
-<<<<<<< HEAD
 // return info_post.handlebars to post garden
 router.get("/garden/add", function (req, res) {
   res.render("gardens_post");
@@ -82,7 +81,6 @@ router.post("/api/gardens", function (req, res) {
         });
   })
 })
-=======
 // // return info_display.handlebars to display all gardens available
 // router.get("/gardens", function (req, res) {
 //   db.Garden.findAll(data => {
@@ -95,7 +93,6 @@ router.post("/api/gardens", function (req, res) {
 //     res.status(500).send(err);
 //   })
 // })
->>>>>>> dev
 
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
@@ -117,6 +114,7 @@ router.post("/api/gardens", function (req, res) {
     ).catch(err => {
       res.status(500).send(err)
     })
+    //catching the error twice?
     .catch((err) => {
       res.status(500).send(err);
     });
