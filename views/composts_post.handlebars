@@ -1,12 +1,11 @@
-<form class="grid-container" action="/api/compost" method="POST">
+<form class="grid-container" action="/api/composts" method="POST">
   <div class="grid-x grid-padding-x">
     <div class="small-12 medium 8">
       <label>Name:</label>
       <input type="text" id="id" name="name" style="width: 30%">
     </div>
     
-    <label>Owner Id</label>
-    <input type="integer" name="OwnerId" value="{{id}}">
+    <input type="integer" name="OwnerId" value="{{id}}" style="display:none">
  
   </div>
 
