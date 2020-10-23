@@ -144,7 +144,6 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) {
-<<<<<<< HEAD
   db.Garden.update(
     {
       GardenerId: req.body.GardenerId,
@@ -183,7 +182,6 @@ router.get("/garden/edit/:id", function (req, res) {
     res.render("garden_edit", garden.toJSON());
   });
 });
-=======
   db.Garden.update(req.body, {
     where: {
       id: req.params.id
@@ -196,6 +194,5 @@ router.get("/garden/edit/:id", function (req, res) {
 });
 
 
->>>>>>> dev
 
 module.exports = router;
