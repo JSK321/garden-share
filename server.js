@@ -30,20 +30,20 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Set up authentication
-// const session = require('express-session')
+const session = require('express-session')
 
 // I'm certain this isn't the correct way to do this...
-process.env.SESSION_SECRET = 123
+// process.env.SESSION_SECRET = 123
 //...............................But it makes the server run for now
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: {
-//       maxAge: 2 * 60 * 60 * 1000
-//   }
-// }))
+app.use(session({
+  secret: "gardendirt",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      maxAge: 2 * 60 * 60 * 1000
+  }
+}))
 // Import routes and give the server access to them.
 
 const ownerRoutes = require("./controllers/ownerController.js")
@@ -63,6 +63,10 @@ app.use(emailRoutes)
 
 const viewRoutes = require("./controllers/viewsController.js")
 app.use(viewRoutes)
+
+const authRoutes = require("./controllers/authController.js")
+app.use(authRoutes)
+
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
