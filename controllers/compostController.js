@@ -93,4 +93,23 @@ router.delete("/api/composts/:id", function (req, res) {
     });
 });
 
+//route to edit compost
+router.get("/composts/edit", function (req, res) {
+  if (req.session.user && req.session.user.userType === "owner") {
+    db.Compost.findOne({
+      where: {
+        id: req.session.user.id
+      }
+    }).then((compost) => {
+      if (!compost) {
+        res.status(400).send("You have no composts. Please add a compost in order to edit.")
+      } else {
+        res.render("compost_edit", compost.toJSON());
+      }
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send()
+    })
+  }
+});
 module.exports = router;
