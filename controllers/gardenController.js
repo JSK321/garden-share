@@ -30,12 +30,12 @@ router.get("/garden/add", function (req, res) {
   res.render("gardens_post");
 });
 // return gardens_post.handlebars to post garden
-router.get("/garden/add/", function(req, res){
+router.get("/garden/add/", function (req, res) {
   res.render("gardens_post")
 })
 
 // return gardens_post.handlebars to post garden by id
-router.get("/garden/add/:id", function(req, res){
+router.get("/garden/add/:id", function (req, res) {
   res.render("gardens_post", req.params)
 })
 
@@ -79,7 +79,7 @@ router.post("/api/gardens", function (req, res) {
         .catch((err) => {
           res.status(500).send(err);
         });
-  })
+    })
 })
 // // return info_display.handlebars to display all gardens available
 // router.get("/gardens", function (req, res) {
@@ -114,10 +114,11 @@ router.post("/api/gardens", function (req, res) {
     ).catch(err => {
       res.status(500).send(err)
     })
-    //catching the error twice?
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+      //catching the error twice?
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  });
 });
 
 //DELETE route to delete garden by ID
@@ -142,35 +143,24 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) {
+  console.log("something")
   db.Garden.update(
-    {
-      GardenerId: req.body.GardenerId,
-      name: req.body.name,
-      address: req.body.address,
-      description: req.body.description,
-      length: req.body.length,
-      width: req.body.width,
-    },
+    req.body,
     {
       where: {
         id: req.params.id,
       },
     }
-  )
-    .then((result) => {
-      console.log(result);
-      res.json(result)
-      // db.Garden.findOne({
-      //   where: { id: req.params.id },
-      // }).then((garden) => {
-      //   res.render("garden_display", garden.toJSON());
-      // });
-      // res.render("garden_display", result.toJSON())
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
+  ).then((result) => {
+    db.Garden.findOne({
+      where: { id: req.params.id },
+    }).then((garden) => {
+      res.render("garden_display", garden.toJSON());
     });
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.get("/garden/edit/:id", function (req, res) {
@@ -179,16 +169,6 @@ router.get("/garden/edit/:id", function (req, res) {
   }).then((garden) => {
     res.render("garden_edit", garden.toJSON());
   });
-});
-  db.Garden.update(req.body, {
-    where: {
-      id: req.params.id
-    }
-  }).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err);
-  })
 });
 
 
