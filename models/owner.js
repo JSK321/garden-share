@@ -1,3 +1,6 @@
+const bcrypt = require("bcrypt");
+
+
 module.exports = function(sequelize, DataTypes) {
   var Owner = sequelize.define("Owner", {
     username: {
@@ -30,5 +33,8 @@ module.exports = function(sequelize, DataTypes) {
     Owner.hasMany(models.Garden);
     Owner.hasMany(models.Compost);
   }
+  Owner.beforeCreate(function(user){
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10),null);
+})
   return Owner;
 };

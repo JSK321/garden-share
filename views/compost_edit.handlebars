@@ -1,21 +1,41 @@
 {{!-- <form class="grid-container" > --}}
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <label>Compost Name:</label>
-      <input type="text" id="id" name="name" value="{{name}}">
-    </div>
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Compost Name:</label>
+    <input type="text" id="id" name="name" value="{{name}}">
   </div>
-  <br>
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-        <label>Compost Description :</label>
-      <textarea id="{{id}}" name ="description" value ="{{description}}" cols="30" rows="10">{{description}}
+</div>
+<br>
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Compost Description :</label>
+    <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10">{{description}}
       </textarea>
+  </div>
+</div>
+
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Compost Deposit Available:</label>
+    <div class="switch">
+      <input class="switch-input" id="depositEditSwitch" type="checkbox">
+      <label class="switch-paddle" for="depositEditSwitch"></label>
     </div>
   </div>
-  <br>
-  <input style="display: none" name="id" value="{{id}}">
-  <button class="button float-center" id="compost_edit_Btn">Post</button>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Compost Withdraw Available:</label>
+    <div class="switch">
+      <input class="switch-input" id="withdrawEditSwitch" type="checkbox">
+      <label class="switch-paddle" for="withdrawEditSwitch"></label>
+    </div>
+  </div>
+</div>
+<br>
+
+<input style="display: none" name="id" value="{{id}}">
+<button class="button float-center" id="compost_edit_Btn">Save</button>
 {{!-- </form> --}}
 <script>
   $(function () {
@@ -27,13 +47,14 @@
         type: "PUT",
         data: {
           name: $("[name=name]").val(),
-          description: $("[name=description]").val()
+          description: $("[name=description]").val(),
+          deposit: $("#depositEditSwitch").is(":checked"),
+          withdraw: $("#withdrawEditSwitch").is(":checked")
         }
       }).then(result => {
         console.log(result)
         window.location.href = "/composts/{{id}}"
       })
-
     })
   });
-  </script>
+</script>
