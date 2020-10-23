@@ -167,8 +167,8 @@ router.get("/composts/:id/", function (req, res) {
     })
 })
 // Route to display login
-router.get("/login", function (req, res){
-    res.render("login")
-})
+// router.get("/login", function (req, res){
+//     res.render("login")
+// })
 
 module.exports = router;

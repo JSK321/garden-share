@@ -4,15 +4,16 @@ const db = require('../models');
 const bcrypt = require('bcrypt');
 
 router.post('/signup', (req, res) => {
-    db.User.create({
+    db.Owner.create({
+        username: req.body.username,
         email: req.body.email,
         password: req.body.password
     }).then(newUser => {
         req.session.user = {
-            email: newUser.email,
+            username: newUser.username,
             id: newUser.id
         }
-        res.redirect("/myprofile")
+        res.redirect("/profile/" + newUser.id)
     }).catch(err => {
         console.log(err);
         res.status(500).send("server error")
@@ -20,20 +21,20 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    db.User.findOne({
-        where: { email: req.body.email }
+    db.Owner.findOne({
+        where: { username: req.body.username }
     }).then(user => {
         //check if user entered password matches db password
         if (!user) {
             req.session.destroy();
-            return res.status(401).send('incorrect email or password')
+            return res.status(401).send('incorrect username or password')
 
         } else if (bcrypt.compareSync(req.body.password, user.password)) {
             req.session.user = {
-                email: user.email,
+                username: user.username,
                 id: user.id
             }
-            return res.redirect("/myprofile")
+            return res.redirect("/profile" + req.session.user.id)
         }
         else {
             req.session.destroy();
