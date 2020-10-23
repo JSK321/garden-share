@@ -25,6 +25,7 @@ router.get("/api/gardens/:id", function (req, res) {
     });
 });
 
+<<<<<<< HEAD
 // return info_post.handlebars to post garden
 router.get("/garden/add", function (req, res) {
   res.render("gardens_post");
@@ -81,6 +82,20 @@ router.post("/api/gardens", function (req, res) {
         });
   })
 })
+=======
+// // return info_display.handlebars to display all gardens available
+// router.get("/gardens", function (req, res) {
+//   db.Garden.findAll(data => {
+//     let gardenObject = {
+//       Garden: data
+//     }
+//     console.log(gardenObject)
+//   })
+//   .catch(err => {
+//     res.status(500).send(err);
+//   })
+// })
+>>>>>>> dev
 
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
@@ -129,6 +144,7 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) {
+<<<<<<< HEAD
   db.Garden.update(
     {
       GardenerId: req.body.GardenerId,
@@ -167,5 +183,19 @@ router.get("/garden/edit/:id", function (req, res) {
     res.render("garden_edit", garden.toJSON());
   });
 });
+=======
+  db.Garden.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  }).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err);
+  })
+});
+
+
+>>>>>>> dev
 
 module.exports = router;
