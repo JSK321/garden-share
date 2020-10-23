@@ -94,10 +94,6 @@ router.post('/gardeners/login', (req, res) => {
     })
 })
 
-router.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.send('logged out')
-})
 
 router.get("/sessiondata", (req, res) => {
     res.json(req.session)
