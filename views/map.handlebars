@@ -13,16 +13,16 @@
 
 
 <map class="grid-container">
-    Find me a garden!
-    <div id="mapid" style="width: 600px; height: 400px; position: relative">
+  
+    <div id="mapid" style="width: 800px; height: 600px; position: relative">
 
-    </div>
+
 
 <script>
-var mymap = L.map('mapid').setView([{{ mapLocation }}], 15);
+var mymap = L.map('mapid').setView([{{ mapLocation }}], 18);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 15,
+            maxZoom: 18,
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
                 '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
                 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -58,14 +58,11 @@ var patchIcon = L.icon({
 
 
 
-
-        var popup = L.popup();
-
-       
+var popup = L.popup();
 
 
-    </script>
+</script>
 
 
-    </body>
+    </div>
 </map>
