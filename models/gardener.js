@@ -1,3 +1,6 @@
+const bcrypt = require("bcrypt");
+
+
 module.exports = function(sequelize, DataTypes) {
   var Gardener = sequelize.define("Gardener", {
     username: {
@@ -31,5 +34,8 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: 'SET NULL'
     })
   }
+  Gardener.beforeCreate(function(user){
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10),null);
+})
   return Gardener;
 };
