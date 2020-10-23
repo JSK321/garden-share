@@ -185,8 +185,16 @@ router.get("/composts/edit/:OwnerId", function (req, res) {
 router.get("/gardeners/login", function (req, res){
     res.render("login", { route: "/gardeners/login" })
 })
+
 router.get("/owners/login", function (req, res) {
     res.render("login", { route: "/owners/login" })
+});
+
+router.get('/logout', (req, res) => {
+
+    req.session.destroy()
+    res.redirect("/")
+        
 });
 
 module.exports = router;
