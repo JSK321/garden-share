@@ -67,8 +67,7 @@ router.put("/api/composts/:id", function (req, res) {
     }).then((compost) => {
       res.render("compost_display", compost.toJSON());
     });
-  }
-    ).catch ((err) => {
+  }).catch ((err) => {
     console.log(err);
     res.status(500).json(err);
   });
