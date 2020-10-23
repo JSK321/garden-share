@@ -1,26 +1,61 @@
-<form class="grid-container">
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <label>Patch Name:</label>
-      <input type="text" id="id" value="{{name}}">
-    </div>
+{{!-- <form class="grid-container"> --}}
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Patch Name:</label>
+    <input type="text" id="id" name="name" value="{{name}}">
   </div>
-  <br>
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <label>Patch size :</label>
-     Length <input type="Integer" value="{{length}}"> ft * Width <input type="Integer" value="{{width}}"> ft
-    </div>
+</div>
+<br>
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Patch size :</label>
+    Length <input type="Integer" name="length" value="{{length}}"> ft * Width <input type="Integer" name="width"
+      value="{{width}}"> ft
   </div>
-  <br>
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-        <label>Patch Description :</label>
-      <textarea id="{{id}}" name ="garden_edit" value ="{{description}}" cols="30" rows="10">{{description}}
+</div>
+<br>
+<div class="grid-x grid-padding-x">
+  <div class="small-12 medium 8">
+    <label>Patch Description :</label>
+    <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10">{{description}}
       </textarea>
-    </div>
   </div>
-  <br>
-  <input style="display: none" name="id" value="{{id}}">
-  <button class="button float-center">Post</button>
-</form>
+</div>
+<br>
+<div>
+  <strong>Assign gardener</strong>
+  {{!-- <form> --}}
+  <select name="gardeners" id="">
+    {{!-- need assistance with getting list of gardeners to show in drop-down list --}}
+    <option value="gardener">{{username}}</option>
+    <option value="gardener">{{id}}</option>
+  </select>
+  {{!-- </form> --}}
+</div>
+
+<button class="button float-center" id="garden_edit_Btn">Post</button>
+{{!-- </form> --}}
+
+<script>
+  $(function () {
+    $("#garden_edit_Btn").on("click", function (event) {
+      event.preventDefault();
+      console.log("what's up")
+      $.ajax({
+        url: "/api/gardens/{{id}}",
+        type: "PUT",
+        data: {
+          name: $("[name=name]").val(),
+          length: $("[name=length]").val(),
+          width: $("[name=width]").val(),
+          description: $("[name=description]").val()
+
+        }
+      }).then(result => {
+        console.log(result)
+        window.location.href = "/gardens/{{id}}"
+      })
+
+    })
+  });
+</script>
