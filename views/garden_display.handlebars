@@ -27,11 +27,14 @@
     </div>
 
 <!-- need to add eventlistener to pop up email -->
-    {{#if PotentialGardenerId}}
-    <a href="/email/{{id}}/{{PotentialGardenerId}}">
-        <button class="button float-center">Email</button>
-    </a>
+    {{#if (isEqual PotentialGardenerId  id)}}
     {{else}}
-    <a href="/gardeners/signup">Sign up to connect with the owner of this garden!</a>
+        {{#if PotentialGardenerId}} 
+        <a href="/email/{{id}}/{{PotentialGardenerId}}">
+            <button class="button float-center">Email</button>
+        </a>
+        {{else}}
+        <a href="/gardeners/signup">Sign up to connect with the owner of this garden!</a>
+        {{/if}}
     {{/if}}
 </div>

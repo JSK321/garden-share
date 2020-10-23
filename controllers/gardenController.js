@@ -21,27 +21,18 @@ router.get("/api/gardens/:id", function (req, res) {
   })
 })
 
-// return gardens_post.handlebars to post garden
-router.get("/garden/add/", function(req, res){
-  res.render("gardens_post")
-})
-
-// return gardens_post.handlebars to post garden by id
-router.get("/garden/add/:id", function(req, res){
-  res.render("gardens_post", req.params)
-})
-
-// return info_display.handlebars to display all gardens available
-router.get("/gardens", function(req,res){
-  db.Garden.findAll(data=>{
-    let gardenObject = {
-      Garden: data
-    }
-    console.log(gardenObject)
-  }).catch(err =>{
-    res.status(500).send(err);
-  })
-})
+// // return info_display.handlebars to display all gardens available
+// router.get("/gardens", function (req, res) {
+//   db.Garden.findAll(data => {
+//     let gardenObject = {
+//       Garden: data
+//     }
+//     console.log(gardenObject)
+//   })
+//   .catch(err => {
+//     res.status(500).send(err);
+//   })
+// })
 
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
@@ -88,37 +79,18 @@ router.delete("/api/gardens/:id", function (req, res) {
 });
 
 // PUT route
-router.put("/api/gardens/:id", function (req, res) { 
-  db.Garden.update({
-
-    GardenerId: req.body.GardenerId,
-    name: req.body.name,
-    address: req.body.address,
-    description: req.body.description,
-    length: req.body.length,
-    width: req.body.width
-
-  }, {
+router.put("/api/gardens/:id", function (req, res) {
+  db.Garden.update(req.body, {
     where: {
       id: req.params.id
     }
-  }).then(result=>{
+  }).then(result => {
     res.json(result)
-  }).catch(err=>{
+  }).catch(err => {
     res.status(500).json(err);
   })
 });
 
 
-router.get("/garden/edit/:id", function(req, res){
-  db.Garden.findOne({
-    where:{ id: req.params.id
-  }
-}).then((garden) =>{
-  res.render("garden_edit", garden.toJSON());
-
-});
-
-});
 
 module.exports = router;
