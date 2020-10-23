@@ -33,11 +33,11 @@ router.get("/profile/:id", function (req, res) {
 });
 // return signup.handlebars for owners
 router.get("/owners/signup", function (req, res) {
-    res.render("signup", { route: "/api/owners" })
+    res.render("signup", { route: "/owners/signup" })
 });
 // return signup.handlebars for gardeners
 router.get("/gardeners/signup", function (req, res) {
-    res.render("signup", { route: "/api/gardeners" })
+    res.render("signup", { route: "/gardeners/signup" })
 });
 // Return email.handlebars 
 router.get("/email/:gardenId/:gardenerId", function (req, res) {
@@ -113,7 +113,8 @@ router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
 router.get("/map", async function (req, res) {
     let mapData = {};
     try {
-        if (req.session.user) {
+        if (req.session.user && req.session.user.userType === "gardener") {
+            console.log("I am a gardener")
             const gardener = await db.Gardener.findOne({ where: { id: req.session.user.id } })
             mapData.mapLocation = [gardener.latitude, gardener.longitude]
             mapData.loggedIn = true
@@ -167,8 +168,11 @@ router.get("/composts/:id/", function (req, res) {
     })
 })
 // Route to display login
-router.get("/login", function (req, res){
-    res.render("login")
+router.get("/gardeners/login", function (req, res){
+    res.render("login", { route: "/gardeners/login" })
 })
+router.get("/owners/login", function (req, res) {
+    res.render("login", { route: "/owners/login" })
+});
 
 module.exports = router;
