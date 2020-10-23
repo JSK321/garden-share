@@ -1,0 +1,26 @@
+    <form action="{{route}}" method="POST">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class ="small-12 medium 8">
+                    <label>User Name:</label>
+                    <input type="text" name="username" placeholder="User Name">
+                </div>
+
+                <div class ="small-12 medium 8">
+                    <label>Password:</label>
+                    <input type="password" name="password" placeholder="Password">
+                    <p class="help-text">Your Password must be at least 8 characters</p>
+                </div>
+
+                <div class ="small-12 medium 8">
+                    <label>Email:</label>
+                    <input type="email" name="email" placeholder="Email">
+                </div>
+                <br>
+                <a href="/owners/signup"><button>Owner Sign up</button></a>
+                <a href="/gardeners/signup"><button>Gardner Sign up</button></a>
+            </div>
+            <br>
+            <button class = "button float-center" type="submit">Sign in</button>
+        </div>
+    </form>
