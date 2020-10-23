@@ -21,7 +21,7 @@
   $(function () {
     $("#compost_edit_Btn").on("click", function (event) {
       event.preventDefault();
-      console.log("what's up")
+      console.log("compost clicked")
       $.ajax({
         url: "/api/composts/{{id}}",
         type: "PUT",
