@@ -1,26 +1,22 @@
-<div class="row">
-    <div class="twelve columns text-center">
-        <img src="https://placekitten.com/300/300" class="text-center">
-    </div>
-</div>
-<div class="card text-center">
-    <div class="card-section">
-        <p class="username">User Name: {{username}}</p>
-        <p class="email">Email: {{email}}</p>
-        <p class="address">Address: {{address}}</p>
-    </div>
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card row small-12 medium-8">
+            <h4 class="username">User Name: {{username}}</h4>
+            <h4 class="email">Email: {{email}}</h4>
+            <h4 class="address">Address: {{address}}</h4>
+    
+            <div class="text-center">
+                <br>
+                <a href="/gardens/add" class="button" id="gardenButton" style="width: 20%">Share my Garden</a>
+                <a href="/composts/add" class="button" id="compostButton" style="width: 20%">Share my Compost</a>
+                <br>
+                <a href="/gardens/edit" class="button" id="gardenButton" style="width: 20%">Edit my Garden</a>
+                <a href="/composts/edit" class="button" id="compostButton" style="width: 20%">Edit my Compost</a>
 
-    <div class="row">
-        <div class="text-center">
-            <a href="/gardens/add" class="success button" style="width: 10%">Share my Garden</a>
-            <a href="/composts/add" class="warning button" style="width: 10%">Share my Compost</a>
-            <br>
-            <a href="/gardens/edit" class="success button" style="width: 10%">Edit my Garden</a>
-            <a href="/composts/edit" class="warning button" style="width: 10%">Edit my Compost</a>
-        
-            <br>
-            <button class="button edit-profile-button">Edit</button>
-            <a href="/" class="button">Home</a>
+                <br>
+                <button class="button" id="profileButton">Edit</button>
+                <a href="/" class="button" id="profileButton">Home</a>
+            </div>
         </div>
     </div>
 </div>

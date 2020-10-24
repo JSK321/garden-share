@@ -26,7 +26,7 @@ router.get("/api/gardeners/:id", function (req, res) {
 router.post("/api/gardeners", function (req, res) {
   const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
   axios.get(`https://app.geocodeapi.io/api/v1/search?apikey=${APIKey}&text=${req.body.address}`)
-    .then(response => {
+    .then(response => {geo
       db.Gardener.create({
         username: req.body.username,
         email: req.body.email,

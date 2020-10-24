@@ -1,18 +1,25 @@
-    <form action="{{route}}" method="POST">
-        <div class="grid-container">
-            <div class="grid-x grid-padding-x">
-                <div class ="small-12 medium 8">
-                    <label>User Name:</label>
-                    <input type="text" name="username" placeholder="User Name">
-                </div>
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card row small-12 medium-8">
 
-                <div class ="small-12 medium 8">
-                    <label>Password:</label>
-                    <input type="password" name="password" placeholder="Password">
-                    <p class="help-text">Your Password must be at least 8 characters</p>
-                </div>               
-            </div>
-            <br>
-            <button class = "button float-center" type="submit">Log in</button>
+            <form action="{{route}}" method="POST">
+
+                <label><strong>User Name:</strong></label>
+                <input type="text" id="userInput" name="username" placeholder="User Name">
+
+
+
+                <label><strong>Password:</strong></label>
+                <input type="password" id="userInput" name="password" placeholder="Password">
+                <p class="help-text"><strong>Your Password must be at least 8 characters</strong></p>
+
+
+                <br>
+
+                <button class="button float-center" id="userInput" type="submit">Log In</button>
+                <a style="margin-left: 44%;" href="/gardeners/signup" class="round button" id="userInput">Sign Up</a>
+
+
+            </form>
         </div>
-    </form>
+    </div>
