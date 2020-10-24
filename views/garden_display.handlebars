@@ -16,6 +16,7 @@
             <div id="userInput">
                 <pre> {{description}}</pre>
             </div>
+            <br>
             {{#if justPosted}}
             {{else}}
                 {{#if GardenerId}}
@@ -29,7 +30,7 @@
                     {{else}}
                         {{#if PotentialGardenerId}}
                             <a href="/email/{{id}}">
-                                <button class="button float-center">Email</button>
+                                <button class="button float-center" id="userInput">Email</button>
                             </a>
                         {{else}}
                     <a href="/gardeners/signup" style="color:white">Sign up to connect with the owner of this garden!</a>

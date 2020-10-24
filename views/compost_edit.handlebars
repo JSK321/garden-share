@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding">
   <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
     <div class="card small-12 medium 8">
-      <label><strong>Compost Name:</strong>></label>
+      <label><strong>Compost Name:</strong></label>
       <input type="text" id="id" name="name" value="{{name}}"
         style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
 
@@ -23,7 +23,7 @@
       </div>
 
 
-      <label><strong>Compost Deposit Available:</strong>></label>
+      <label><strong>Compost Deposit Available:</strong></label>
       <div class="switch">
         <input class="switch-input" id="withdrawEditSwitch" type="checkbox">
         <label class="switch-paddle" for="withdrawEditSwitch">
@@ -36,6 +36,7 @@
 
       <input style="display: none" name="id" value="{{id}}">
       <button class="button float-center" id="compost_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
+      <button class="button float-center" id="compost_delete_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Delete</button>
     </div>
   </div>
 </div>
@@ -60,4 +61,20 @@
       })
     })
   });
+
+  $(function (){
+    $("#compost_delete_Btn").on("click", function (event){
+      event.preventDefault()
+      let confirmAlert = confirm("Are you sure?")
+      if (confirmAlert === true) {
+        $.ajax({
+          url: "/api/composts/{{id}}",
+          type: "DELETE",
+        }).then(result => {
+          console.log("DELETED!")
+          window.location.href = "/profile"
+        })
+      }
+    })
+  })
 </script>

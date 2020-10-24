@@ -77,16 +77,13 @@ body {
   #gardenButton {
     border-radius: 15px;
     background-color: darkgreen; 
+    width: 20%;
   }
 
   #compostButton {
     border-radius: 15px;
     background-color: darkorange;
-  }
-  
-  #profileButton {
-    border-radius: 15px;
-    background-color:#7F9174;
+    width: 20%;
   }
 
   .card {

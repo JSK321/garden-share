@@ -33,17 +33,17 @@
 
       </div>
       <div class="top-bar-right">
-        <div calss="login">
+        <div class="login">
           {{!-- need to figure out what is the right parameter  --}}
           {{#if loggedIn}}
-          <a href="/profile" class="button" id="profile">My Profile</a>
+          <a href="/profile" class="button" id="userInput">My Profile</a>
           <br>
-          <a href="/logout" class="button" id="logout">Log Out</a>
+          <a href="/logout" class="button" id="userInput">Log Out</a>
 
           {{else}}
-          <a href="/owners/login" class="button" id="ownerLogin">Owner Log In</a>
+          <a href="/owners/login" class="button" id="userInput">Owner Log In</a>
           <br>
-          <a href="/gardeners/login" class="button" id="gardnerLogin">Gardener Log In</a>
+          <a href="/gardeners/login" class="button" id="userInput">Gardener Log In</a>
           {{/if}}
         </div>
 
