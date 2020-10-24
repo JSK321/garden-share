@@ -1,0 +1,62 @@
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card row small-12 medium-8">
+            <h4 class="username">User Name: {{username}}</h4>
+            <h4 class="email">Email: {{email}}</h4>
+            <h4 class="address">Address: {{address}}</h4>
+            <div class="requests" style="display:none;">
+                <h4>Pending Requests:</h4>
+            </div>
+            <div class="text-center">
+                <br>
+                <a href="/gardens/add" class="button" id="gardenButton">Share my Garden</a>
+                <a href="/composts/add" class="button" id="compostButton">Share my Compost</a>
+                <br>
+                <a href="/gardens/edit" class="button" id="gardenButton">Edit my Garden</a>
+                <a href="/composts/edit" class="button" id="compostButton">Edit my Compost</a>
+
+                <br>
+                <a href="/owners/edit/{{id}}" class="button" id="userInput" style="width: 20%">Edit</a>
+                <a href="/" class="button" id="userInput" style="width: 20%">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: "/requests/{{id}}",
+            type: "GET"
+        }).then(response => {
+            if (response.length > 0) {
+                $(".requests").css("display", "block")
+                for (let i = 0; i < response.length; i++) {
+                    $(".requests").append($("<span>").text(`${response[i].Gardener.username} would like to garden your patch ${response[i].Garden.name}. Click the Assign button to assign this patch to them.`))
+                    let assignBtn = $("<button class='button' id='assignBtn'>").text("Assign")
+                    assignBtn.attr("data-gardenId", response[i].Garden.id)
+                    assignBtn.attr("data-gardenerId", response[i].Gardener.id)
+                    $(".requests").append(assignBtn)
+                }
+            }
+            $("#assignBtn").on("click", function () {
+                $.ajax({
+                    url: "/api/gardens/" + $(this).attr("data-gardenId"),
+                    type: "PUT",
+                    data: { GardenerId: $(this).attr("data-gardenerId") }
+                }).then(result => {
+                    console.log(result)
+                    $.ajax({
+                        url: "requests/" + $(this).attr("data-gardenId"),
+                        type: "DELETE"
+                    }).then(response => {
+                        console.log(response)
+                        window.location.reload()
+                    })
+                })
+            })
+        }
+        )
+    })
+
+</script>

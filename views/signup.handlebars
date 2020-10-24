@@ -1,0 +1,56 @@
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card row small-12 medium-8">
+            <form action="{{route}}" method="POST">
+                <div>
+                    <label><strong>User Name:</strong></label>
+                    <input type="text" name="username" id="userInput" placeholder="User Name">
+                </div>
+                
+                <div>
+                    <label><strong>Password:</strong></label>
+                    <input type="password" name="password" id="userInput" placeholder="Password">
+                    <p class="help-text"><strong>Your Password must be at least 8 characters</strong></p>
+                </div>
+                
+                <div>
+                    <label><strong>Email:</strong></label>
+                    <input type="email" name="email" id="userInput" placeholder="Email">
+                </div>
+                
+                <div>
+                    <label><strong>Address:</strong></label>
+                    <input type="text" name="address" id="userInput" placeholder="Address">
+                </div>
+                <br>
+                <div>
+                    <button class="button float-center" id="signUpBtn" type="submit" style="border-radius:15px;background-color: #7F9174;color:white">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#signUpBtn").on("click", function (event){
+        event.preventDefault();
+        $.ajax({
+            url:"{{route}}",
+            type: "POST",
+            data: {
+                username: $("[name=username]").val(),
+                password: $("[name=password]").val(),
+                email: $("[name=email]").val(),
+                address: $("[name=address]").val()
+            }
+        }).then(function(response) {
+            if({{route}}==="/owners/signup"){
+            window.location.href="/profile"
+            } else {
+                window.location.href="/map"
+            }
+        }).fail(function(err) {
+            alert("Username/Email is in use!")
+        })
+    })
+</script>

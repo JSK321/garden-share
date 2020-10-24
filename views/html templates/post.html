@@ -1,0 +1,61 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundation Starter Template</title>
+  <!-- Compressed CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+    integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+
+  <!-- Compressed JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+    integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/foundation.css" />
+</head>
+
+<body>
+
+  <body>
+    <form class="grid-container" action="/api/gardens" method="POST">
+      <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+          <label>Patch Name:</label>
+          <input type="text" id="id" name="name">
+        </div>
+        
+      </div>
+
+      
+      <br>
+
+      <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+          <label>Patch size :</label>
+          Length <input type="Integer" name="length"> ft * Width <input type="Integer" name="width"> ft
+        </div>
+      </div>
+
+      <br>
+
+      <div class="grid-x grid-padding-x">
+        <div class="small-12 medium 8">
+          <textarea name="description" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <br>
+
+      <button class="button float-center">Post</button>
+
+    </form>
+
+   <!-- jQuery must be imported before Foundation -->
+<script src="js/jquery.min.js"></script>
+<!-- this will include every plugin and utility required by Foundation -->
+<script src="js/foundation.min.js"></script>
+
+  </body>
+
+</html>

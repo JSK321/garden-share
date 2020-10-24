@@ -1,0 +1,31 @@
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card small-12 medium 8">
+            <!-- show garden name -->
+            <label><strong>Compost Name:</strong></label>
+            <div id="userInput" style="width:30%">
+                <pre> {{name}}</pre>
+            </div>
+            <br>
+            <label><strong>Description:</strong></label>
+            <div id="userInput">
+                <pre> {{description}}</pre>
+            </div>
+            <br>
+            
+                <!-- need to add eventlistener to pop up email -->
+                {{#if deposit}}
+                  {{name}} is open for deposits. Come drop off your compostable materials!
+                {{else}}
+                  {{name}} is not accepting deposits. Please check back later.
+                {{/if}}
+                <br>
+                {{#if withdraw}}
+                  {{name}} is open for withdrawls. Come pick up some tasty compost!
+                {{else}}
+                  {{name}} is still working to create tasty compost. Please check back later
+                {{/if}}
+            
+        </div>
+    </div>
+</div>

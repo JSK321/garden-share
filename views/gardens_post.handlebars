@@ -1,0 +1,26 @@
+<div class="grid-x grid-padding">
+  <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+    <div class="card small-12 medium 8">
+      <form action="/api/gardens" method="POST">
+
+        <label><strong>Patch Name:</strong></label>
+        <input type="text" id="id" name="name" placeholder="Patch Name" style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">
+
+        <input type="integer" name="OwnerId" value="{{id}}" style="display:none">
+
+        <label><strong>Patch size:</strong></label>
+        <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" placeholder=" Feet" style="width: 30%">
+        <br>
+        <label><strong>Width</strong></label><input id="userInput" type="Integer" name="width" placeholder=" Feet" style="width: 30%">
+        <br>
+        <br>
+        <label><strong>Patch Description:</strong></label>
+        <textarea id="userInput" name="description" cols="30" rows="10"
+          placeholder="Add your description here"></textarea>
+
+        <button class="button float-center" id="userInput">Post</button>
+
+      </form>
+    </div>
+  </div>
+</div>
