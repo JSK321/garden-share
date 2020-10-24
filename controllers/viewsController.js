@@ -60,7 +60,7 @@ router.get("/email/:gardenId/", function (req, res) {
 })
 
 // return gardens_post.handlebars to post garden by id
-router.get("/gardens/add/", function (req, res) {
+router.get("/gardens/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
         res.render("gardens_post", {id: req.session.user.id})
     } else {

@@ -46,6 +46,40 @@
           window.location.href = "/gardens/{{id}}"
         })
 
+<script>
+  $(function () {
+    $("#garden_edit_Btn").on("click", function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: "/api/gardens/{{id}}",
+        type: "PUT",
+        data: {
+          name: $("[name=name]").val(),
+          length: $("[name=length]").val(),
+          width: $("[name=width]").val(),
+          description: $("[name=description]").val()
+        }
+      }).then(result => {
+        console.log(result)
+        window.location.href = "/gardens/{{id}}"
       })
-    });
-  </script>
+
+    })
+  });
+  $(function () {
+    $("#unAssignBtn").on("click", function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: "/api/gardens/{{id}}",
+        type: "PUT",
+        data: {
+          GardenerId: 0
+        }
+      }).then(result => {
+        console.log(result)
+        window.location.href = "/gardens/{{id}}"
+      })
+
+    })
+  });
+</script>
