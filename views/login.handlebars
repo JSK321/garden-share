@@ -15,12 +15,34 @@
 
 
                 <br>
-
-                <button class="button float-center" id="userInput" type="submit">Log In</button>
-                <a style="margin-left: 44%;" href="/gardeners/signup" class="round button" id="userInput">Sign Up</a>
-
+                <div class="text-center">
+                <button class="button float-center" id="logInBtn" type="submit" style="border-radius:15px;background-color: #7F9174;color:white">Log In</button>
+                <a href="/gardeners/signup" class="button" id="userInput">Sign Up</a>
+                </div>
 
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $("#logInBtn").on("click", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "{{route}}",
+            type: "POST",
+            data: {
+                username: $("[name=username]").val(),
+                password: $("[name=password]").val()
+            }
+        }).then(function(response) {
+            if({{route}}==="/owners/login"){
+            window.location.href="/profile/"
+            } else {
+                window.location.href="/map"
+            }
+        }).fail(function(response) {
+            alert("Incorrect Password/Username")
+        })
+    });
+</script>
