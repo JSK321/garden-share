@@ -40,9 +40,8 @@ router.get("/gardeners/signup", function (req, res) {
     res.render("signup", { route: "/gardeners/signup" })
 });
 // Return email.handlebars 
-router.get("/email/:gardenId", function (req, res) {
+router.get("/email/:gardenId/", function (req, res) {
     if (req.session.user && req.session.user.userType === "gardener") {
-
         db.Garden.findOne({ where: { id: req.params.gardenId } }).then(result => {
             console.log(result.toJSON().name)
             const renderObj = {
@@ -86,7 +85,7 @@ router.get("/gardens/edit", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
         db.Garden.findOne({
             where: {
-                id: req.session.user.id
+                OwnerId: req.session.user.id
             }
         }).then((garden) => {
             if (!garden) {

@@ -2,44 +2,63 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const bcrypt = require('bcrypt');
+const axios = require("axios");
 
 router.post('/owners/signup', (req, res) => {
-    db.Owner.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    }).then(newUser => {
-        req.session.user = {
-            username: newUser.username,
-            id: newUser.id,
-            userType: "owner"
-        }
-        res.redirect("/profile/" + newUser.id)
-    }).catch(err => {
-        console.log(err);
-        res.status(500).send("server error")
-    })
+    const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
+    axios.get(`https://app.geocodeapi.io/api/v1/search?apikey=${APIKey}&text=${req.body.address}`)
+        .then(response => {
+            db.Owner.create({
+                username: req.body.username,
+                email: req.body.email,
+                address: req.body.address,
+                latitude: response.data.bbox[1],
+                longitude: response.data.bbox[0],
+                password: req.body.password
+            }).then(newUser => {
+                req.session.user = {
+                    username: newUser.username,
+                    id: newUser.id,
+                    userType: "owner"
+                }
+                res.redirect("/profile")
+            }).catch(err => {
+                if (err.name === "SequelizeUniqueConstraintError") {
+                    res.status(400).send("Username already exists. Please choose a unique username")
+                } else {
+                    res.status(500).json(err)
+                }
+            })
+        })
+
 })
 
 router.post('/gardeners/signup', (req, res) => {
-    db.Gardener.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    }).then(newUser => {
-        req.session.user = {
-            username: newUser.username,
-            id: newUser.id,
-            userType: "gardener"
-        }
-        res.redirect("/profile/" + newUser.id)
-    }).catch(err => {
-        if (err.name === "SequelizeUniqueConstraintError") {
-            res.status(400).send("Username already exists. Please choose a unique username")
-        } else {
-            res.status(500).json(err)
-        }
-    })
+    const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
+    axios.get(`https://app.geocodeapi.io/api/v1/search?apikey=${APIKey}&text=${req.body.address}`)
+        .then(response => {
+            db.Gardener.create({
+                username: req.body.username,
+                email: req.body.email,
+                address: req.body.address,
+                latitude: response.data.bbox[1],
+                longitude: response.data.bbox[0],
+                password: req.body.password
+            }).then(newUser => {
+                req.session.user = {
+                    username: newUser.username,
+                    id: newUser.id,
+                    userType: "gardener"
+                }
+                res.redirect("/map")
+            }).catch(err => {
+                if (err.name === "SequelizeUniqueConstraintError") {
+                    res.status(400).send("Username already exists. Please choose a unique username")
+                } else {
+                    res.status(500).json(err)
+                }
+            })
+        })
 })
 
 router.post('/owners/login', (req, res) => {
