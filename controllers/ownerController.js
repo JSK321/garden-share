@@ -79,7 +79,7 @@ router.put("/api/owners/:id", function (req, res) {
     },
     {
         where: {
-            id: req.params.id
+            id: req.body.id
         }
     }).then(result=>{
         res.json(result)

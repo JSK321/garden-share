@@ -67,8 +67,6 @@ router.post('/owners/login', (req, res) => {
         where: { username: req.body.username }
     }).then(user => {
         //check if user entered password matches db password
-        console.log(req.body.password)
-        console.log(user.password)
         if (!user) {
             req.session.destroy();
             return res.status(401).send('incorrect username or password')
@@ -93,8 +91,6 @@ router.post('/gardeners/login', (req, res) => {
         where: { username: req.body.username }
     }).then(user => {
         //check if user entered password matches db password
-        console.log(req.body.password)
-        console.log(user.password)
         if (!user) {
             req.session.destroy();
             return res.status(401).send('incorrect username or password')
