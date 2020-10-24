@@ -22,28 +22,28 @@
       <div class="top-bar-right">
 
 
-<div class="input-group input-group-rounded">
-  <input class="input-group-field" type="search" id="address-input">
-  <div class="input-group-button">
-    <input type="submit" class="button secondary" value="Search">
-  </div>
-</div>
+        <div class="input-group input-group-rounded">
+          <input class="input-group-field" type="search" id="address-input">
+          <div class="input-group-button">
+            <input type="submit" class="button secondary" value="Search">
+          </div>
+        </div>
         {{!-- <a href="/map"><strong>View Patches</strong></a> --}}
 
 
       </div>
       <div class="top-bar-right">
-          <div calss="login">
-            {{!-- need to figure out what is the right parameter  --}}
-          {{#if loggedIn}} 
-          <a href="/profile">My Profile</a>
+        <div calss="login">
+          {{!-- need to figure out what is the right parameter  --}}
+          {{#if loggedIn}}
+          <a href="/profile" class="button" id="profile">My Profile</a>
           <br>
-          <a href="/logout">Log Out</a>
+          <a href="/logout" class="button" id="logout">Log Out</a>
 
           {{else}}
-          <a href="/owners/login">Owner Log In</a>
+          <a href="/owners/login" class="button" id="ownerLogin">Owner Log In</a>
           <br>
-          <a href="/gardeners/login">Gardener Log In</a>
+          <a href="/gardeners/login" class="button" id="gardnerLogin">Gardener Log In</a>
           {{/if}}
         </div>
 

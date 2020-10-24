@@ -46,10 +46,12 @@ app.use(session({
   }
 }))
 
-app.use(function (req, res, next) {
-  res.render("main.handlebars", { hilo: "hola" })
-  next();
-})
+// app.use(function (req, res, next) {
+//   //res.render("main.handlebars", { hilo: "hola" })
+//   //req.someValue = exphbs.getPartials();
+//   req.someOtherValue = {hola:"hola"};
+//   next();
+// })
 // Import routes and give the server access to them.
 
 const ownerRoutes = require("./controllers/ownerController.js")
