@@ -1,6 +1,10 @@
 <div class="grid-x grid-padding">
   <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
     <div class="card small-12 medium 8">
+      <div>
+        <button class="button float-left" id="unAssignBtn" style="border-radius:15px;background-color: #7F9174;color:white">Un-Assign</button>
+        <span>Click to un-assign your garden</span>
+      </div>
       <label><strong>Patch Name:</strong></label>
       <input type="text" id="id" name="name" value="{{name}}" placeholder="Patch Name" style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
 
@@ -15,41 +19,16 @@
       </textarea>
       <br>
       <div>
-        <label><strong>Assign gardener</strong></label>
-        <select name="gardeners" id="" style="border-radius:15px;background-color: #7F9174;color:white">
-          {{!-- need assistance with getting list of gardeners to show in drop-down list --}}
-          <option value="gardener">{{username}}</option>
-          <option value="gardener">{{id}}</option>
-        </select>
-
         <button class="button float-center" id="garden_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
       </div>
     </div>
   </div>
 
-  <script>
-    $(function () {
-      $("#garden_edit_Btn").on("click", function (event) {
-        event.preventDefault();
-        console.log("what's up")
-        $.ajax({
-          url: "/api/gardens/{{id}}",
-          type: "PUT",
-          data: {
-            name: $("[name=name]").val(),
-            length: $("[name=length]").val(),
-            width: $("[name=width]").val(),
-            description: $("[name=description]").val()
-          }
-        }).then(result => {
-          console.log(result)
-          window.location.href = "/gardens/{{id}}"
-        })
-
 <script>
   $(function () {
     $("#garden_edit_Btn").on("click", function (event) {
       event.preventDefault();
+      console.log("what's up")
       $.ajax({
         url: "/api/gardens/{{id}}",
         type: "PUT",
@@ -63,23 +42,21 @@
         console.log(result)
         window.location.href = "/gardens/{{id}}"
       })
-
     })
   });
   $(function () {
     $("#unAssignBtn").on("click", function (event) {
       event.preventDefault();
       $.ajax({
-        url: "/api/gardens/{{id}}",
+        url: "/api/gardens/unassign/{{id}}",
         type: "PUT",
         data: {
-          GardenerId: 0
+          GardenerId: null
         }
       }).then(result => {
         console.log(result)
         window.location.href = "/gardens/{{id}}"
       })
-
     })
   });
 </script>
