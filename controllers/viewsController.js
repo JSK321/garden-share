@@ -5,19 +5,26 @@ const db = require("../models");
 // HTML routes =================================
 // return index.handebars
 router.get("/", function (req, res) {
-    res.render("index");
+    if (req.session.user) {
+        res.render("index",{loggedIn: true});
+    } else {
+        res.render("index")
+    }
+    
 });
 
-// return profile.handlebars
 router.get("/profile", function (req, res) {
+    
     if (req.session.user && req.session.user.userType === "owner") {
         db.Owner.findOne({ where: { id: req.session.user.id } }).then(result => {
-            // console.log(result.toJSON())
-            res.render("profile", result.toJSON())
+           let hbsObject = result.toJSON(); 
+           hbsObject.loggedIn = true;
+           res.render("profile", hbsObject)
         }).catch(err => {
             res.status(500).send(err);
         })
-    } else {
+    } 
+    else {
         res.redirect("/owners/login")
     }
 });
@@ -25,8 +32,9 @@ router.get("/profile", function (req, res) {
 // return profile.handlebars by id
 router.get("/profile/:id", function (req, res) {
     db.Owner.findOne({ where: { id: req.params.id } }).then(result => {
-        // console.log(result.toJSON())
-        res.render("profile", result.toJSON())
+      let hbsObject = result.toJSON();
+      hbsObject.loggedIn = true;
+        res.render("profile", hbsObject)
     }).catch(err => {
         res.status(500).send(err);
     })
@@ -50,7 +58,9 @@ router.get("/email/:gardenId/", function (req, res) {
                 gardenerId: req.params.gardenerId,
                 gardenId: result.toJSON().id
             }
-            res.render("email", renderObj)
+            let hbsObject = renderObj;
+            hbsObject.loggedIn = true;
+            res.render("email",hbsObject)
         }).catch(err => {
             res.status(500).json(err);
         })
@@ -112,6 +122,7 @@ router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
                 gardenerId: req.params.gardenerId,
                 gardenerName: gardener.toJSON().username,
                 ownerId: garden.toJSON().OwnerId
+
             })
         }
         ).catch(err => {
