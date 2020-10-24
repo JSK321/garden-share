@@ -6,16 +6,20 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 
+<!-- Map Box -->
 <div id="mapid" style="height: 100vh;"></div>
 
+<!-- Data for leafletJS -->
 <input type="hidden" id="lat" value={{coord.lat}}>
 <input type="hidden" id="lon" value={{coord.lon}}>
 {{#each markers}}
 <div class="marker" style="visibility: hidden;">
     <input type="hidden" value="{{this.lat}}">
     <input type="hidden" value="{{this.lon}}">
+    <input type="hidden" value="{{this.pop}}">
 </div>
 {{/each}}
+<!-- -->
 
 
 <script>
@@ -28,10 +32,10 @@
     }).addTo(map);
 
     for (var marker of markers) {
-        const [lat, lon] = marker.children;
+        const [lat, lon, pop] = marker.children;
 
         var coord = [parseFloat(lat.value), parseFloat(lon.value)]
 
-        L.marker(coord).addTo(map);
+        L.marker(coord).addTo(map).bindPopup(pop.value).openPopup();
     }
 </script>

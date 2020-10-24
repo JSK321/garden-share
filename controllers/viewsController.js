@@ -9,8 +9,8 @@ router.get("/", function (req, res) {
     const model = {
         coord: { lat: 51.505, lon: -0.09 },
         markers: [
-            { lat: 51.505, lon: -0.09 },
-            { lat: 51.505, lon: -0.10 },
+            { lat: 51.505, lon: -0.09, pop: "Hello!" },
+            { lat: 51.505, lon: -0.10, pop: "World!" },
         ]
     }
 
