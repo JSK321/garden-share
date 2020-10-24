@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     Gardener.hasMany(models.Garden, {
       onDelete: 'SET NULL'
     })
+    Gardener.hasMany(models.Request)
   }
   Gardener.beforeCreate(function(user){
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10),null);

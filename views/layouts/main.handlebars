@@ -2,49 +2,64 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patched</title>
-    <!-- Link to Foundation CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
-        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="/assets/js/script.js"></script>
-    <link rel="stylesheet" href="/assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patched</title>
+  <!-- Link to Foundation CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+    integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="/assets/js/script.js"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <div data-sticky-container>
-    <div data-sticky data-margin-top='0' data-top-anchor="header:bottom" data-btm-anchor="content:bottom">
-      <div class="top-bar topbar-sticky-shrink">
-        <div class="top-bar-title">
-          <a href="/"><img src="/images/patched_Logo2.png" alt="" /></a>
+  <div data-sticky data-margin-top='0' data-top-anchor="header:bottom" data-btm-anchor="content:bottom">
+    <div class="top-bar topbar-sticky-shrink">
+      <div class="top-bar-title">
+        <a href="/"><img src="/images/patched_Logo2.png" alt="" /></a>
+      </div>
+      <div class="top-bar-right">
+
+
+        <div class="input-group input-group-rounded">
+          <input class="input-group-field" type="search" id="address-input">
+          <div class="input-group-button">
+            <input type="submit" class="button secondary" value="Search">
+          </div>
         </div>
-        <div class="top-bar-left">
-           
-        </div>
-        <div class="top-bar-right">
-          <a href="/owners/login" id="userInput">Owner Log In</a>
+        {{!-- <a href="/map"><strong>View Patches</strong></a> --}}
+
+
+      </div>
+      <div class="top-bar-right">
+        <div calss="login">
+          {{!-- need to figure out what is the right parameter  --}}
+          {{#if loggedIn}}
+          <a href="/profile" class="button" id="profile">My Profile</a>
           <br>
-          <a href="/gardeners/login" id="userInput">Gardener Log In</a>
+          <a href="/logout" class="button" id="logout">Log Out</a>
+
+          {{else}}
+          <a href="/owners/login" class="button" id="ownerLogin">Owner Log In</a>
           <br>
-          <a href="/logout" id="userInput">Log Out</a>
-          <ul class="menu">
-            <li><a href="/map" id="userInput"><strong>View Patches</strong></a></li>
-          </ul>
+          <a href="/gardeners/login" class="button" id="gardnerLogin">Gardener Log In</a>
+          {{/if}}
         </div>
+
       </div>
     </div>
   </div>
+</div>
 
 <body>
-    {{{body}}}
+  {{{body}}}
 
-       <!-- Link to Foundation Javascript -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
-      integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o="
-      crossorigin="anonymous"
-    ></script>
+  <!-- Link to Foundation Javascript -->
+  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+    integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>
