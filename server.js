@@ -67,6 +67,9 @@ app.use(viewRoutes)
 const authRoutes = require("./controllers/authController.js")
 app.use(authRoutes)
 
+const requestRoutes = require("./controllers/requestsController.js")
+app.use(requestRoutes)
+
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {

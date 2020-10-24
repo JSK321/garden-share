@@ -27,6 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     // add associations here
     Garden.belongsTo(models.Owner, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
     Garden.belongsTo(models.Gardener)
+    Garden.hasMany(models.Request)
 };
   return Garden;
 };

@@ -55,7 +55,7 @@ router.get("/email/:gardenId/", function (req, res) {
             res.status(500).json(err);
         })
     } else {
-        res.send("Please log in to email a garden owner")
+        res.redirect("/gardeners/login")
     }
 })
 
