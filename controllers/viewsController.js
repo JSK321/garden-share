@@ -14,9 +14,20 @@ router.get("/", function (req, res) {
 });
 
 router.get("/profile", function (req, res) {
-    
     if (req.session.user && req.session.user.userType === "owner") {
-        db.Owner.findOne({ where: { id: req.session.user.id } }).then(result => {
+        db.Owner.findOne({
+            where: { id: req.session.user.id },
+            include: [
+                {
+                    model: db.Garden,
+                    include: [
+                        {
+                            model: db.Request
+                        }
+                    ]
+                }
+            ]
+        }).then(result => {
            let hbsObject = result.toJSON(); 
            hbsObject.loggedIn = true;
            res.render("profile", hbsObject)
