@@ -119,7 +119,8 @@ router.get("/sessiondata", (req, res) => {
     res.json(req.session)
    })
 
-//authentication for the handlebars
+   
+//authentication for the handlebars but what to use?
 // router.use((req,res) => {
 //     if(req.session) res.session.user = req.session();
 //    });
