@@ -24,7 +24,7 @@ router.post("/email", async function (req, res) {
         },
       });
       // send mail with defined transport object
-
+      console.log(req.body)
       let info = await transporter.sendMail({
         from: "patchedapp@gmail.com", // sender address
         to: gardenJSON.Owner.email, // list of receivers
