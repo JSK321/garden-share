@@ -21,7 +21,8 @@ router.get("/profile", function (req, res) {
            hbsObject.loggedIn = true;
            res.render("profile", hbsObject)
         }).catch(err => {
-            res.status(500).send(err);
+            console.log(err)
+            res.status(500).end();
         })
     } 
     else {
@@ -72,7 +73,7 @@ router.get("/email/:gardenId/", function (req, res) {
 // return gardens_post.handlebars to post garden by id
 router.get("/gardens/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
-        res.render("gardens_post", {id: req.session.user.id})
+        res.render("gardens_post", { id: req.session.user.id })
     } else {
         res.redirect("/owners/login")
     }
@@ -81,7 +82,7 @@ router.get("/gardens/add", function (req, res) {
 // Get route to Compost Add Form 
 router.get("/composts/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
-    res.render("composts_post", {id: req.session.user.id})
+        res.render("composts_post", { id: req.session.user.id })
     } else {
         res.redirect("/owners/login")
     }
@@ -196,17 +197,17 @@ router.get("/composts/:id/", function (req, res) {
 //route to edit compost
 router.get("/composts/edit/:OwnerId", function (req, res) {
     db.Compost.findOne({
-      where: {
-        OwnerId: req.params.OwnerId
-      }
+        where: {
+            OwnerId: req.params.OwnerId
+        }
     }).then((compost) => {
-      res.render("compost_edit", compost.toJSON());
-    }).catch(err=>{
+        res.render("compost_edit", compost.toJSON());
+    }).catch(err => {
         console.log(err)
         res.status(500).send("Error!")
     })
 });
-  
+
 // Route to display login
 router.get("/gardeners/login", function (req, res) {
     res.render("login", { route: "/gardeners/login" })
@@ -220,7 +221,7 @@ router.get('/logout', (req, res) => {
 
     req.session.destroy()
     res.redirect("/")
-        
+
 });
 
 module.exports = router;
