@@ -94,7 +94,7 @@ router.get("/composts/edit", function (req, res) {
   if (req.session.user && req.session.user.userType === "owner") {
     db.Compost.findOne({
       where: {
-        id: req.session.user.id
+        OwnerId: req.session.user.id
       }
     }).then((compost) => {
       if (!compost) {

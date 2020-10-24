@@ -49,9 +49,8 @@ router.get("/gardeners/signup", function (req, res) {
     res.render("signup", { route: "/gardeners/signup" })
 });
 // Return email.handlebars 
-router.get("/email/:gardenId", function (req, res) {
+router.get("/email/:gardenId/", function (req, res) {
     if (req.session.user && req.session.user.userType === "gardener") {
-
         db.Garden.findOne({ where: { id: req.params.gardenId } }).then(result => {
             console.log(result.toJSON().name)
             const renderObj = {
@@ -65,12 +64,12 @@ router.get("/email/:gardenId", function (req, res) {
             res.status(500).json(err);
         })
     } else {
-        res.send("Please log in to email a garden owner")
+        res.redirect("/gardeners/login")
     }
 })
 
 // return gardens_post.handlebars to post garden by id
-router.get("/gardens/add/", function (req, res) {
+router.get("/gardens/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
         res.render("gardens_post", {id: req.session.user.id})
     } else {
@@ -95,7 +94,7 @@ router.get("/gardens/edit", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
         db.Garden.findOne({
             where: {
-                id: req.session.user.id
+                OwnerId: req.session.user.id
             }
         }).then((garden) => {
             if (!garden) {

@@ -24,7 +24,8 @@ app.engine("handlebars", exphbs({
   helpers: {
     isEqual: function (value1, value2) {
       return (value1 === value2)
-    }
+    },
+
   }
 }));
 app.set("view engine", "handlebars");
@@ -41,9 +42,16 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-      maxAge: 2 * 60 * 60 * 1000
+    maxAge: 2 * 60 * 60 * 1000
   }
 }))
+
+// app.use(function (req, res, next) {
+//   //res.render("main.handlebars", { hilo: "hola" })
+//   //req.someValue = exphbs.getPartials();
+//   req.someOtherValue = {hola:"hola"};
+//   next();
+// })
 // Import routes and give the server access to them.
 
 const ownerRoutes = require("./controllers/ownerController.js")
@@ -66,6 +74,9 @@ app.use(viewRoutes)
 
 const authRoutes = require("./controllers/authController.js")
 app.use(authRoutes)
+
+const requestRoutes = require("./controllers/requestsController.js")
+app.use(requestRoutes)
 
 // Sync database and start listening
 db.sequelize.sync({ force: false }).then(function () {
