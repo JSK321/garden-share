@@ -19,9 +19,11 @@
       <div class="top-bar-title">
         <a href="/"><img src="/images/patched_Logo2.png" alt="" /></a>
       </div>
+      
+<a href="/map" class="button" style="text-align:center"><strong>View Patches</strong></a>
 
-      <div class="top-bar-right">
-<<<<<<< HEAD
+<div class="top-bar-right">
+
         <div class="login" style="text-align: right">
           {{!-- need to figure out what is the right parameter  --}}
           {{#if loggedIn}}
@@ -33,19 +35,6 @@
           <a href="/owners/login" class="button">Owner Log In</a>
           <br>
           <a href="/gardeners/login" class="button">Gardener Log In</a>
-=======
-        <div class="login">
-          {{!-- need to figure out what is the right parameter  --}}
-          {{#if loggedIn}}
-          <a href="/profile" class="button" id="userInput">My Profile</a>
-          <br>
-          <a href="/logout" class="button" id="userInput">Log Out</a>
-
-          {{else}}
-          <a href="/owners/login" class="button" id="userInput">Owner Log In</a>
-          <br>
-          <a href="/gardeners/login" class="button" id="userInput">Gardener Log In</a>
->>>>>>> f0e067f4420db33077a3062b05584dadd2834d9b
           {{/if}}
         </div>
 
