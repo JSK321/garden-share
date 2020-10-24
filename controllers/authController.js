@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../models');
 const bcrypt = require('bcrypt');
 const axios = require("axios");
+const session = require('express-session');
 
 router.post('/owners/signup', (req, res) => {
     const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
@@ -116,7 +117,12 @@ router.post('/gardeners/login', (req, res) => {
 
 router.get("/sessiondata", (req, res) => {
     res.json(req.session)
-})
+   })
+
+//authentication for the handlebars
+// router.use((req,res) => {
+//     if(req.session) res.session.user = req.session();
+//    });
 
 
 

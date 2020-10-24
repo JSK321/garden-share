@@ -22,9 +22,10 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({
   defaultLayout: "main",
   helpers: {
-    isEqual: function(value1, value2) {
+    isEqual: function (value1, value2) {
       return (value1 === value2)
-    }
+    },
+
   }
 }));
 app.set("view engine", "handlebars");
@@ -41,9 +42,14 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-      maxAge: 2 * 60 * 60 * 1000
+    maxAge: 2 * 60 * 60 * 1000
   }
 }))
+
+app.use(function (req, res, next) {
+  res.render("main.handlebars", { hilo: "hola" })
+  next();
+})
 // Import routes and give the server access to them.
 
 const ownerRoutes = require("./controllers/ownerController.js")
@@ -68,8 +74,8 @@ const authRoutes = require("./controllers/authController.js")
 app.use(authRoutes)
 
 // Sync database and start listening
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
+db.sequelize.sync({ force: false }).then(function () {
+  app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
 });
