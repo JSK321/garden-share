@@ -64,6 +64,7 @@ body {
       padding-left: 50%;
     }
   }
+<<<<<<< HEAD
 
 /* search bar style */
 .input-group-rounded .input-group-field {
@@ -76,3 +77,41 @@ body {
   font-size: 0.8rem;
 }
 
+=======
+  strong{
+    color:white;
+  }
+
+  #userInput {
+    border-radius: 15px;
+    background-color: #7F9174;
+    color:white;
+  }
+
+  #gardenButton {
+    border-radius: 15px;
+    background-color: darkgreen; 
+  }
+
+  #compostButton {
+    border-radius: 15px;
+    background-color: darkorange;
+  }
+  
+  #profileButton {
+    border-radius: 15px;
+    background-color:#7F9174;
+  }
+
+  .card {
+    padding: 15px;
+    margin: 40px;
+    border-radius: 15px;
+    background-color: #3f473f;
+    color:white;
+  }
+
+  .switch-paddle{
+    background-color: #7F9174;
+  }
+>>>>>>> dev
