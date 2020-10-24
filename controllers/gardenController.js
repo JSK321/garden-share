@@ -25,8 +25,6 @@ router.get("/api/gardens/:id", function (req, res) {
     });
 });
 
-<<<<<<< HEAD
-=======
 // return info_post.handlebars to post garden
 router.get("/garden/add", function (req, res) {
   res.render("gardens_post");
@@ -59,7 +57,6 @@ router.get("/gardens", function (req, res) {
 //   res.render("info_post", {id:req.params.id})
 // });
 
->>>>>>> dev
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
   db.Owner.findOne({ where: { id: req.body.OwnerId } })
