@@ -31,13 +31,12 @@ $(function(){
             url:"/api/owners/{{id}}",
             type:"PUT",
             data: {
-                username: $("[username=username]").val(),
-                email: $("[email=email]").val(),
-                address: $("[address=address]").val(),
-                password: $("[password=password]").val()
+                username: $("[name=username]").val(),
+                email: $("[name=email]").val(),
+                address: $("[name=address]").val(),
+                password: $("[name=password]").val()
             }
         }).then(result => {
-            console.log(result)
             window.location.href="/profile/{{id}}"
         })
     })
