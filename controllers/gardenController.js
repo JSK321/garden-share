@@ -1,4 +1,6 @@
 const express = require("express");
+const { QueryTypes } = require("sequelize");
+const { sequelize } = require("../models");
 const router = express.Router();
 const db = require("../models");
 // const axios = require('axios')
@@ -105,6 +107,7 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) {
+  console.log(req.body)
   db.Garden.update(
     req.body,
     {
@@ -122,6 +125,13 @@ router.put("/api/gardens/:id", function (req, res) {
     console.log(err);
     res.status(500).json(err);
   });
+});
+
+router.put("/api/gardens/unassign/:id", function (req, res) {
+  console.log(req.body)
+  sequelize.query(`UPDATE Gardens SET GardenerId = NULL WHERE id = ${req.params.id}`, {type: QueryTypes.UPDATE}).then(update=>{
+    res.json(update)
+  })
 });
 
 router.get("/garden/edit/:id", function (req, res) {
