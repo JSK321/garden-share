@@ -1,34 +1,50 @@
-{{!-- <form class="grid-container"> --}}
-<div>
-<button class="button" id="unAssignBtn">Unassign</button>
-  <span>Click to unassign this garden so that someone new can garden here</span>
-</div>
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Patch Name:</label>
-    <input type="text" id="id" name="name" value="{{name}}">
-  </div>
-</div>
-<br>
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Patch size :</label>
-    Length <input type="Integer" name="length" value="{{length}}"> ft * Width <input type="Integer" name="width"
-      value="{{width}}"> ft
-  </div>
-</div>
-<br>
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Patch Description :</label>
-    <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10">{{description}}
-      </textarea>
-  </div>
-</div>
-<br>
+<div class="grid-x grid-padding">
+  <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+    <div class="card small-12 medium 8">
+      <label><strong>Patch Name:</strong></label>
+      <input type="text" id="id" name="name" value="{{name}}" placeholder="Patch Name" style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
 
-<button class="button float-center" id="garden_edit_Btn">Save</button>
-{{!-- </form> --}}
+      <label><strong>Patch size:</strong></label>
+      <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" value="{{length}}" placeholder=" Feet" style="width: 30%"> 
+      <br>
+      <label><strong>Width </strong></label><input id="userInput" type="Integer" name="width" value="{{width}}" placeholder=" Feet" style="width: 30%">
+      <br>
+      <br>
+      <label><strong>Patch Description:</strong></label>
+      <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10" placeholder="Add your description here" style="border-radius:15px;background-color: #7F9174;color:white">{{description}} 
+      </textarea>
+      <br>
+      <div>
+        <label><strong>Assign gardener</strong></label>
+        <select name="gardeners" id="" style="border-radius:15px;background-color: #7F9174;color:white">
+          {{!-- need assistance with getting list of gardeners to show in drop-down list --}}
+          <option value="gardener">{{username}}</option>
+          <option value="gardener">{{id}}</option>
+        </select>
+
+        <button class="button float-center" id="garden_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      $("#garden_edit_Btn").on("click", function (event) {
+        event.preventDefault();
+        console.log("what's up")
+        $.ajax({
+          url: "/api/gardens/{{id}}",
+          type: "PUT",
+          data: {
+            name: $("[name=name]").val(),
+            length: $("[name=length]").val(),
+            width: $("[name=width]").val(),
+            description: $("[name=description]").val()
+          }
+        }).then(result => {
+          console.log(result)
+          window.location.href = "/gardens/{{id}}"
+        })
 
 <script>
   $(function () {

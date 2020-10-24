@@ -1,49 +1,43 @@
-<div class="grid-container">
-    <div class="grid-x grid-padding-x">
-        <div class="small-12 medium 8">
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card small-12 medium 8">
             <!-- show garden name -->
-            <label>Patch Name :</label>
-            <pre>{{name}}</pre>
-
-        </div>
-    </div>
-
-    <br>
-
-    <div class="grid-x grid-padding-x">
-        <div class="small-12 medium 8">
-            <label>Patch size :</label>
-            <pre>{{length}} X {{width}}</pre>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="grid-x grid-padding-x">
-        <div class="small-12 medium 8">
-            <label>Description :</label>
-            <pre>{{description}}</pre>
-        </div>
-    </div>
-    {{#if justPosted}}
-    {{else}}
-        {{#if GardenerId}}
-            <div class="grid-x grid-padding-x">
-                <div class="small-12 medium 8">
-                    <span>This patch is being gardened</span>
-                </div>
+            <label><strong>Patch Name:</strong></label>
+            <div id="userInput" style="width:30%">
+                <pre> {{name}}</pre>
             </div>
-        {{else}}
-            {{#if (isEqual PotentialGardenerId  id)}}
+            <br>
+            <label><strong>Patch size:</strong></label>
+            <div id="userInput" style="width:30%">
+                <pre> {{length}}Ft by {{width}}Ft</pre>
+            </div>
+            <br>
+            <label><strong>Description:</strong></label>
+            <div id="userInput">
+                <pre> {{description}}</pre>
+            </div>
+            {{#if justPosted}}
             {{else}}
-                {{#if PotentialGardenerId}} 
-                <a href="/email/{{id}}">
-                    <button class="button float-center">Email</button>
-                </a>
+                {{#if GardenerId}}
+                    <div class="grid-x grid-padding-x">
+                        <div class="small-12 medium 8">
+                            <span>This patch is being gardened</span>
+                        </div>
+                    </div>
                 {{else}}
-                <a href="/gardeners/signup">Sign up to connect with the owner of this garden!</a>
+                    {{#if (isEqual PotentialGardenerId  id)}}
+                    {{else}}
+                        {{#if PotentialGardenerId}}
+                            <a href="/email/{{id}}">
+                                <button class="button float-center">Email</button>
+                            </a>
+                        {{else}}
+                    <a href="/gardeners/signup" style="color:white">Sign up to connect with the owner of this garden!</a>
+                        {{/if}}
+                    {{/if}}
                 {{/if}}
             {{/if}}
-        {{/if}}
-    {{/if}}
+            
+        </div>
+    </div>
 </div>
