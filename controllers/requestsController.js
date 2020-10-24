@@ -34,4 +34,12 @@ router.get("/requests/:id", function (req, res) {
     })
 })
 
+router.delete("/requests/:gardenId", function(req, res){
+    db.Request.destroy({
+        where: {GardenId: req.params.gardenId}
+    }).then(result=>{
+        res.json(result)
+    })
+})
+
 module.exports = router;
