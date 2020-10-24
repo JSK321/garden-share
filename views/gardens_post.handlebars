@@ -1,34 +1,26 @@
-<form class="grid-container" action="/api/gardens" method="POST">
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <label>Patch Name:</label>
-      <input type="text" id="id" name="name">
-    </div>
-    
-    <input type="integer" name="OwnerId" value="{{id}}" style="display:none">
- 
-  </div>
+<div class="grid-x grid-padding">
+  <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+    <div class="card small-12 medium 8">
+      <form action="/api/gardens" method="POST">
 
-  <br>
+        <label><strong>Patch Name:</strong></label>
+        <input type="text" id="id" name="name" placeholder="Patch Name" style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">
 
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <label>Patch size :</label>
-      Length <input type="Integer" name="length"> ft * Width <input type="Integer" name="width"> ft
-    </div>
-  </div>
+        <input type="integer" name="OwnerId" value="{{id}}" style="display:none">
 
+        <label><strong>Patch size:</strong></label>
+        <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" placeholder=" Feet" style="width: 30%">
+        <br>
+        <label><strong>Width</strong></label><input id="userInput" type="Integer" name="width" placeholder=" Feet" style="width: 30%">
+        <br>
+        <br>
+        <label><strong>Patch Description:</strong></label>
+        <textarea id="userInput" name="description" cols="30" rows="10"
+          placeholder="Add your description here"></textarea>
 
-  <br>
+        <button class="button float-center" id="userInput">Post</button>
 
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <textarea name="description" cols="30" rows="10"></textarea>
+      </form>
     </div>
   </div>
-
-  <br>
-
-  <button class="button float-center">Post</button>
-
-</form>
+</div>

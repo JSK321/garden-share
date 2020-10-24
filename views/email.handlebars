@@ -1,25 +1,18 @@
-<form class="grid-container" action="/email" method="POST">
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
+<div class="grid-x grid-padding">
+  <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+    <div class="card small-12 medium 8">
       <h4>Message owner of {{gardenName}}</h4>
+      <br>
+
+      <br>
+      <textarea name="emailBody" cols="30" rows="10" id="userInput" placeholder="Type Email here"></textarea>
+
+      <br>
+      <input style="display:none;" name="gardenId" value="{{gardenId}}">
+
+      <button class="button float-center" id="userInput">Email</button>
+
+      </form>
     </div>
   </div>
-
-  <br>
-
-
-
-  <br>
-
-  <div class="grid-x grid-padding-x">
-    <div class="small-12 medium 8">
-      <textarea name="emailBody" cols="30" rows="10"></textarea>
-    </div>
-  </div>
-
-  <br>
-<input style="display:none;" name="gardenId" value="{{gardenId}}">
-
-  <button class="button float-center">Email</button>
-
-</form>
+</div>

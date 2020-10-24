@@ -1,42 +1,45 @@
-{{!-- <form class="grid-container" > --}}
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Compost Name:</label>
-    <input type="text" id="id" name="name" value="{{name}}">
-  </div>
-</div>
-<br>
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Compost Description :</label>
-    <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10">{{description}}
+<div class="grid-x grid-padding">
+  <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+    <div class="card small-12 medium 8">
+      <label><strong>Compost Name:</strong>></label>
+      <input type="text" id="id" name="name" value="{{name}}"
+        style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
+
+      <br>
+      <label><strong>Compost Description:</strong></label>
+      <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10"
+        style="border-radius:15px;background-color: #7F9174;color:white">{{description}}
       </textarea>
-  </div>
-</div>
 
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Compost Deposit Available:</label>
-    <div class="switch">
-      <input class="switch-input" id="depositEditSwitch" type="checkbox">
-      <label class="switch-paddle" for="depositEditSwitch"></label>
+
+
+      <label><strong>Compost Deposit Available:</strong></label>
+      <div class="switch">
+        <input class="switch-input" id="depositEditSwitch" type="checkbox">
+        <label class="switch-paddle" for="depositEditSwitch">
+          <span class="switch-active" aria-hidden="true">Yes</span>
+          <span class="switch-inactive" aria-hidden="true">No</span>
+        </label>
+      </div>
+
+
+      <label><strong>Compost Deposit Available:</strong>></label>
+      <div class="switch">
+        <input class="switch-input" id="withdrawEditSwitch" type="checkbox">
+        <label class="switch-paddle" for="withdrawEditSwitch">
+          <span class="switch-active" aria-hidden="true">Yes</span>
+          <span class="switch-inactive" aria-hidden="true">No</span>
+        </label>
+      </div>
+
+      <br>
+
+      <input style="display: none" name="id" value="{{id}}">
+      <button class="button float-center" id="compost_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
     </div>
   </div>
 </div>
-<div class="grid-x grid-padding-x">
-  <div class="small-12 medium 8">
-    <label>Compost Withdraw Available:</label>
-    <div class="switch">
-      <input class="switch-input" id="withdrawEditSwitch" type="checkbox">
-      <label class="switch-paddle" for="withdrawEditSwitch"></label>
-    </div>
-  </div>
-</div>
-<br>
 
-<input style="display: none" name="id" value="{{id}}">
-<button class="button float-center" id="compost_edit_Btn">Save</button>
-{{!-- </form> --}}
 <script>
   $(function () {
     $("#compost_edit_Btn").on("click", function (event) {
