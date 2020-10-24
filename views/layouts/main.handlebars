@@ -19,31 +19,22 @@
       <div class="top-bar-title">
         <a href="/"><img src="/images/patched_Logo2.png" alt="" /></a>
       </div>
-      <div class="top-bar-right">
+      
+<a href="/map" class="button" style="text-align:center"><strong>View Patches</strong></a>
 
+<div class="top-bar-right">
 
-        <div class="input-group input-group-rounded">
-          <input class="input-group-field" type="search" id="address-input">
-          <div class="input-group-button">
-            <input type="submit" class="button secondary" value="Search">
-          </div>
-        </div>
-        {{!-- <a href="/map"><strong>View Patches</strong></a> --}}
-
-
-      </div>
-      <div class="top-bar-right">
-        <div class="login">
+        <div class="login" style="text-align: right">
           {{!-- need to figure out what is the right parameter  --}}
           {{#if loggedIn}}
-          <a href="/profile" class="button" id="userInput">My Profile</a>
+          <a href="/profile" class="button">My Profile</a>
           <br>
-          <a href="/logout" class="button" id="userInput">Log Out</a>
+          <a href="/logout" class="button">Log Out</a>
 
           {{else}}
-          <a href="/owners/login" class="button" id="userInput">Owner Log In</a>
+          <a href="/owners/login" class="button">Owner Log In</a>
           <br>
-          <a href="/gardeners/login" class="button" id="userInput">Gardener Log In</a>
+          <a href="/gardeners/login" class="button">Gardener Log In</a>
           {{/if}}
         </div>
 
@@ -53,6 +44,16 @@
 </div>
 
 <body>
+
+
+
+
+
+
+
+
+
+
   {{{body}}}
 
   <!-- Link to Foundation Javascript -->
