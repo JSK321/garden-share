@@ -1,4 +1,8 @@
 {{!-- <form class="grid-container"> --}}
+<div>
+<button class="button" id="unAssignBtn">Unassign</button>
+  <span>Click to unassign this garden so that someone new can garden here</span>
+</div>
 <div class="grid-x grid-padding-x">
   <div class="small-12 medium 8">
     <label>Patch Name:</label>
@@ -22,16 +26,6 @@
   </div>
 </div>
 <br>
-<div>
-  <strong>Assign gardener</strong>
-  {{!-- <form> --}}
-  <select name="gardeners" id="">
-    {{!-- need assistance with getting list of gardeners to show in drop-down list --}}
-    <option value="gardener">{{username}}</option>
-    <option value="gardener">{{id}}</option>
-  </select>
-  {{!-- </form> --}}
-</div>
 
 <button class="button float-center" id="garden_edit_Btn">Save</button>
 {{!-- </form> --}}
@@ -40,7 +34,6 @@
   $(function () {
     $("#garden_edit_Btn").on("click", function (event) {
       event.preventDefault();
-      console.log("what's up")
       $.ajax({
         url: "/api/gardens/{{id}}",
         type: "PUT",
@@ -49,6 +42,22 @@
           length: $("[name=length]").val(),
           width: $("[name=width]").val(),
           description: $("[name=description]").val()
+        }
+      }).then(result => {
+        console.log(result)
+        window.location.href = "/gardens/{{id}}"
+      })
+
+    })
+  });
+  $(function () {
+    $("#unAssignBtn").on("click", function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: "/api/gardens/{{id}}",
+        type: "PUT",
+        data: {
+          GardenerId: 0
         }
       }).then(result => {
         console.log(result)
