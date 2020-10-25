@@ -72,20 +72,16 @@ router.delete("/api/owners/:id", function (req, res) {
 });
 
 // PUT route
-router.put("/api/owners/:id", function (req, res) {
-    db.Owner.update({
-        username: req.body.username,
-        email: req.body.email,
-        address: req.body.address,
-        password: req.body.password
-    },
+router.put("/api/owners/", function (req, res) {
+    db.Owner.update(req.body,
     {
         where: {
-            id: req.body.id
+            id: req.session.user.id
         }
     }).then(result=>{
         res.json(result)
     }).catch(err=>{
+        console.error(err)
         res.status(418).end();
     })
 });

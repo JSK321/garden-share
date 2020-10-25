@@ -2,8 +2,7 @@
     <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
         <div class="card row small-12 medium-8">
 
-            <form action="{{route}}" method="POST">
-
+            <form id="logInForm">
                 <label><strong>User Name:</strong></label>
                 <input type="text" id="userInput" name="username" placeholder="User Name">
 
@@ -17,7 +16,11 @@
                 <br>
                 <div class="text-center">
                 <button class="button float-center" id="logInBtn" type="submit" style="border-radius:15px;background-color: #7F9174;color:white">Log In</button>
-                <a href="/gardeners/signup" class="button" id="userInput">Sign Up</a>
+                {{#if (isEqual route "/gardeners/login")}}
+                    <a href="/gardeners/signup" class="button" id="userInput">Sign Up</a>
+                {{else}}
+                    <a href="/owners/signup" class="button" id="userInput">Sign Up</a>
+                {{/if}}
                 </div>
 
             </form>
@@ -25,24 +28,28 @@
     </div>
 </div>
 
-<script>
-    $("#logInBtn").on("click", function (event) {
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#logInForm").submit(function (event) {
         event.preventDefault();
         $.ajax({
             url: "{{route}}",
-            type: "POST",
+            method: "POST",
             data: {
                 username: $("[name=username]").val(),
                 password: $("[name=password]").val()
+            },
+            success: function (response) {
+                if("{{route}}"==="/owners/login"){
+                    window.location.href="/profile/{{id}}"
+                } else {
+                    window.location.href="/map"
+                }
+            },
+            error: function(response) {
+                alert("Incorrect username/password")
             }
-        }).then(function(response) {
-            if({{route}}==="/owners/login"){
-            window.location.href="/profile/"
-            } else {
-                window.location.href="/map"
-            }
-        }).fail(function(response) {
-            alert("Incorrect Password/Username")
         })
     });
+});
 </script>
