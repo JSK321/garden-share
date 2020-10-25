@@ -95,7 +95,6 @@ router.get("/gardens/add", function (req, res) {
 // Get route to Compost Add Form 
 router.get("/composts/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
-        res.render("composts_post", { id: req.session.user.id })
         let hbsObject = {id: req.session.user.id};
         hbsObject.loggedIn = true;
         res.render("composts_post", hbsObject)
@@ -105,6 +104,7 @@ router.get("/composts/add", function (req, res) {
 })
 // Get route to Compost Add Form by id
 router.get("/composts/add/:id", function (req, res) {
+    req.params.loggedIn = true;
     res.render("composts_post", req.params)
 })
 // Get route to Garden Edit form
@@ -212,18 +212,18 @@ router.get("/gardens/:id", function (req, res) {
             console.log(gardenJSON)
         }
 if (req.session.user) {
-    
+    gardenJSON.loggedIn = true;
 }
-        res.render("garden_display", hbsObject)
+        res.render("garden_display", gardenJSON)
     })
 })
 // Route to display compost by id
 router.get("/composts/:id/", function (req, res) {
     db.Compost.findOne({ where: { id: req.params.id } }).then(compost => {
         compostJSON = compost.toJSON();
-        let hbsObject = compostJSON;
-        hbsObject.loggedIn = true;
-        res.render("compost_display", hbsObject)
+       compostJSON.loggedIn = true;
+      
+        res.render("compost_display", compostJSON)
     })
 })
 //route to edit compost
@@ -233,9 +233,8 @@ router.get("/composts/edit/:OwnerId", function (req, res) {
             OwnerId: req.params.OwnerId
         }
     }).then((compost) => {
-        let hbsObject = compost.toJSON();
-        hbsObject = true;
-        res.render("compost_edit", hbsObject);
+       compost.loggedIn = true;
+        res.render("compost_edit", compost);
     }).catch(err => {
         console.log(err)
         res.status(500).send("Error!")

@@ -29,6 +29,7 @@ router.get("/api/gardens/:id", function (req, res) {
 
 // return info_post.handlebars to post garden
 router.get("/garden/add", function (req, res) {
+  
   res.render("gardens_post");
 });
 // return gardens_post.handlebars to post garden

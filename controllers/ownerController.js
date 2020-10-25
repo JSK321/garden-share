@@ -27,7 +27,9 @@ router.get("/owners/edit/:id", function(req, res) {
     db.Owner.findOne({
         where:{id: req.params.id},
     }).then(result => {
-        res.render("profile_edit", result.toJSON());
+        let hbsObject = result.toJSON();
+        hbsObject.loggedIn = true;
+        res.render("profile_edit", hbsObject);
     })
 })
 
