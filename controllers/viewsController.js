@@ -30,7 +30,9 @@ router.get("/profile", function (req, res) {
         }).then(result => {
             let hbsObject = result.toJSON();
             hbsObject.loggedIn = true;
-            hbsObject.GardenId = hbsObject.Gardens[0].id;
+            if (hbsObject.Gardens.length > 0){
+                hbsObject.GardenId = hbsObject.Gardens[0].id;
+            }
             res.render("profile", hbsObject)
         }).catch(err => {
             console.log(err)

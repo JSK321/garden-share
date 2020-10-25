@@ -61,20 +61,20 @@
             $.ajax({
                 url: "/gardens/edit",
                 type: "GET"
-            }).then(result=>{
+            }).then(result => {
                 window.location.href = "/gardens/edit"
-            })
             }).fail(err => {
                 alert("You have no gardens")
-        })
-        $("#compostEditBtn").on("click", function () {
-            $.ajax({
-                url: "/compost/edit",
-                type: "GET"
-            }).then(result=>{
-                window.location.href = "/composts/edit"
-            }).fail(err => {
-                alert("You have no composts")
+            })
+            $("#compostEditBtn").on("click", function () {
+                $.ajax({
+                    url: "/compost/edit",
+                    type: "GET"
+                }).then(result => {
+                    window.location.href = "/composts/edit"
+                }).fail(err => {
+                    alert("You have no composts")
+                })
             })
         })
     })
