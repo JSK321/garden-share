@@ -27,20 +27,6 @@ router.get("/api/gardens/:id", function (req, res) {
     });
 });
 
-// return info_post.handlebars to post garden
-router.get("/garden/add", function (req, res) {
-  res.render("gardens_post");
-});
-// return gardens_post.handlebars to post garden
-router.get("/garden/add/", function (req, res) {
-  res.render("gardens_post")
-})
-
-// return gardens_post.handlebars to post garden by id
-router.get("/garden/add/:id", function (req, res) {
-  res.render("gardens_post", req.params)
-})
-
 // return info_display.handlebars to display all gardens available
 router.get("/gardens", function (req, res) {
   db.Garden.findAll((data) => {
@@ -52,12 +38,6 @@ router.get("/gardens", function (req, res) {
     res.status(500).send(err);
   });
 });
-// res.render("info_display", {Garden: result})
-
-// return info_post.handlebars to post garden
-// router.get("/garden/:id", function(req,res){
-//   res.render("info_post", {id:req.params.id})
-// });
 
 // Post route to add a garden
 router.post("/api/gardens", function (req, res) {
@@ -131,15 +111,5 @@ router.put("/api/gardens/unassign/:id", function (req, res) {
     res.json(update)
   })
 });
-
-router.get("/garden/edit/:id", function (req, res) {
-  db.Garden.findOne({
-    where: { id: req.params.id },
-  }).then((garden) => {
-    res.render("garden_edit", garden.toJSON());
-  });
-});
-
-
 
 module.exports = router;

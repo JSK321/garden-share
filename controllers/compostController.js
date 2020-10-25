@@ -103,6 +103,9 @@ router.get("/composts/edit", function (req, res) {
       if (!compost) {
         res.status(400).end()
       } else {
+        if (req.session.user) {
+          
+        }
         res.render("compost_edit", compost.toJSON());
       }
     }).catch(err => {

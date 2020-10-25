@@ -2,6 +2,9 @@ body {
     background-color: lightgrey;
 }
 
+.subheader{
+  margin-top: 5rem
+}
 
 .topbar-sticky-shrink {
     padding: 1rem;
@@ -98,7 +101,21 @@ body {
     background-color: #7F9174;
   }
   
-  .button{
+  .navbtn{
+    color: white;
     background-color:  #747474;
+    padding: .3rem;
+    margin-top: 0.5rem;
+    border-radius: 15px;
+    margin-left: 1rem;
   }
  
+  #mapIcon{
+  position: inherit;
+  right: 10%;
+  }
+
+  #mapIcon{
+    width:200%;
+    flex
+  }

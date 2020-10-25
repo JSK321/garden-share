@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require('../models');
 const bcrypt = require('bcrypt');
 const axios = require("axios");
-const session = require('express-session');
 
 router.post('/owners/signup', (req, res) => {
     const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'

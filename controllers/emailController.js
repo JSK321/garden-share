@@ -7,13 +7,15 @@ var nodemailer = require("nodemailer");
 router.post("/email", async function (req, res) {
   try {
     if (req.session.user && req.session.user.userType === "gardener") {
-      const gardener = await db.Gardener.findOne({where: {id: req.session.user.id}})
-      const gardenerJSON = gardener.toJSON()
-      const garden = await db.Garden.findOne({ 
+      const gardener = await db.Gardener.findOne({
+        where: { id: req.session.user.id },
+      });
+      const gardenerJSON = gardener.toJSON();
+      const garden = await db.Garden.findOne({
         where: { id: req.body.gardenId },
-        include: db.Owner  
-      })
-      const gardenJSON = garden.toJSON()
+        include: db.Owner,
+      });
+      const gardenJSON = garden.toJSON();
 
       // create reusable transporter object using the default SMTP transport
       const transporter = nodemailer.createTransport({
@@ -25,10 +27,9 @@ router.post("/email", async function (req, res) {
       });
       // send mail with defined transport object
       let info = await transporter.sendMail({
-        from: "patchedapp@gmail.com", // sender address
+        from: gardenerJSON.email, // sender address
         to: gardenJSON.Owner.email, // list of receivers
         subject: "Patched Connection", // Subject line
-        // text: req.body.emailBody, // plain text body
         html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
@@ -81,7 +82,7 @@ router.post("/email", async function (req, res) {
                             <tbody>
                               <tr>
                                 <br>
-                                <td><a href=http://localhost:8080/profile' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden</a></td>
+                                <td><a href=http://localhost:8080/profile' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden!</a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -97,7 +98,7 @@ router.post("/email", async function (req, res) {
         </body>
         </html>
         
-        `, // html body
+        `
       });
 
       console.log("Message sent: %s", info.messageId);
@@ -106,14 +107,14 @@ router.post("/email", async function (req, res) {
       // Preview only available when sending through an Ethereal account
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
       // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-      res.send("Message Sent")
+      res.send("Message Sent");
+    } else {
+      res.redirect("/gardeners/login")
     }
   } catch (err) {
-    console.log(err)
-    res.status(500).end()
+    console.log(err);
+    res.status(500).end();
   }
-
 });
-
 
 module.exports = router;
