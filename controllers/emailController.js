@@ -82,7 +82,7 @@ router.post("/email", async function (req, res) {
                             <tbody>
                               <tr>
                                 <br>
-                                <td><a href=http://localhost:8080/profile' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden!</a></td>
+                                <td><a href='http://localhost:8080/profile' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden!</a></td>
                               </tr>
                             </tbody>
                           </table>
