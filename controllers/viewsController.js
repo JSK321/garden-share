@@ -30,6 +30,7 @@ router.get("/profile", function (req, res) {
         }).then(result => {
             let hbsObject = result.toJSON();
             hbsObject.loggedIn = true;
+            hbsObject.GardenId = hbsObject.Gardens[0].id;
             res.render("profile", hbsObject)
         }).catch(err => {
             console.log(err)
@@ -63,7 +64,6 @@ router.get("/gardeners/signup", function (req, res) {
 router.get("/email/:gardenId/", function (req, res) {
     if (req.session.user && req.session.user.userType === "gardener") {
         db.Garden.findOne({ where: { id: req.params.gardenId } }).then(result => {
-            console.log(result.toJSON().name)
             const renderObj = {
                 gardenName: result.toJSON().name,
                 ownerId: result.toJSON().OwnerId,
@@ -213,6 +213,9 @@ router.get("/gardens/:id", function (req, res) {
         }
         let hbsObject = gardenJSON;
         hbsObject.loggedIn = true;
+        if (req.session.user && req.session.user.userType === "owner") {
+            hbsObject.justPosted = true;
+        }
         res.render("garden_display", hbsObject)
     })
 })

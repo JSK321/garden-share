@@ -27,7 +27,7 @@
 <script>
     $(function () {
         $.ajax({
-            url: "/requests/{{id}}",
+            url: "/requests/{{GardenId}}",
             type: "GET"
         }).then(response => {
             if (response.length > 0) {
@@ -48,7 +48,7 @@
                 }).then(result => {
                     console.log(result)
                     $.ajax({
-                        url: "requests/" + $(this).attr("data-gardenId"),
+                        url: "/requests/" + $(this).attr("data-gardenId"),
                         type: "DELETE"
                     }).then(response => {
                         console.log(response)
@@ -61,14 +61,18 @@
             $.ajax({
                 url: "/gardens/edit",
                 type: "GET"
+            }).then(result=>{
+                window.location.href = "/gardens/edit"
+            })
             }).fail(err => {
                 alert("You have no gardens")
-            })
         })
         $("#compostEditBtn").on("click", function () {
             $.ajax({
                 url: "/compost/edit",
                 type: "GET"
+            }).then(result=>{
+                window.location.href = "/composts/edit"
             }).fail(err => {
                 alert("You have no composts")
             })

@@ -107,7 +107,6 @@ router.delete("/api/gardens/:id", function (req, res) {
 
 // PUT route
 router.put("/api/gardens/:id", function (req, res) {
-  console.log(req.body)
   db.Garden.update(
     req.body,
     {
@@ -128,7 +127,6 @@ router.put("/api/gardens/:id", function (req, res) {
 });
 
 router.put("/api/gardens/unassign/:id", function (req, res) {
-  console.log(req.body)
   sequelize.query(`UPDATE Gardens SET GardenerId = NULL WHERE id = ${req.params.id}`, {type: QueryTypes.UPDATE}).then(update=>{
     res.json(update)
   })

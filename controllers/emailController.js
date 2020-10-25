@@ -24,7 +24,6 @@ router.post("/email", async function (req, res) {
         },
       });
       // send mail with defined transport object
-      console.log(req.body)
       let info = await transporter.sendMail({
         from: "patchedapp@gmail.com", // sender address
         to: gardenJSON.Owner.email, // list of receivers
@@ -61,6 +60,7 @@ router.post("/email", async function (req, res) {
                                           <p style="color:#3f473f">Would like to connect about your garden!</p>
                                           <p><strong style="color:#3f473f">Message:</strong></p>
                                           <p class="small-text-center" style="color:white">${req.body.emailBody}</p>
+                                          <p class="small-text-center" style="color:white">Email them back at: ${gardenerJSON.email}</p>
                                         </th>
                                       </tr>
                                     </tbody>
@@ -81,7 +81,7 @@ router.post("/email", async function (req, res) {
                             <tbody>
                               <tr>
                                 <br>
-                                <td><a href=http://localhost:8080/gardens/assign/${gardenJSON.id}/${gardenerJSON.id}' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden</a></td>
+                                <td><a href=http://localhost:8080/profile' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden</a></td>
                               </tr>
                             </tbody>
                           </table>
