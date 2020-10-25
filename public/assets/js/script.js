@@ -12,7 +12,7 @@ $(function () {
                 emailBody: $("[name=emailBody").val()
             }
         }).then(response=>{
-            console.log(response)
+            alert("Email sent!")
         }).fail(err=>{
             alert("Email failed to send!")
         })
