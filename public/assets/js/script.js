@@ -12,7 +12,9 @@ $(function () {
                 emailBody: $("[name=emailBody").val()
             }
         }).then(response=>{
-            console.log(response)
+            alert("Email sent!")
+        }).fail(err=>{
+            alert("Email failed to send!")
         })
         $.ajax({
             url: "/requests",
@@ -23,10 +25,3 @@ $(function () {
         })
     })
 });
-
-// $(document).on("click", ".edit-profile-button", editProfile)
-
-
-// function editProfile(){
-    
-// }
