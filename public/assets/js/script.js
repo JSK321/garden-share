@@ -8,7 +8,9 @@ $(function () {
             url: "/email",
             type: "POST",
             data: {
+                email: $("#email").val(),
                 gardenId: $("[name=gardenId]").val(),
+                userInput: $("#userInput").val()
                 emailBody: $("[name=emailBody").val()
             }
         }).then(response=>{
