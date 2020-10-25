@@ -23,14 +23,18 @@ router.get("/api/owners/:id", function (req, res) {
 })
 
 // Get route to edit profile
-router.get("/owners/edit/:id", function(req, res) {
-    db.Owner.findOne({
-        where:{id: req.params.id},
-    }).then(result => {
-        let hbsObject = result.toJSON();
-        hbsObject.loggedIn = true;
-        res.render("profile_edit", hbsObject);
-    })
+router.get("/owners/edit", function(req, res) {
+    if (req.session.user && req.session.user.userType === "owner") {
+        db.Owner.findOne({
+            where:{id: req.session.user.id},
+        }).then(result => {
+            let hbsObject = result.toJSON();
+            hbsObject.loggedIn = true;
+            res.render("profile_edit", hbsObject);
+        })
+    } else {
+        res.redirect("/owners/login")
+    }
 })
 
 // Post route to add an Owner

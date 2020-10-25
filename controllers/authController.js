@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require('../models');
 const bcrypt = require('bcrypt');
 const axios = require("axios");
-const session = require('express-session');
 
 router.post('/owners/signup', (req, res) => {
     const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
@@ -19,7 +18,6 @@ router.post('/owners/signup', (req, res) => {
             }).then(newUser => {
                 req.session.user = {
                     username: newUser.username,
-                    email: newUser.email,
                     id: newUser.id,
                     userType: "owner"
                 }
@@ -49,7 +47,6 @@ router.post('/gardeners/signup', (req, res) => {
             }).then(newUser => {
                 req.session.user = {
                     username: newUser.username,
-                    email: newUser.email,
                     id: newUser.id,
                     userType: "gardener"
                 }
@@ -76,7 +73,6 @@ router.post('/owners/login', (req, res) => {
         } else if (bcrypt.compareSync(req.body.password, user.password)) {
             req.session.user = {
                 username: user.username,
-                email: user.email,
                 id: user.id,
                 userType: "owner"
             }
@@ -102,7 +98,6 @@ router.post('/gardeners/login', (req, res) => {
             console.log("gardener success")
             req.session.user = {
                 username: user.username,
-                email: user.email,
                 id: user.id,
                 userType: "gardener"
             }

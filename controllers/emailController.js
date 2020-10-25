@@ -26,19 +26,10 @@ router.post("/email", async function (req, res) {
         },
       });
       // send mail with defined transport object
-      console.log(req.body)
       let info = await transporter.sendMail({
-        from: req.session.user.email, // sender address
+        from: gardenerJSON.email, // sender address
         to: gardenJSON.Owner.email, // list of receivers
         subject: "Patched Connection", // Subject line
-        // text: req.body.emailBody, // plain text body
-        html: `${gardenerJSON.username} would like to connect about your garden!
-      <br>
-      ${req.body.userInput}
-      <br>
-      Return Email Address: ${req.body.email}
-      <br>
-      <a href='http://localhost:8080/gardens/assign/${gardenJSON.id}/${gardenerJSON.id}'>Share your garden</a>`, // html body
         html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
@@ -70,6 +61,7 @@ router.post("/email", async function (req, res) {
                                           <p style="color:#3f473f">Would like to connect about your garden!</p>
                                           <p><strong style="color:#3f473f">Message:</strong></p>
                                           <p class="small-text-center" style="color:white">${req.body.emailBody}</p>
+                                          <p class="small-text-center" style="color:white">Email them back at: ${gardenerJSON.email}</p>
                                         </th>
                                       </tr>
                                     </tbody>
@@ -90,7 +82,7 @@ router.post("/email", async function (req, res) {
                             <tbody>
                               <tr>
                                 <br>
-                                <td><a href=http://localhost:8080/gardens/assign/${gardenJSON.id}/${gardenerJSON.id}' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden</a></td>
+                                <td><a href=http://localhost:8080/profile' class="button" style="border-radius:15px;background-color: #7F9174;color:white">Share your garden!</a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -106,7 +98,7 @@ router.post("/email", async function (req, res) {
         </body>
         </html>
         
-        `, // html body
+        `
       });
 
       console.log("Message sent: %s", info.messageId);
@@ -116,6 +108,8 @@ router.post("/email", async function (req, res) {
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
       // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
       res.send("Message Sent");
+    } else {
+      res.redirect("/gardeners/login")
     }
   } catch (err) {
     console.log(err);

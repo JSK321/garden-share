@@ -30,6 +30,9 @@ router.get("/profile", function (req, res) {
         }).then(result => {
             let hbsObject = result.toJSON();
             hbsObject.loggedIn = true;
+            if (hbsObject.Gardens.length > 0){
+                hbsObject.GardenId = hbsObject.Gardens[0].id;
+            }
             res.render("profile", hbsObject)
         }).catch(err => {
             console.log(err)
@@ -41,16 +44,6 @@ router.get("/profile", function (req, res) {
     }
 });
 
-// return profile.handlebars by id
-router.get("/profile/:id", function (req, res) {
-    db.Owner.findOne({ where: { id: req.params.id } }).then(result => {
-        let hbsObject = result.toJSON();
-        hbsObject.loggedIn = true;
-        res.render("profile", hbsObject)
-    }).catch(err => {
-        res.status(500).send(err);
-    })
-});
 // return signup.handlebars for owners
 router.get("/owners/signup", function (req, res) {
     res.render("signup", { route: "/owners/signup" })
@@ -63,7 +56,6 @@ router.get("/gardeners/signup", function (req, res) {
 router.get("/email/:gardenId/", function (req, res) {
     if (req.session.user && req.session.user.userType === "gardener") {
         db.Garden.findOne({ where: { id: req.params.gardenId } }).then(result => {
-            console.log(result.toJSON().name)
             const renderObj = {
                 gardenName: result.toJSON().name,
                 ownerId: result.toJSON().OwnerId,
@@ -102,11 +94,7 @@ router.get("/composts/add", function (req, res) {
         res.redirect("/owners/login")
     }
 })
-// Get route to Compost Add Form by id
-router.get("/composts/add/:id", function (req, res) {
-    req.params.loggedIn = true;
-    res.render("composts_post", req.params)
-})
+
 // Get route to Garden Edit form
 router.get("/gardens/edit", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
@@ -207,14 +195,16 @@ router.get("/map", async function (req, res) {
 router.get("/gardens/:id", function (req, res) {
     db.Garden.findOne({ where: { id: req.params.id } }).then(garden => {
         gardenJSON = garden.toJSON();
-        if (req.session.user && req.session.user.userType === "gardener") {
-            gardenJSON.PotentialGardenerId = req.session.user.id
-            console.log(gardenJSON)
+        let hbsObject = gardenJSON;
+        if (req.session.user) {
+            hbsObject.loggedIn = true;
+            if (req.session.user.userType === "owner") {
+                hbsObject.justPosted = true;
+            } else {
+                hbsObject.PotentialGardenerId = req.session.user.id
+            }
         }
-if (req.session.user) {
-    gardenJSON.loggedIn = true;
-}
-        res.render("garden_display", gardenJSON)
+        res.render("garden_display", hbsObject)
     })
 })
 // Route to display compost by id
@@ -226,20 +216,6 @@ router.get("/composts/:id/", function (req, res) {
         res.render("compost_display", compostJSON)
     })
 })
-//route to edit compost
-router.get("/composts/edit/:OwnerId", function (req, res) {
-    db.Compost.findOne({
-        where: {
-            OwnerId: req.params.OwnerId
-        }
-    }).then((compost) => {
-       compost.loggedIn = true;
-        res.render("compost_edit", compost);
-    }).catch(err => {
-        console.log(err)
-        res.status(500).send("Error!")
-    })
-});
 
 // Route to display login
 router.get("/gardeners/login", function (req, res) {

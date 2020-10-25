@@ -8,7 +8,6 @@ router.get("/api/composts", function (req, res) {
   db.Compost.findAll()
     .then((result) => {
       res.json(result);
-      console.log("composts");
     })
     .catch((err) => {
       res.status(500).send(err);

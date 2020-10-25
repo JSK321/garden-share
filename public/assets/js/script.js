@@ -8,13 +8,13 @@ $(function () {
             url: "/email",
             type: "POST",
             data: {
-                email: $("#email").val(),
                 gardenId: $("[name=gardenId]").val(),
-                userInput: $("#userInput").val()
                 emailBody: $("[name=emailBody").val()
             }
         }).then(response=>{
             console.log(response)
+        }).fail(err=>{
+            alert("Email failed to send!")
         })
         $.ajax({
             url: "/requests",
@@ -25,10 +25,3 @@ $(function () {
         })
     })
 });
-
-// $(document).on("click", ".edit-profile-button", editProfile)
-
-
-// function editProfile(){
-    
-// }
