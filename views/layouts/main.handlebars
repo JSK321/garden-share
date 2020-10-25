@@ -25,22 +25,28 @@
       <div class="top-bar-title">
         <a href="/"><img src="/images/patched_Logo2.png" alt="" /></a>
       </div>
-      
-<a href="/map" class="button" style="text-align:center" id="userInput"><strong>View Patches</strong></a>
 
-<div class="top-bar-right">
 
-        <div class="login" style="text-align: right">
+
+      <div class="top-bar-right">
+
+        <div style="text-align: right">
           {{!-- need to figure out what is the right parameter  --}}
           {{#if loggedIn}}
-          <a href="/profile" class="button" id="userInput">My Profile</a>
-          <br>
-          <a href="/logout" class="button" id="userInput">Log Out</a>
-
+  
+        <ul class="menu">
+          <li><a href="/map" class="navbtn" style="text-align:center"><strong>Map View</strong></a></li>
+          <li><a href="/profile" class="navbtn">My Profile</a></li>
+          <li><a href="/logout" class="navbtn">Log Out</a></li>
+          
+        </ul>
+ 
           {{else}}
-          <a href="/owners/login" class="button" id="userInput">Owner Log In</a>
+          <div class="menu">
+          <a href="/owners/login" class="navbtn">Owner Log In</a>
           <br>
-          <a href="/gardeners/login" class="button" id="userInput">Gardener Log In</a>
+          <a href="/gardeners/login" class="navbtn">Gardener Log In</a>
+          </div>
           {{/if}}
         </div>
 
@@ -51,16 +57,7 @@
 
 <body>
 
-
-
-
-
-
-
-
-
-
-  {{{body}}}
+{{{body}}}
 
   <!-- Link to Foundation Javascript -->
   <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
@@ -68,5 +65,16 @@
 
 
 </body>
+
+ {{#unless loggedIn}}
+<footer class="grid-x grid-padding-x">
+  <div class="small-12 medium 8" style="text-align: center">
+    <br>
+    <h3 style="color:darkslategrey">Sign up now!</h3>
+    <a href="/owners/signup" class="round button" id="userInput">Share my patches</a>
+    <a href="/gardeners/signup" class="round button" id="userInput">Looking for patches</a>
+  </div>
+   {{/unless}}
+</footer>
 
 </html>
