@@ -13,7 +13,6 @@
 
             <div class="text-center">
                 <br>
-  
                 <a class="button" style="border-radius:15px;background-color: #7F9174;color:white" id="saveOwnerBtn">Save</a>
                 <a href="/profile" class="button" id="profile_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Cancel</a>
                 <br>
@@ -55,7 +54,7 @@ $(function(){
             url:"/api/owners/{{id}}",
             type: "DELETE"
         }).then(result=>{
-            window.location.href = "/"
+            window.location.href = "/logout"
         })
     })
 })
