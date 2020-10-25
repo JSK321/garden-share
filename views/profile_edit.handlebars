@@ -8,14 +8,16 @@
             <label class="address"><strong>Address:</strong></label>
             <input type="text" name="address" value="{{address}}" id="userInput">
             <label class="password"><strong>Password:</strong></label>
-            <input type="password" name="password" id="userInput" placeholder="Create new passowrd">
+            <input type="password" name="password" id="userInput" placeholder="Create new password">
             <p class="help-text"><strong>Your Password must be at least 8 characters</strong></p>
 
             <div class="text-center">
                 <br>
   
-                <a href="/profile" class="button" id="profile_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
-                <a href="/" class="button" id="userInput">Home</a>
+                <a class="button" style="border-radius:15px;background-color: #7F9174;color:white" id="saveOwnerBtn">Save</a>
+                <a href="/profile" class="button" id="profile_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Cancel</a>
+                <br>
+                <a class="button" style="border-radius:15px;background-color: #7F9174;color:white" id="deleteOwnerBtn">Delete Profile</a>
             </div>
 
         </div>
@@ -24,20 +26,36 @@
 
 <script>
 $(function(){
-    $("profile_edit_Btn").on("click", function(event){
+    $("#saveOwnerBtn").on("click", function(event){
         event.preventDefault();
         console.log("Clicked!")
-        $.ajax({
-            url:"/api/owners/{{id}}",
-            type:"PUT",
-            data: {
+        const ownerInfo = {
                 username: $("[name=username]").val(),
                 email: $("[name=email]").val(),
                 address: $("[name=address]").val(),
-                password: $("[name=password]").val()
             }
-        }).then(result => {
-            window.location.href="/profile/{{id}}"
+        if ($("[name=password]").val()) {
+            if ($("[name=password]").val().length < 8) {
+                return alert("Password must be 8 characters or longer")
+            }
+            ownerInfo.password = $("[name=password]").val()
+        }
+        $.ajax({
+            url:"/api/owners",
+            type:"PUT",
+            data: ownerInfo
+        }).then(result=>{
+            window.location.href="/profile"
+        }).fail(err=>{
+            alert("Username or email already taken")
+        })
+    })
+    $("#deleteOwnerBtn").on("click", function(){
+        $.ajax({
+            url:"/api/owners/{{id}}",
+            type: "DELETE"
+        }).then(result=>{
+            window.location.href = "/"
         })
     })
 })
