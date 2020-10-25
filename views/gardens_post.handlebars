@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding">
   <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
     <div class="card small-12 medium 8">
-      <form action="/api/gardens" method="POST">
+      <form action="/api/gardens" method="POST" enctype="multipart/form-data">
 
         <label><strong>Patch Name:</strong></label>
         <input type="text" id="id" name="name" placeholder="Patch Name" style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">
@@ -17,7 +17,8 @@
         <label><strong>Patch Description:</strong></label>
         <textarea id="userInput" name="description" cols="30" rows="10"
           placeholder="Add your description here"></textarea>
-
+        <label><strong>Patch Photo:</strong></label>
+        <input name="image" type="file" class="file-upload" />
         <button class="button float-center" id="userInput">Post</button>
 
       </form>
