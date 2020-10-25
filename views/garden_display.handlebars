@@ -17,6 +17,7 @@
                 <pre> {{description}}</pre>
             </div>
             <br>
+            <a href="/map" class="button float-center" style="text-align:center;width:15%" id="userInput"><strong>Map View</strong></a>
             {{#if justPosted}}
             {{else}}
                 {{#if GardenerId}}
@@ -35,7 +36,7 @@
                     {{else}}
                         {{#if PotentialGardenerId}}
                             <a href="/email/{{id}}">
-                                <button class="button float-center" id="userInput">Email</button>
+                                <button class="button float-center" id="userInput" style="width:15%">Email</button>
                             </a>
                         {{else}}
                     <a href="/gardeners/signup" style="color:white">Sign up to connect with the owner of this garden!</a>

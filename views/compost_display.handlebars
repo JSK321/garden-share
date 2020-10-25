@@ -12,18 +12,19 @@
                 <pre> {{description}}</pre>
             </div>
             <br>
+            <a href="/map" class="button float-center" style="text-align:center;width:15%" id="userInput"><strong>Map View</strong></a>
             
                 <!-- need to add eventlistener to pop up email -->
                 {{#if deposit}}
-                  {{name}} is open for deposits. Come drop off your compostable materials!
+                  <div class="lead">{{name}}</div> <ul><li><em>Is open for deposits. Come drop off your compostable materials!</em></li></ul>
                 {{else}}
-                  {{name}} is not accepting deposits. Please check back later.
+                  <div class="lead">{{name}}</div> <ul><li><em>Is not accepting deposits. Please check back later.</em></li></ul>
                 {{/if}}
-                <br>
+
                 {{#if withdraw}}
-                  {{name}} is open for withdrawls. Come pick up some tasty compost!
+                  <div class="lead">{{name}}</div> <ul><li><em>Is open for withdrawals. Come pick up some tasty compost!</em></li></ul>
                 {{else}}
-                  {{name}} is still working to create tasty compost. Please check back later
+                  <div class="lead">{{name}}</div> <ul><li><em>Is still working to create tasty compost. Please check back later.</em></li></ul>
                 {{/if}}
             
         </div>
