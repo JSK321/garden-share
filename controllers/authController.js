@@ -96,6 +96,7 @@ router.post('/gardeners/login', (req, res) => {
             return res.status(401).send('incorrect username or password')
 
         } else if (bcrypt.compareSync(req.body.password, user.password)) {
+            console.log("gardener success")
             req.session.user = {
                 username: user.username,
                 id: user.id,
@@ -105,6 +106,7 @@ router.post('/gardeners/login', (req, res) => {
         }
         else {
             req.session.destroy();
+            console.log("gardener fail")
             return res.status(401).send('incorrect username or password')
         }
     })
