@@ -115,14 +115,11 @@ router.post('/gardeners/login', (req, res) => {
 
 router.get("/sessiondata", (req, res) => {
     res.json(req.session)
-   })
+})
 
-   
-//authentication for the handlebars but what to use?
-// router.use((req,res) => {
-//     if(req.session) res.session.user = req.session();
-//    });
-
-
+router.get('/logout', (req, res) => {
+    req.session.destroy()
+    res.redirect("/")
+});
 
 module.exports = router;

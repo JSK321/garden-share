@@ -6,11 +6,11 @@ const db = require("../models");
 // return index.handebars
 router.get("/", function (req, res) {
     if (req.session.user) {
-        res.render("index",{loggedIn: true});
+        res.render("index", { loggedIn: true });
     } else {
         res.render("index")
     }
-    
+
 });
 
 router.get("/profile", function (req, res) {
@@ -28,14 +28,14 @@ router.get("/profile", function (req, res) {
                 }
             ]
         }).then(result => {
-           let hbsObject = result.toJSON(); 
-           hbsObject.loggedIn = true;
-           res.render("profile", hbsObject)
+            let hbsObject = result.toJSON();
+            hbsObject.loggedIn = true;
+            res.render("profile", hbsObject)
         }).catch(err => {
             console.log(err)
             res.status(500).end();
         })
-    } 
+    }
     else {
         res.redirect("/owners/login")
     }
@@ -44,8 +44,8 @@ router.get("/profile", function (req, res) {
 // return profile.handlebars by id
 router.get("/profile/:id", function (req, res) {
     db.Owner.findOne({ where: { id: req.params.id } }).then(result => {
-      let hbsObject = result.toJSON();
-      hbsObject.loggedIn = true;
+        let hbsObject = result.toJSON();
+        hbsObject.loggedIn = true;
         res.render("profile", hbsObject)
     }).catch(err => {
         res.status(500).send(err);
@@ -72,7 +72,7 @@ router.get("/email/:gardenId/", function (req, res) {
             }
             let hbsObject = renderObj;
             hbsObject.loggedIn = true;
-            res.render("email",hbsObject)
+            res.render("email", hbsObject)
         }).catch(err => {
             res.status(500).json(err);
         })
@@ -84,7 +84,7 @@ router.get("/email/:gardenId/", function (req, res) {
 // return gardens_post.handlebars to post garden by id
 router.get("/gardens/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
-        let hbsObject = {id:req.session.user.id};
+        let hbsObject = { id: req.session.user.id };
         hbsObject.loggedIn = true;
         res.render("gardens_post", hbsObject)
     } else {
@@ -96,7 +96,7 @@ router.get("/gardens/add", function (req, res) {
 router.get("/composts/add", function (req, res) {
     if (req.session.user && req.session.user.userType === "owner") {
         res.render("composts_post", { id: req.session.user.id })
-        let hbsObject = {id: req.session.user.id};
+        let hbsObject = { id: req.session.user.id };
         hbsObject.loggedIn = true;
         res.render("composts_post", hbsObject)
     } else {
@@ -116,7 +116,7 @@ router.get("/gardens/edit", function (req, res) {
             }
         }).then((garden) => {
             if (!garden) {
-                res.status(400).send("You have no gardens")
+                res.status(400).end()
             } else {
                 let hbsObject = garden.toJSON();
                 hbsObject.loggedIn = true;
@@ -135,7 +135,7 @@ router.get("/gardens/edit", function (req, res) {
 router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
     db.Garden.findOne({ where: { id: req.params.gardenId } }).then(garden => {
         db.Gardener.findOne({ where: { id: req.params.gardenerId } }).then(gardener => {
-           let hbsObject =  {
+            let hbsObject = {
                 gardenName: garden.toJSON().name,
                 gardenId: req.params.gardenId,
                 gardenerId: req.params.gardenerId,
@@ -144,8 +144,8 @@ router.get("/gardens/assign/:gardenId/:gardenerId", function (req, res) {
 
             };
             hbsObject.loggedIn = true;
-           
-            res.render("assign_garden",hbsObject)
+
+            res.render("assign_garden", hbsObject)
         }
         ).catch(err => {
             console.log(err);
@@ -191,9 +191,9 @@ router.get("/map", async function (req, res) {
                 id: compostJSON.id
             }
         })
-      if (req.session.user) { 
-        mapData.loggedIn = true
-    }
+        if (req.session.user) {
+            mapData.loggedIn = true
+        }
 
         res.render("map", mapData)
     }
@@ -201,7 +201,7 @@ router.get("/map", async function (req, res) {
     catch (err) {
         console.log(err)
         res.status(500).end()
-    } 
+    }
 })
 // display gardens by id
 router.get("/gardens/:id", function (req, res) {
@@ -225,22 +225,6 @@ router.get("/composts/:id/", function (req, res) {
         res.render("compost_display", hbsObject)
     })
 })
-//route to edit compost
-router.get("/composts/edit/:OwnerId", function (req, res) {
-    db.Compost.findOne({
-        where: {
-            OwnerId: req.params.OwnerId
-        }
-    }).then((compost) => {
-        let hbsObject = compost.toJSON();
-        hbsObject = true;
-        res.render("compost_edit", hbsObject);
-    }).catch(err => {
-        console.log(err)
-        res.status(500).send("Error!")
-    })
-});
-
 // Route to display login
 router.get("/gardeners/login", function (req, res) {
     res.render("login", { route: "/gardeners/login" })
@@ -250,11 +234,6 @@ router.get("/owners/login", function (req, res) {
     res.render("login", { route: "/owners/login" })
 });
 
-router.get('/logout', (req, res) => {
 
-    req.session.destroy()
-    res.redirect("/")
-
-});
 
 module.exports = router;

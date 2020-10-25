@@ -16,7 +16,11 @@
                 <br>
                 <div class="text-center">
                 <button class="button float-center" id="logInBtn" type="submit" style="border-radius:15px;background-color: #7F9174;color:white">Log In</button>
-                <a href="/gardeners/signup" class="button" id="userInput">Sign Up</a>
+                {{#if (isEqual route "/gardeners/login")}}
+                    <a href="/gardeners/signup" class="button" id="userInput">Sign Up</a>
+                {{else}}
+                    <a href="/owners/signup" class="button" id="userInput">Sign Up</a>
+                {{/if}}
                 </div>
 
             </form>
