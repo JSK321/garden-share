@@ -41,44 +41,54 @@ router.get("/gardens", function (req, res) {
 });
 
 // Post route to add a garden
-router.post("/api/gardens", function (req, res) {
+router.post("/api/gardens", async function (req, res) {
   if (req.session.user && req.session.user.userType === "owner") {
-    const image = req.files.image;
-    console.log(image)
-    image.mv(path.join(__dirname, '../public/images/userGarden'), function (err) {
-      if (err) {
-        console.error(err)
-        return res.status(500).send(err);
-      }
-
-      cloudinary.uploader.upload(path.join(__dirname, '../public/images/userGarden'), function (error, result) {
-        console.log(result, error)
-
-        db.Owner.findOne({ where: { id: req.session.user.id } }).then(owner => {
-          db.Garden.create({
-            name: req.body.name,
-            address: owner.address,
-            latitude: owner.latitude,
-            longitude: owner.longitude,
-            description: req.body.description,
-            length: req.body.length,
-            width: req.body.width,
-            OwnerId: owner.id,
-            pictureLink: result.url
-          }).then(result => {
-            let garden = result.toJSON();
-            garden.justPosted = true;
-            garden.loggedIn = true;
-            res.render("garden_display", garden)
-          }
-          ).catch(err => {
-            res.status(500).send(err)
-          }).catch((err) => {
-            res.status(500).send(err);
+    try {
+      if (req.files) {
+        const image = req.files.image;
+        const imagePath = path.join(__dirname, '../public/images/userGarden')
+        function moveImage(filePath) {
+          return new Promise((resolve, reject) => {
+            image.mv(filePath, function (err) {
+              if (err) return reject(err)
+              return resolve("image uploaded")
+            })
+          })
+        }
+        function uploadToCloudinary(filePath) {
+          return new Promise((resolve, reject) => {
+            cloudinary.uploader.upload(filePath, (error, result) => {
+              if (error) return reject(error);
+              return resolve(result);
+            })
           });
-        });
-      });
-    });
+        }
+        const imageMoved = await moveImage(imagePath)
+        var imageUpload = await uploadToCloudinary(imagePath)
+      } else {
+        var imageUpload = { url: null }
+      }
+      const owner = await db.Owner.findOne({ where: { id: req.session.user.id } })
+      const garden = await db.Garden.create({
+        name: req.body.name,
+        address: owner.address,
+        latitude: owner.latitude,
+        longitude: owner.longitude,
+        description: req.body.description,
+        length: req.body.length,
+        width: req.body.width,
+        OwnerId: owner.id,
+        pictureLink: imageUpload.url
+      })
+
+      let gardenJSON = garden.toJSON();
+      gardenJSON.justPosted = true;
+      gardenJSON.loggedIn = true;
+      res.render("garden_display", gardenJSON)
+    } catch (err) {
+      console.log(err)
+      res.status(500).send(err)
+    }
   } else {
     res.redirect("/owners/login")
   }

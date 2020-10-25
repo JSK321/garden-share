@@ -17,8 +17,11 @@
                 <pre> {{description}}</pre>
             </div>
             <br>
+            {{#if pictureLink}}
             <strong>Garden Photo:</strong>
-            <img src="{{pictureLink}}" alt="Picture of a garden" width="500px">
+                <img src="{{pictureLink}}" alt="Picture of a garden" width="500px">
+            {{/if}}
+
             <br>
             <a href="/map" class="button float-center" style="text-align:center;width:15%" id="userInput"><strong>Map View</strong></a>
             {{#if justPosted}}
