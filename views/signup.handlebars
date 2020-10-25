@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding">
     <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
         <div class="card row small-12 medium-8">
-            <form action="{{route}}" method="POST">
+            <form id="signUpForm">
                 <div>
                     <label><strong>User Name:</strong></label>
                     <input type="text" name="username" id="userInput" placeholder="User Name">
@@ -24,9 +24,40 @@
                 </div>
                 <br>
                 <div>
-                    <button class="button float-center" id="userInput" type="submit">Sign Up</button>
+                    <button class="button float-center" id="signUpBtn" type="submit" style="border-radius:15px;background-color: #7F9174;color:white">Sign Up</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#signUpForm").submit(function (event) {
+        event.preventDefault();
+        console.log("{{route}}")
+        $.ajax({
+            url: "{{route}}",
+            method: "POST",
+            data: {
+                username: $("[name=username]").val(),
+                password: $("[name=password]").val(),
+                email: $("[name=email]").val(),
+                address: $("[name=address]").val()
+            },
+            success: function (response) {
+                console.log("success")
+                if("{{route}}"==="/owners/signup"){
+                    window.location.href="/profile/{{id}}"
+                } else {
+                    window.location.href="/map"
+                }
+            },
+            error: function(response) {
+                console.log("failed")
+                alert("Incorrect Username/Email already exists!")
+            }
+        })
+    });
+});
+</script>

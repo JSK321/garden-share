@@ -16,6 +16,7 @@
             <div id="userInput">
                 <pre> {{description}}</pre>
             </div>
+            <br>
             {{#if justPosted}}
             {{else}}
                 {{#if GardenerId}}
@@ -25,11 +26,16 @@
                         </div>
                     </div>
                 {{else}}
-                    {{#if (isEqual PotentialGardenerId  id)}}
+                    {{#if (isEqual PotentialGardenerId GardenerId)}}
+                          <div class="grid-x grid-padding-x">
+                        <div class="small-12 medium 8">
+                            <span>This is your patch!</span>
+                        </div>
+                    </div>
                     {{else}}
                         {{#if PotentialGardenerId}}
                             <a href="/email/{{id}}">
-                                <button class="button float-center">Email</button>
+                                <button class="button float-center" id="userInput">Email</button>
                             </a>
                         {{else}}
                     <a href="/gardeners/signup" style="color:white">Sign up to connect with the owner of this garden!</a>

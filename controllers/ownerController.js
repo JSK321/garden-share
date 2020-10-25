@@ -22,6 +22,17 @@ router.get("/api/owners/:id", function (req, res) {
     })
 })
 
+// Get route to edit profile
+router.get("/owners/edit/:id", function(req, res) {
+    db.Owner.findOne({
+        where:{id: req.params.id},
+    }).then(result => {
+        let hbsObject = result.toJSON();
+        hbsObject.loggedIn = true;
+        res.render("profile_edit", hbsObject);
+    })
+})
+
 // Post route to add an Owner
 router.post("/api/owners", function (req, res) {
     const APIKey = '0a157990-f940-11ea-ac04-cb65445966da'
@@ -61,23 +72,18 @@ router.delete("/api/owners/:id", function (req, res) {
 });
 
 // PUT route
-router.put("/api/owners/:id", function (req, res) {
-    res.status(418).end();
-    // db.Owner.update({
-    //     username: req.body.username,
-    //     email: req.body.email,
-    //     address: req.body.address,
-    //     password: req.body.password
-    // },
-    // {
-    //     where: {
-    //         id: req.params.id
-    //     }
-    // }).then(result=>{
-    //     res.json(result)
-    // }).catch(err=>{
-    //     res.status(418).end();
-    // })
+router.put("/api/owners/", function (req, res) {
+    db.Owner.update(req.body,
+    {
+        where: {
+            id: req.session.user.id
+        }
+    }).then(result=>{
+        res.json(result)
+    }).catch(err=>{
+        console.error(err)
+        res.status(418).end();
+    })
 });
 
 module.exports = router;

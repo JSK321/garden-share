@@ -3,6 +3,7 @@ $(function () {
     console.log("Connected to script.js")
     $("#emailBtn").on("click", function(event){
         event.preventDefault();
+        console.log("Email Body: " + $("[name=emailBody").val())
         $.ajax({
             url: "/email",
             type: "POST",
@@ -10,6 +11,7 @@ $(function () {
                 email: $("#email").val(),
                 gardenId: $("[name=gardenId]").val(),
                 userInput: $("#userInput").val()
+                emailBody: $("[name=emailBody").val()
             }
         }).then(response=>{
             console.log(response)

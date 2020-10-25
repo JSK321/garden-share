@@ -102,8 +102,11 @@ router.get("/composts/edit", function (req, res) {
       }
     }).then((compost) => {
       if (!compost) {
-        res.status(400).send("You have no composts. Please add a compost in order to edit.")
+        res.status(400).end()
       } else {
+        if (req.session.user) {
+          
+        }
         res.render("compost_edit", compost.toJSON());
       }
     }).catch(err => {

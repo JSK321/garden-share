@@ -69,8 +69,6 @@ router.post('/owners/login', (req, res) => {
         where: { username: req.body.username }
     }).then(user => {
         //check if user entered password matches db password
-        console.log(req.body.password)
-        console.log(user.password)
         if (!user) {
             req.session.destroy();
             return res.status(401).send('incorrect username or password')
@@ -96,13 +94,12 @@ router.post('/gardeners/login', (req, res) => {
         where: { username: req.body.username }
     }).then(user => {
         //check if user entered password matches db password
-        console.log(req.body.password)
-        console.log(user.password)
         if (!user) {
             req.session.destroy();
             return res.status(401).send('incorrect username or password')
 
         } else if (bcrypt.compareSync(req.body.password, user.password)) {
+            console.log("gardener success")
             req.session.user = {
                 username: user.username,
                 email: user.email,
@@ -113,6 +110,7 @@ router.post('/gardeners/login', (req, res) => {
         }
         else {
             req.session.destroy();
+            console.log("gardener fail")
             return res.status(401).send('incorrect username or password')
         }
     })
@@ -121,14 +119,11 @@ router.post('/gardeners/login', (req, res) => {
 
 router.get("/sessiondata", (req, res) => {
     res.json(req.session)
-   })
+})
 
-   
-//authentication for the handlebars but what to use?
-// router.use((req,res) => {
-//     if(req.session) res.session.user = req.session();
-//    });
-
-
+router.get('/logout', (req, res) => {
+    req.session.destroy()
+    res.redirect("/")
+});
 
 module.exports = router;

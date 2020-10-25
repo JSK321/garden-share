@@ -1,0 +1,61 @@
+<div class="grid-x grid-padding">
+    <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
+        <div class="card small-12 medium 8">
+            <label class="username"><strong>User Name:</strong></label>
+            <input type="text" name="username" value="{{username}}" id="userInput">
+            <label class="email"><strong>Email:</strong></label>
+            <input type="email" name="email" value="{{email}}" id="userInput">
+            <label class="address"><strong>Address:</strong></label>
+            <input type="text" name="address" value="{{address}}" id="userInput">
+            <label class="password"><strong>Password:</strong></label>
+            <input type="password" name="password" id="userInput" placeholder="Create new password">
+            <p class="help-text"><strong>Your Password must be at least 8 characters</strong></p>
+
+            <div class="text-center">
+                <br>
+                <a class="button" style="border-radius:15px;background-color: #7F9174;color:white" id="saveOwnerBtn">Save</a>
+                <a href="/profile" class="button" id="profile_edit_Btn" style="border-radius:15px;background-color: #7F9174;color:white">Cancel</a>
+                <br>
+                <a class="button" style="border-radius:15px;background-color: #7F9174;color:white" id="deleteOwnerBtn">Delete Profile</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+$(function(){
+    $("#saveOwnerBtn").on("click", function(event){
+        event.preventDefault();
+        console.log("Clicked!")
+        const ownerInfo = {
+                username: $("[name=username]").val(),
+                email: $("[name=email]").val(),
+                address: $("[name=address]").val(),
+            }
+        if ($("[name=password]").val()) {
+            if ($("[name=password]").val().length < 8) {
+                return alert("Password must be 8 characters or longer")
+            }
+            ownerInfo.password = $("[name=password]").val()
+        }
+        $.ajax({
+            url:"/api/owners",
+            type:"PUT",
+            data: ownerInfo
+        }).then(result=>{
+            window.location.href="/profile"
+        }).fail(err=>{
+            alert("Username or email already taken")
+        })
+    })
+    $("#deleteOwnerBtn").on("click", function(){
+        $.ajax({
+            url:"/api/owners/{{id}}",
+            type: "DELETE"
+        }).then(result=>{
+            window.location.href = "/logout"
+        })
+    })
+})
+</script>

@@ -2,8 +2,7 @@
     <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
         <div class="card row small-12 medium-8">
 
-            <form action="{{route}}" method="POST">
-
+            <form id="logInForm">
                 <label><strong>User Name:</strong></label>
                 <input type="text" id="userInput" name="username" placeholder="User Name">
 
@@ -15,11 +14,42 @@
 
 
                 <br>
-
-                <button class="button float-center" id="userInput" type="submit">Log In</button>
-                <a style="margin-left: 44%;" href="/gardeners/signup" class="round button" id="userInput">Sign Up</a>
-
+                <div class="text-center">
+                <button class="button float-center" id="logInBtn" type="submit" style="border-radius:15px;background-color: #7F9174;color:white">Log In</button>
+                {{#if (isEqual route "/gardeners/login")}}
+                    <a href="/gardeners/signup" class="button" id="userInput">Sign Up</a>
+                {{else}}
+                    <a href="/owners/signup" class="button" id="userInput">Sign Up</a>
+                {{/if}}
+                </div>
 
             </form>
         </div>
     </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#logInForm").submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "{{route}}",
+            method: "POST",
+            data: {
+                username: $("[name=username]").val(),
+                password: $("[name=password]").val()
+            },
+            success: function (response) {
+                if("{{route}}"==="/owners/login"){
+                    window.location.href="/profile/{{id}}"
+                } else {
+                    window.location.href="/map"
+                }
+            },
+            error: function(response) {
+                alert("Incorrect username/password")
+            }
+        })
+    });
+});
+</script>
