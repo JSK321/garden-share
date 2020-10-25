@@ -200,8 +200,9 @@ router.get("/gardens/:id", function (req, res) {
             gardenJSON.PotentialGardenerId = req.session.user.id
             console.log(gardenJSON)
         }
-        let hbsObject = gardenJSON;
-        hbsObject.loggedIn = true;
+if (req.session.user) {
+    
+}
         res.render("garden_display", hbsObject)
     })
 })
