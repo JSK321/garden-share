@@ -7,13 +7,15 @@ var nodemailer = require("nodemailer");
 router.post("/email", async function (req, res) {
   try {
     if (req.session.user && req.session.user.userType === "gardener") {
-      const gardener = await db.Gardener.findOne({where: {id: req.session.user.id}})
-      const gardenerJSON = gardener.toJSON()
-      const garden = await db.Garden.findOne({ 
+      const gardener = await db.Gardener.findOne({
+        where: { id: req.session.user.id },
+      });
+      const gardenerJSON = gardener.toJSON();
+      const garden = await db.Garden.findOne({
         where: { id: req.body.gardenId },
-        include: db.Owner  
-      })
-      const gardenJSON = garden.toJSON()
+        include: db.Owner,
+      });
+      const gardenJSON = garden.toJSON();
 
       // create reusable transporter object using the default SMTP transport
       const transporter = nodemailer.createTransport({
@@ -26,13 +28,15 @@ router.post("/email", async function (req, res) {
       // send mail with defined transport object
 
       let info = await transporter.sendMail({
-        from: "patchedapp@gmail.com", // sender address
+        from: req.session.user.email, // sender address
         to: gardenJSON.Owner.email, // list of receivers
         subject: "Patched Connection", // Subject line
         // text: req.body.emailBody, // plain text body
         html: `${gardenerJSON.username} would like to connect about your garden!
       <br>
-      ${req.body.emailBody} 
+      ${req.body.userInput}
+      <br>
+      Return Email Address: ${req.body.email}
       <br>
       <a href='http://localhost:8080/gardens/assign/${gardenJSON.id}/${gardenerJSON.id}'>Share your garden</a>`, // html body
       });
@@ -43,14 +47,12 @@ router.post("/email", async function (req, res) {
       // Preview only available when sending through an Ethereal account
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
       // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-      res.send("Message Sent")
+      res.send("Message Sent");
     }
   } catch (err) {
-    console.log(err)
-    res.status(500).end()
+    console.log(err);
+    res.status(500).end();
   }
-
 });
-
 
 module.exports = router;
