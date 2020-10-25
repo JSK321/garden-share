@@ -33,8 +33,8 @@
             if (response.length > 0) {
                 $(".requests").css("display", "block")
                 for (let i = 0; i < response.length; i++) {
-                    $(".requests").append($("<span>").text(`${response[i].Gardener.username} would like to garden your patch ${response[i].Garden.name}. Click the Assign button to assign this patch to them.`))
-                    let assignBtn = $("<button class='button' id='assignBtn'>").text("Assign")
+                    $(".requests").append($("<span>").text(`${response[i].Gardener.username} would like to garden your patch ${response[i].Garden.name}.  `))
+                    let assignBtn = $("<button class='button' id='assignBtn' style='border-radius:15px;background-color: #7F9174;color:white'>").text("Assign")
                     assignBtn.attr("data-gardenId", response[i].Garden.id)
                     assignBtn.attr("data-gardenerId", response[i].Gardener.id)
                     $(".requests").append(assignBtn)
