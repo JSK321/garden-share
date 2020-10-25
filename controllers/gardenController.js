@@ -55,6 +55,7 @@ router.post("/api/gardens", function (req, res) {
     }).then(result => {
       let garden = result.toJSON();
       garden.justPosted = true;
+      garden.loggedIn = true;
       res.render("garden_display", garden)
     }
     ).catch(err => {
