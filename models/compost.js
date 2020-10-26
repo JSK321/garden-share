@@ -1,6 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
   var Compost = sequelize.define("Compost", {
-    name: DataTypes.STRING,
+    name: {
+      type:DataTypes.STRING,
+      allowNull: false
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -12,7 +15,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT,
     },
     description: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
+      allowNull: false
     },
     pictureLink: {
       type: DataTypes.STRING,
