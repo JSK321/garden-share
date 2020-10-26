@@ -1,84 +1,97 @@
 <div class="grid-x grid-padding">
   <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
     <div class="card small-12 medium 8">
-      <label><strong>Patch Name:</strong></label>
-      <input type="text" id="id" name="name" value="{{name}}" placeholder="Patch Name"
-        style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
+      <form enctype="multipart/form-data">
+        <label><strong>Patch Name:</strong></label>
+        <input type="text" id="id" name="name" value="{{name}}" placeholder="Patch Name"
+          style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
 
-      <label><strong>Patch size:</strong></label>
-      <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" value="{{length}}"
-        placeholder=" Feet" style="width: 30%">
-      <br>
-      <label><strong>Width </strong></label><input id="userInput" type="Integer" name="width" value="{{width}}"
-        placeholder=" Feet" style="width: 30%">
-      <br>
-      <label><strong>Patch Description:</strong></label>
-      <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10"
-        placeholder="Add your description here" style="border-radius:15px;background-color: #7F9174;color:white">{{description}} 
+        <label><strong>Patch size:</strong></label>
+        <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" value="{{length}}"
+          placeholder=" Feet" style="width: 30%">
+        <br>
+        <label><strong>Width </strong></label><input id="userInput" type="Integer" name="width" value="{{width}}"
+          placeholder=" Feet" style="width: 30%">
+        <br>
+        <label><strong>Patch Description:</strong></label>
+        <textarea id="{{id}}" name="description" value="{{description}}" cols="30" rows="10"
+          placeholder="Add your description here" style="border-radius:15px;background-color: #7F9174;color:white">{{description}} 
       </textarea>
-      <div>
-        <button class="button float-center" id="unAssignBtn"
-          style="border-radius:15px;background-color: #7F9174;color:white">Un-Assign</button>
-          <p class="text-center help-text" style="color:white">Click to un-assign your garden</p>
-        <button class="button float-center" id="garden_edit_Btn"
-          style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
-        <button class="button float-center" id="garden_delete_Btn"
-          style="border-radius:15px;background-color: #7F9174;color:white">Delete</button>
+        <label for="imageUpload" class="button" style="border-radius:15px;background-color:#7F9174;color:white">Upload
+          New Image</label>
+        <input name="image" type="file" id="imageUpload" data-imageUrl="{{pictureUrl}}"
+          class="file-upload show-for-sr" />
+      <div id="uploadDiv">
       </div>
-
-
+          <button class="button float-center" id="garden_edit_Btn"
+            style="border-radius:15px;background-color: #7F9174;color:white">Save</button>
+      </form>
+      <button class="button float-center" id="garden_delete_Btn"
+        style="border-radius:15px;background-color: #7F9174;color:white">Delete</button>
+      <button class="button float-center" id="unAssignBtn"
+        style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">Un-Assign</button>
+      <p class="text-center help-text" style="color:white">Click to un-assign your garden</p>
     </div>
   </div>
+</div>
 
-  <script>
-    $(function () {
-      $("#garden_edit_Btn").on("click", function (event) {
-        event.preventDefault();
-        console.log("what's up")
-        $.ajax({
-          url: "/api/gardens/{{id}}",
-          type: "PUT",
-          data: {
-            name: $("[name=name]").val(),
-            length: $("[name=length]").val(),
-            width: $("[name=width]").val(),
-            description: $("[name=description]").val()
-          }
-        }).then(result => {
-          console.log(result)
-          window.location.href = "/gardens/{{id}}"
-        })
-      })
-    });
-    $(function () {
-      $("#unAssignBtn").on("click", function (event) {
-        event.preventDefault();
-        $.ajax({
-          url: "/api/gardens/unassign/{{id}}",
-          type: "PUT",
-          data: {
-            GardenerId: null
-          }
-        }).then(result => {
-          console.log(result)
-          window.location.href = "/gardens/{{id}}"
-        })
-      })
-    });
-    $(function () {
-      $("#garden_delete_Btn").on("click", function (event) {
-        event.preventDefault();
-        let confirmAlert = confirm("Are you sure?")
-        if (confirmAlert === true) {
-          $.ajax({
-            url: "/api/gardens/{{id}}",
-            type: "DELETE",
-          }).then(result => {
-            console.log("DELETED!")
-            window.location.href = "/profile"
-          })
-
-        }
+<script>
+  $(function () {
+    $("#garden_edit_Btn").on("click", function (event) {
+      event.preventDefault();
+      console.log(document.querySelector("#imageUpload").files[0])
+      formData = new FormData();
+      formData.append("name", $("[name=name]").val())
+      formData.append("length", $("[name=length]").val())
+      formData.append("width", $("[name=width]").val())
+      formData.append("description", $("[name=description]").val())
+      formData.append("imageUrl", $("#imageUpload").attr("data-imageUrl"))
+      formData.append("image", document.querySelector("#imageUpload").files[0])
+      $.ajax({
+        url: "/api/gardens/{{id}}",
+        type: "PUT",
+        data: formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false, // tell jQuery not to set contentType
+      }).then(result => {
+        console.log(result)
+        window.location.href = "/gardens/{{id}}"
       })
     })
-  </script>
+
+
+    $("#unAssignBtn").on("click", function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: "/api/gardens/unassign/{{id}}",
+        type: "PUT",
+        data: {
+          GardenerId: null
+        }
+      }).then(result => {
+        console.log(result)
+        window.location.href = "/gardens/{{id}}"
+      })
+    })
+
+
+    $("#garden_delete_Btn").on("click", function (event) {
+      event.preventDefault();
+      let confirmAlert = confirm("Are you sure?")
+      if (confirmAlert === true) {
+        $.ajax({
+          url: "/api/gardens/{{id}}",
+          type: "DELETE",
+        }).then(result => {
+          console.log("DELETED!")
+          window.location.href = "/profile"
+        })
+
+      }
+    })
+    $("#imageUpload").on("change", function(req, res){
+      $("#uploadDiv").empty();
+      $("#uploadDiv").append($("<span>").text(`Image uploaded: ${(document.querySelector("#imageUpload").files[0].name)}`));
+    })
+  })
+</script>
