@@ -36,24 +36,22 @@
                     $(".requests").append($("<div class='text-center lead'>").text(`${response[i].Gardener.username} would like to garden your patch "${response[i].Garden.name}".`))
                     $(".requests").append($("<div class='text-center'>").text(`Click the Assign button to assign this patch to them.`))
                     $(".requests").append($("<br>"))
-                    let assignBtn = $("<button class='button float-center' id='assignBtn' style='border-radius:15px;background-color: #7F9174;color:white;'>").text("Assign")
+                    let assignBtn = $("<button class='button float-center assignBtn' style='border-radius:15px;background-color: #7F9174;color:white;'>").text("Assign")
                     assignBtn.attr("data-gardenId", response[i].Garden.id)
                     assignBtn.attr("data-gardenerId", response[i].Gardener.id)
                     $(".requests").append(assignBtn)
                 }
             }
-            $("#assignBtn").on("click", function () {
+            $(".assignBtn").on("click", function () {
                 $.ajax({
                     url: "/api/gardens/assign/" + $(this).attr("data-gardenId"),
                     type: "PUT",
                     data: { GardenerId: $(this).attr("data-gardenerId") }
                 }).then(result => {
-                    console.log(result)
                     $.ajax({
                         url: "/requests/" + $(this).attr("data-gardenId"),
                         type: "DELETE"
                     }).then(response => {
-                        console.log(response)
                         alert("Gardener assigned!")
                         window.location.reload()
                     })
