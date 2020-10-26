@@ -1,6 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
   var Garden = sequelize.define("Garden", {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -12,10 +15,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT
     },
     description: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
+      allowNull: false
     },
-    length: DataTypes.INTEGER,
-    width: DataTypes.INTEGER,
+    length: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    width: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     pictureLink: {
       type: DataTypes.STRING,
       validate: {

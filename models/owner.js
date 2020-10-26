@@ -24,7 +24,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     address: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT
