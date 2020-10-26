@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding">
   <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
     <div class="card small-12 medium 8">
-      <form action="/composts" method="POST">
+      <form>
 
         <label><strong>Name:</strong></label>
         <input type="text" id="id" name="name" placeholder="Name" style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">
@@ -11,9 +11,49 @@
         <label><strong>Compost Description:</strong></label>
         <textarea name="description" cols="30" rows="10" id="userInput" placeholder="Describe the type of compost"></textarea>
 
-        <button class="button float-center" id="userInput">Post</button>
+        <label><strong>Compost Deposit Available:</strong></label>
+      <div class="switch">
+        <input class="switch-input" id="depositEditSwitch" type="checkbox">
+        <label class="switch-paddle" for="depositEditSwitch">
+          <span class="switch-active" aria-hidden="true">Yes</span>
+          <span class="switch-inactive" aria-hidden="true">No</span>
+        </label>
+      </div>
+
+
+      <label><strong>Compost Withdraw Available:</strong></label>
+      <div class="switch">
+        <input class="switch-input" id="withdrawEditSwitch" type="checkbox">
+        <label class="switch-paddle" for="withdrawEditSwitch">
+          <span class="switch-active" aria-hidden="true">Yes</span>
+          <span class="switch-inactive" aria-hidden="true">No</span>
+        </label>
+      </div>
+
+        <button class="button float-center" id="compostPostBtn" style="border-radius:15px;background-color: #7F9174;color:white">Post</button>
 
       </form>
     </div>
   </div>
 </div>
+
+<script>
+   $(function () {
+    $("#compostPostBtn").on("click", function (event) {
+      event.preventDefault();
+      console.log("compost clicked")
+      $.ajax({
+        url: "/composts/",
+        type: "POST",
+        data: {
+          name: $("[name=name]").val(),
+          description: $("[name=description]").val(),
+          deposit: $("#depositEditSwitch").is(":checked"),
+          withdraw: $("#withdrawEditSwitch").is(":checked")
+        }
+      }).then(id => {
+        window.location.href = "/composts/" +id
+      })
+    })
+  });
+</script>
