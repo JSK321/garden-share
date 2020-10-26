@@ -21,8 +21,10 @@
   "dependencies": {
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
+    "cloudinary": "^1.23.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
     "leaflet": "^1.7.1",

@@ -12,7 +12,8 @@ $(function () {
                 emailBody: $("[name=emailBody").val()
             }
         }).then(response=>{
-            alert("Email sent!")
+            alert(response)
+            window.location.href = "/map"
         }).fail(err=>{
             alert("Email failed to send!")
         })

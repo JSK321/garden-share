@@ -15,6 +15,9 @@ app.use(express.static(__dirname + "/public"));
 // Parse application body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// Parse file uploads
+const fileupload = require('express-fileupload')
+app.use(fileupload())
 
 // Set Handlebars
 var exphbs = require("express-handlebars");
@@ -33,10 +36,7 @@ app.set("view engine", "handlebars");
 // Set up authentication
 const session = require('express-session')
 
-// I'm certain this isn't the correct way to do this...
-// process.env.SESSION_SECRET = 123
-//...............................But it makes the server run for now
-
+// 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
