@@ -84,7 +84,7 @@ router.post("/api/gardens", async function (req, res) {
       let gardenJSON = garden.toJSON();
       gardenJSON.justPosted = true;
       gardenJSON.loggedIn = true;
-      res.render("garden_display", gardenJSON)
+      res.status(200).send(`${gardenJSON.id}`)
     } catch (err) {
       console.log(err)
       res.status(500).send(err)

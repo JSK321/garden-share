@@ -1,27 +1,32 @@
 <div class="grid-x grid-padding">
   <div class="row grid-x small-12 large-6 large-offset-3 align-center align-middle">
     <div class="card small-12 medium 8">
-      <form action="/api/gardens" method="POST" enctype="multipart/form-data">
+      <form enctype="multipart/form-data">
 
         <label><strong>Patch Name:</strong></label>
-        <input type="text" id="id" name="name" placeholder="Patch Name" style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">
+        <input type="text" id="id" name="name" placeholder="Patch Name"
+          style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">
 
         <input type="integer" name="OwnerId" value="{{id}}" style="display:none">
 
         <label><strong>Patch size:</strong></label>
-        <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" placeholder=" Feet" style="width: 30%">
+        <label><strong>Length</strong></label><input id="userInput" type="Integer" name="length" placeholder=" Feet"
+          style="width: 30%">
         <br>
-        <label><strong>Width</strong></label><input id="userInput" type="Integer" name="width" placeholder=" Feet" style="width: 30%">
+        <label><strong>Width</strong></label><input id="userInput" type="Integer" name="width" placeholder=" Feet"
+          style="width: 30%">
         <br>
         <br>
         <label><strong>Patch Description:</strong></label>
         <textarea id="userInput" name="description" cols="30" rows="10"
           placeholder="Add your description here"></textarea>
         <label><strong>Patch Photo:</strong></label>
-        <label for="imageUpload" class="button" style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">Upload Image</label>
+        <label for="imageUpload" class="button"
+          style="width: 30%;border-radius:15px;background-color:#7F9174;color:white">Upload Image</label>
         <input name="image" type="file" id="imageUpload" class="file-upload show-for-sr" />
         <div id="uploadDiv"></div>
-        <button class="button float-center" id="userInput">Post</button>
+        <button class="button float-center" id="gardenPostBtn"
+          style="width: 30%;border-radius:15px;background-color: #7F9174;color:white">Post</button>
 
       </form>
     </div>
@@ -29,8 +34,34 @@
 </div>
 
 <script>
-  $("#imageUpload").on("change", function(req, res){
+  $(function () {
+    $("#gardenPostBtn").on("click", function (event) {
+      event.preventDefault();
+      console.log(document.querySelector("#imageUpload").files[0])
+      formData = new FormData();
+      formData.append("name", $("[name=name]").val())
+      formData.append("length", $("[name=length]").val())
+      formData.append("width", $("[name=width]").val())
+      formData.append("description", $("[name=description]").val())
+      formData.append("imageUrl", $("#imageUpload").attr("data-imageUrl"))
+      formData.append("image", document.querySelector("#imageUpload").files[0])
+      $.ajax({
+        url: "/api/gardens/",
+        type: "POST",
+        data: formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false, // tell jQuery not to set contentType
+      }).then(id => {
+        console.log("Success!")
+        window.location.href = "/gardens/" + id
+      }).fail(err => {
+        alert("Must input valid entries in fields")
+      })
+    })
+
+    $("#imageUpload").on("change", function (req, res) {
       $("#uploadDiv").empty();
       $("#uploadDiv").append($("<span>").text(`Image uploaded: ${(document.querySelector("#imageUpload").files[0].name)}`));
     })
+  })
 </script>
