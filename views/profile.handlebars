@@ -48,12 +48,10 @@
                     type: "PUT",
                     data: { GardenerId: $(this).attr("data-gardenerId") }
                 }).then(result => {
-                    console.log(result)
                     $.ajax({
                         url: "/requests/" + $(this).attr("data-gardenId"),
                         type: "DELETE"
                     }).then(response => {
-                        console.log(response)
                         alert("Gardener assigned!")
                         window.location.reload()
                     })
