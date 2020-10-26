@@ -44,7 +44,7 @@
             }
             $("#assignBtn").on("click", function () {
                 $.ajax({
-                    url: "/api/gardens/" + $(this).attr("data-gardenId"),
+                    url: "/api/gardens/assign/" + $(this).attr("data-gardenId"),
                     type: "PUT",
                     data: { GardenerId: $(this).attr("data-gardenerId") }
                 }).then(result => {

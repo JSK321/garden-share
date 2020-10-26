@@ -47,9 +47,9 @@ router.post("/api/gardens", async function (req, res) {
       if (req.files) {
         const image = req.files.image;
         const imagePath = path.join(__dirname, '../public/images/userGarden')
-        function moveImage(filePath) {
+        function moveImage(file, filePath) {
           return new Promise((resolve, reject) => {
-            image.mv(filePath, function (err) {
+            file.mv(filePath, function (err) {
               if (err) return reject(err)
               return resolve("image uploaded")
             })
@@ -63,7 +63,7 @@ router.post("/api/gardens", async function (req, res) {
             })
           });
         }
-        const imageMoved = await moveImage(imagePath)
+        const imageMoved = await moveImage(image, imagePath)
         var imageUpload = await uploadToCloudinary(imagePath)
       } else {
         var imageUpload = { url: null }
@@ -94,6 +94,8 @@ router.post("/api/gardens", async function (req, res) {
   }
 });
 
+
+
 //DELETE route to delete garden by ID
 router.delete("/api/gardens/:id", function (req, res) {
   db.Garden.destroy({
@@ -113,26 +115,78 @@ router.delete("/api/gardens/:id", function (req, res) {
       res.status(500).json(err);
     });
 });
-
-// PUT route
-router.put("/api/gardens/:id", function (req, res) {
-  db.Garden.update(
-    req.body,
-    {
-      where: {
-        id: req.params.id,
-      },
-    }
-  ).then((result) => {
-    db.Garden.findOne({
+// PUT route to assign a garden
+router.put("/api/gardens/assign/:id", async function (req, res) {
+  try {
+    const result = await db.Garden.update(
+      req.body,
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    )
+    const garden = await db.Garden.findOne({
       where: { id: req.params.id },
-    }).then((garden) => {
-      res.render("garden_display", garden.toJSON());
-    });
-  }).catch((err) => {
+    })
+    res.render("garden_display", garden.toJSON());
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
-  });
+  }
+})
+
+// PUT route to update garden information
+router.put("/api/gardens/:id", async function (req, res) {
+  try {
+    if (req.files) {
+      const image = req.files.image;
+      const imagePath = path.join(__dirname, '../public/images/userGarden')
+      function moveImage(file, filePath) {
+        return new Promise((resolve, reject) => {
+          file.mv(filePath, function (err) {
+            if (err) return reject(err)
+            return resolve("image uploaded")
+          })
+        })
+      }
+      function uploadToCloudinary(filePath) {
+        return new Promise((resolve, reject) => {
+          cloudinary.uploader.upload(filePath, (error, result) => {
+            if (error) return reject(error);
+            return resolve(result);
+          })
+        });
+      }
+      const imageMoved = await moveImage(image, imagePath)
+      var imageUpload = await uploadToCloudinary(imagePath)
+    } else {
+      var imageUpload = { url: req.body.imageUrl }
+    }
+
+    console.log(req.files)
+    const result = await db.Garden.update({
+      name: req.body.name,
+      description: req.body.description,
+      length: req.body.length,
+      width: req.body.width,
+      pictureLink: imageUpload.url
+    },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    )
+    const garden = await db.Garden.findOne({
+      where: { id: req.params.id },
+    })
+    res.render("garden_display", garden.toJSON());
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 router.put("/api/gardens/unassign/:id", function (req, res) {
