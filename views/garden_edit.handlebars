@@ -19,7 +19,7 @@
       </textarea>
         <label for="imageUpload" class="button" style="border-radius:15px;background-color:#7F9174;color:white">Upload
           New Image</label>
-        <input name="image" type="file" id="imageUpload" data-imageUrl="{{pictureUrl}}"
+        <input name="image" type="file" id="imageUpload" data-imageUrl="{{pictureLink}}"
           class="file-upload show-for-sr" />
       <div id="uploadDiv">
       </div>
@@ -39,7 +39,7 @@
   $(function () {
     $("#garden_edit_Btn").on("click", function (event) {
       event.preventDefault();
-      console.log(document.querySelector("#imageUpload").files[0])
+      $("#imageUpload").attr("data-imageUrl")
       formData = new FormData();
       formData.append("name", $("[name=name]").val())
       formData.append("length", $("[name=length]").val())

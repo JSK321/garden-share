@@ -38,7 +38,7 @@ const session = require('express-session')
 
 // 
 app.use(session({
-  secret: "gardendirt",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {

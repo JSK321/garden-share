@@ -164,8 +164,7 @@ router.put("/api/gardens/:id", async function (req, res) {
       var imageUpload = { url: req.body.imageUrl }
     }
 
-    console.log(req.files)
-    const result = await db.Garden.update({
+      const result = await db.Garden.update({
       name: req.body.name,
       description: req.body.description,
       length: req.body.length,
